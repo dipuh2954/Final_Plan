@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester 8 — Placement Mode · W81–W92</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0a0a0b;
+  --bg2:    #0f0f11;
+  --card:   #141416;
+  --card2:  #191a1d;
+  --border: #1e2024;
+  --border2:#272a30;
+
+  --text:   #f0f0f0;
+  --mid:    #888896;
+  --muted:  #3a3a48;
+
+  --red:    #ff3b3b;
+  --amber:  #ffb800;
+  --green:  #00c77a;
+  --blue:   #3b8bff;
+  --purple: #9b6fff;
+  --orange: #ff7b3b;
+  --teal:   #00bfa5;
+
+  --r-bg: rgba(255,59,59,.07);
+  --a-bg: rgba(255,184,0,.07);
+  --g-bg: rgba(0,199,122,.07);
+  --b-bg: rgba(59,139,255,.07);
+  --p-bg: rgba(155,111,255,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* ── HEADER ── */
+.hdr{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:0 52px;
+  position:relative;overflow:hidden;
+  min-height:260px;
+  display:flex;align-items:flex-end;
+}
+.hdr-noise{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 50% 100% at 100% 50%, rgba(255,59,59,.05), transparent),
+    radial-gradient(ellipse 40% 60% at 0% 100%, rgba(255,184,0,.04), transparent);
+}
+.hdr-inner{position:relative;z-index:1;padding:48px 0 44px;max-width:860px;}
+.hdr-kicker{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--red);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.hdr-kicker::before{content:'SEM 8 ·';color:var(--muted);}
+.hdr-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,8vw,96px);
+  line-height:.95;letter-spacing:2px;
+  color:var(--text);margin-bottom:18px;
+}
+.hdr-title span{color:var(--red);}
+.hdr-desc{
+  font-size:14px;color:var(--mid);line-height:1.75;
+  max-width:600px;font-weight:300;margin-bottom:28px;
+}
+.hdr-metrics{display:flex;gap:0;flex-wrap:wrap;}
+.hm{
+  padding:14px 28px;border:1px solid var(--border);
+  border-right:none;
+}
+.hm:first-child{border-left:1px solid var(--border);}
+.hm-n{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;
+  line-height:1;letter-spacing:1px;
+}
+.hm-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+/* ── TRUTH STRIP ── */
+.truth{
+  background:var(--r-bg);
+  border-bottom:1px solid rgba(255,59,59,.15);
+  padding:16px 52px;
+  display:flex;align-items:flex-start;gap:14px;
+  font-size:13px;line-height:1.65;color:#ff9999;
+}
+.truth-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.truth strong{color:var(--red);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:4px;}
+
+/* ── SLOT LEGEND ── */
+.slots-row{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:14px 52px;display:flex;flex-wrap:wrap;gap:10px;
+}
+.sl{display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--mid);padding:5px 12px;border:1px solid var(--border);background:var(--card);}
+.sl-dot{width:6px;height:6px;border-radius:50%;}
+
+/* ── LAYOUT ── */
+.layout{display:flex;}
+.sb{
+  width:220px;min-width:220px;
+  background:var(--bg2);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  flex-shrink:0;
+}
+.sb-hdr{padding:18px 16px 14px;border-bottom:1px solid var(--border);}
+.sb-hdr-t{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--text);}
+.sb-hdr-s{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.sb-sec{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:12px 16px 4px;}
+.sb-a{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 16px;text-decoration:none;font-size:12px;font-weight:500;
+  color:var(--mid);border-left:2px solid transparent;
+  transition:color .15s,background .15s,border-color .15s;
+}
+.sb-a:hover{color:var(--text);background:rgba(255,255,255,.03);}
+.sb-a.ms{color:#8a7020;}
+.sb-a .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.main{flex:1;min-width:0;padding-bottom:80px;}
+
+/* ── PHASE HEADER ── */
+.ph{
+  display:flex;align-items:stretch;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none;
+  transition:background .15s;
+}
+.ph:hover{background:rgba(255,255,255,.02);}
+.ph-accent{width:4px;flex-shrink:0;}
+.ph-inner{flex:1;padding:22px 32px;display:flex;align-items:center;gap:16px;}
+.ph-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:4px 10px;letter-spacing:1px;}
+.ph-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;flex:1;}
+.ph-wks{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);}
+.ph-arr{font-size:13px;color:var(--muted);transition:transform .3s;flex-shrink:0;}
+.ph.open .ph-arr{transform:rotate(180deg);}
+.ph-body{display:none;}
+.ph.open + .ph-body{display:block;}
+
+/* ── WEEK CARD ── */
+.wk{border-bottom:1px solid var(--border);}
+.wk-hdr{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 32px;cursor:pointer;user-select:none;
+  transition:background .15s;
+}
+.wk-hdr:hover{background:rgba(255,255,255,.02);}
+.wk-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:4px 9px;letter-spacing:1px;flex-shrink:0;}
+.wk-title{flex:1;font-size:14px;font-weight:600;line-height:1.3;}
+.ms-pill{
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;
+  padding:3px 9px;background:rgba(255,184,0,.1);color:var(--amber);
+  border:1px solid rgba(255,184,0,.25);flex-shrink:0;
+}
+.wk-arr{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);transition:transform .25s;flex-shrink:0;}
+.wk.open .wk-arr{transform:rotate(180deg);}
+.wk-body{display:none;padding:0 32px 28px;}
+.wk.open .wk-body{display:block;}
+
+/* ── SLOT BLOCKS ── */
+.slot-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.block{border-left:3px solid;padding:0;overflow:hidden;}
+.block.w{grid-column:1/-1;}
+.bh{padding:10px 14px 8px;border-bottom:1px solid rgba(255,255,255,.05);}
+.bh-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.bh-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:2px;}
+.bc{padding:13px 14px;display:flex;flex-direction:column;gap:9px;}
+
+/* task groups */
+.tg{display:flex;flex-direction:column;gap:5px;}
+.tg-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:1px;}
+.t{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.6;color:var(--mid);}
+.t-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--muted);}
+.t.p .t-dot{width:6px;height:6px;background:var(--red);margin-top:6px;}
+.t.g .t-dot{background:var(--green);}
+.t b{color:var(--text);font-weight:600;}
+.t .hl{font-weight:600;}
+.t .code{font-family:'JetBrains Mono',monospace;font-size:10px;background:rgba(255,255,255,.06);padding:1px 6px;color:#a0c8ff;}
+.t .warn{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;background:rgba(255,184,0,.1);color:var(--amber);border:1px solid rgba(255,184,0,.2);}
+.t .good{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;background:rgba(0,199,122,.1);color:var(--green);border:1px solid rgba(0,199,122,.2);}
+
+/* block themes */
+.bl-c{border-color:var(--blue);background:var(--b-bg);}
+.bl-c .bh{background:rgba(59,139,255,.04);}
+.bl-c .bh-lbl,.bl-c .tg-lbl{color:var(--blue);}
+
+.bl-n{border-color:var(--green);background:var(--g-bg);}
+.bl-n .bh{background:rgba(0,199,122,.04);}
+.bl-n .bh-lbl,.bl-n .tg-lbl{color:var(--green);}
+
+.bl-a{border-color:var(--orange);background:rgba(255,123,59,.06);}
+.bl-a .bh{background:rgba(255,123,59,.04);}
+.bl-a .bh-lbl,.bl-a .tg-lbl{color:var(--orange);}
+
+.bl-w{border-color:var(--purple);background:var(--p-bg);}
+.bl-w .bh{background:rgba(155,111,255,.04);}
+.bl-w .bh-lbl,.bl-w .tg-lbl{color:var(--purple);}
+
+.bl-ms{border-color:var(--amber);background:var(--a-bg);grid-column:1/-1;}
+.bl-ms .bh{background:rgba(255,184,0,.04);}
+.bl-ms .bh-lbl{color:var(--amber);}
+
+/* outcome box */
+.outcome{
+  margin-top:16px;
+  padding:14px 16px;
+  border:1px solid var(--border2);
+  border-left:3px solid var(--teal);
+  background:rgba(0,191,165,.04);
+  font-size:12.5px;line-height:1.6;color:var(--mid);
+}
+.outcome b{color:var(--teal);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;}
+
+/* negotiation / salary callout */
+.callout{
+  margin-top:14px;
+  padding:14px 16px;
+  border:1px solid;
+  font-size:12.5px;line-height:1.65;
+}
+.callout.warn{border-color:rgba(255,184,0,.25);background:var(--a-bg);color:#d4a000;}
+.callout.info{border-color:rgba(59,139,255,.25);background:var(--b-bg);color:#7ab8ff;}
+.callout.danger{border-color:rgba(255,59,59,.25);background:var(--r-bg);color:#ff9999;}
+.callout.success{border-color:rgba(0,199,122,.25);background:var(--g-bg);color:#00c77a;}
+.callout strong{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;}
+
+/* tracker table */
+.tracker{
+  width:100%;border-collapse:collapse;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  margin-top:12px;
+}
+.tracker th{
+  padding:8px 12px;text-align:left;
+  background:var(--card2);color:var(--muted);
+  border:1px solid var(--border);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+}
+.tracker td{
+  padding:8px 12px;border:1px solid var(--border);
+  color:var(--mid);vertical-align:top;line-height:1.4;
+}
+.tracker tr:hover td{background:rgba(255,255,255,.02);}
+
+@media(max-width:800px){
+  .sb{display:none;}.main{}.hdr,.truth,.slots-row{padding-left:20px;padding-right:20px;}
+  .ph-inner,.wk-hdr,.wk-body{padding-left:20px;padding-right:20px;}
+  .slot-grid{grid-template-columns:1fr;}
+  .block.w{grid-column:1;}
+}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-noise"></div>
+  <div class="hdr-inner">
+    <div class="hdr-kicker">Placement Mode · Fully Elaborated</div>
+    <div class="hdr-title">SEMESTER 8<br><span>GET HIRED.</span></div>
+    <div class="hdr-desc">12 weeks. Zero new learning objectives. Every slot — commute, night block, weekend — is pointed at one thing: walking out with 3+ competing offers at ₹15–30 LPA. This file tells you exactly what to do, say, write, and track in every single week.</div>
+    <div class="hdr-metrics">
+      <div class="hm"><div class="hm-n" style="color:var(--red)">W81–92</div><div class="hm-l">This file covers</div></div>
+      <div class="hm"><div class="hm-n" style="color:var(--amber)">30+</div><div class="hm-l">Companies applied</div></div>
+      <div class="hm"><div class="hm-n" style="color:var(--green)">3+</div><div class="hm-l">Competing offers target</div></div>
+      <div class="hm"><div class="hm-n" style="color:var(--blue)">₹15–30L</div><div class="hm-l">Target package</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="truth">
+  <div class="truth-icon">⚡</div>
+  <div>
+    <strong>What changes in Semester 8 vs every other semester</strong>
+    Nothing new is being learned. Every framework, every DSA pattern, every project is already in your hands. What changes: the gym stays, violin stays, sleep stays at 11 PM, the commute is still 2 LeetCode problems every day. What is added on top of all that is a relentless application and follow-up machine that runs 7 days a week. You are not becoming a better developer this semester. You are converting the developer you already are into a signed offer letter.
+  </div>
+</div>
+
+<div class="slots-row">
+  <div class="sl"><span class="sl-dot" style="background:var(--blue)"></span>📱 Commute 6 AM — LeetCode on phone + company research</div>
+  <div class="sl"><span class="sl-dot" style="background:var(--green)"></span>💻 Night Block 10 PM — Applications, follow-ups, company research</div>
+  <div class="sl"><span class="sl-dot" style="background:var(--orange)"></span>🖥️ Weekend Block 3:30 PM — Interview prep + applications</div>
+  <div class="sl"><span class="sl-dot" style="background:var(--purple)"></span>🟣 Weekend Study Block — Mock interviews + system design practice</div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sb">
+  <div class="sb-hdr">
+    <div class="sb-hdr-t">Semester 8</div>
+    <div class="sb-hdr-s">W81–W92 · Placement</div>
+  </div>
+  <div class="sb-sec">Phase 1 · Launch</div>
+  <a class="sb-a" href="#w81"><span class="dot" style="background:var(--red)"></span>W81 · Launch Day</a>
+  <a class="sb-a" href="#w82"><span class="dot" style="background:var(--red)"></span>W82 · OA Machine</a>
+  <a class="sb-a" href="#w83"><span class="dot" style="background:var(--red)"></span>W83 · Tech Round 1 Prep</a>
+  <div class="sb-sec">Phase 2 · Active Interviews</div>
+  <a class="sb-a" href="#w84"><span class="dot" style="background:var(--amber)"></span>W84 · Live Interviews</a>
+  <a class="sb-a" href="#w85"><span class="dot" style="background:var(--amber)"></span>W85 · Multiple Pipelines</a>
+  <a class="sb-a" href="#w86"><span class="dot" style="background:var(--amber)"></span>W86 · System Design</a>
+  <a class="sb-a" href="#w87"><span class="dot" style="background:var(--amber)"></span>W87 · HR Rounds</a>
+  <div class="sb-sec">Phase 3 · Offers</div>
+  <a class="sb-a ms" href="#w88"><span class="dot" style="background:var(--amber)"></span>W88 · ★ First Offer</a>
+  <a class="sb-a" href="#w89"><span class="dot" style="background:var(--green)"></span>W89 · Counter Every Offer</a>
+  <a class="sb-a" href="#w90"><span class="dot" style="background:var(--green)"></span>W90 · The Decision</a>
+  <a class="sb-a ms" href="#w91"><span class="dot" style="background:var(--green)"></span>W91 · ★ Sign + Decline</a>
+  <a class="sb-a ms" href="#w92"><span class="dot" style="background:var(--teal)"></span>W92 · ★ Before Day 1</a>
+</div>
+
+<div class="main">
+
+<!-- ══════════════ PHASE 1 ══════════════ -->
+<div class="ph open" onclick="tp(this)">
+  <div class="ph-accent" style="background:var(--red)"></div>
+  <div class="ph-inner">
+    <span class="ph-num" style="background:rgba(255,59,59,.1);color:var(--red)">Phase 1</span>
+    <span class="ph-title">Launch the Machine</span>
+    <span class="ph-wks">W81–W83</span>
+    <span class="ph-arr">▾</span>
+  </div>
+</div>
+<div class="ph-body">
+
+<!-- W81 -->
+<div class="wk open" id="w81">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,59,59,.1);color:var(--red)">W81</span>
+    <span class="wk-title">LAUNCH DAY — Apply to All 30 Companies in One Week</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout warn">
+      <strong>Before you apply to a single company this week</strong>
+      Confirm all of these are done: Resume is one page, ATS-tested on Jobscan against 3 JDs. GitHub has 4 pinned repos with READMEs. LinkedIn shows "Open to Work" (recruiters only). Portfolio website is live. Finance Tracker is on Play Store. Google AAD badge is on LinkedIn. 250+ LeetCode solved. If ANY of these are incomplete — fix them before sending the first application.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · 6 AM · Tue–Sat</div><div class="bh-time">LeetCode mobile + company research reading</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode — Never Stop</div>
+            <div class="t p"><span class="t-dot"></span><span><b>2 problems every single commute</b> — this habit does not stop until you sign an offer letter. Not one day. The moment you stop is the moment you get a DSA problem in a live round that you can't solve. Medium problems. Random topics. Simulate the randomness of real OAs.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Company Research (read on phone)</div>
+            <div class="t"><span class="t-dot"></span><span>For each company you're applying to this week — open their engineering blog, read the most recent 2 posts. Know: what stack do they use? What Android-specific problems do they solve? What scale do they operate at?</span></div>
+            <div class="t"><span class="t-dot"></span><span>Open the Play Store listing for each company's app. Read the 1-star reviews. These tell you what technical problems their Android team is actively fighting. Mentioning one in an interview shows deep research.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Glassdoor: search "[Company name] Android Developer interview." Read every experience from the last 12 months. Note the exact questions asked. This is free intelligence.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM · Tue–Sat</div><div class="bh-time">MacBook · 1 hour · Applications + referrals</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Apply Batch 1 (10 companies)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Apply to first 10 companies</b> from your 30-company list. LinkedIn Easy Apply for those that have it. Direct careers page for the rest. Do NOT use LinkedIn Easy Apply's auto-fill — manually fill every field and write a custom 2-sentence cover note where there's a text box.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Custom cover note formula: <span class="code">"I'm a final year CSE student specialising in Android. I built [relevant project from your list] which uses [relevant tech they use]. I'd love to bring this to [Company]'s team."</span> Keep it to 2 sentences.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Open your tracking spreadsheet: <span class="code">Company | Applied Date | Source | Status | Next Action | Deadline | Notes</span>. Log every application tonight.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Referral requests (10 contacts)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Send referral request messages to every contact in your spreadsheet</b> at your target companies. DM template on LinkedIn: <span class="code">"Hi [Name], I just applied for the Android Developer role at [Company] (link). I've been following your team's work on [specific thing]. Would you be comfortable referring me? I have 4 published/live Android projects and the Google AAD cert. Here's my GitHub: [link]"</span></span></div>
+            <div class="t"><span class="t-dot"></span><span>Send 10 referral messages tonight. Don't wait for a reply before applying — apply AND ask for a referral simultaneously. Referrals bypass ATS. A referred resume gets read by a human, not filtered by software.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Apply Batch 2 (10 companies)</div>
+            <div class="t"><span class="t-dot"></span><span>Apply to next 10 companies. Same process. Log in spreadsheet. For each application — did you customize the cover note? Is your resume tailored to their JD keywords? If not, spend 5 extra minutes per application to fix this.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Cold emails (5 companies)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Cold email to 5 Android team leads/CTOs at companies NOT on LinkedIn</b>. Subject: <span class="code">"Android Developer — Final Year, Published Apps, Google AAD Certified"</span>. Body: 3 sentences max. Link to GitHub and Play Store. Find email via Hunter.io or company website.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Cold email body: <span class="code">"Hi [Name], I'm a final year CSE student at BPPIMT with 4 Android projects including Finance Tracker (live on Play Store) and a Chat App with Firebase. I hold the Google Associate Android Developer certification. I'd love to join [Company]'s Android team — is there an opening? [GitHub] [Play Store]"</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Apply Batch 3 (10 companies)</div>
+            <div class="t"><span class="t-dot"></span><span>Apply final 10 companies. You have now applied to 30 companies in 5 nights. Log everything. Update LinkedIn post: <span class="code">"Week 1 of active job search as a final year Android developer. Looking for Android Developer roles. Here's what I've built. Open to referrals."</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend Block · 3:30 PM + Study Block</div><div class="bh-time">Interview prep + extra applications</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Sunday — "Walk me through your projects" drill</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Set a timer for 5 minutes. Explain Movie Browser architecture out loud, cold, no notes.</b> Cover: problem it solves, architecture decisions (why Clean Arch, why Hilt, why offline-first), interesting technical challenges, what you'd improve. Record yourself on your phone.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Do the same for Finance Tracker (5 min) and Chat App (5 min). Watch the recordings. Find every moment you hesitate or sound unsure. Those are your prep targets for W82–W83 night blocks.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Apply to 10 more companies from job boards not on your original list: r/androiddev job postings, HackerNews "Who is Hiring" thread (first comment, monthly), YC company job boards at ycombinator.com/jobs.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Monday — LinkedIn visibility sprint</div>
+            <div class="t"><span class="t-dot"></span><span>Post on LinkedIn: a thread about what you learned building Movie Browser's offline-first architecture. 3–5 paragraphs. Include a diagram screenshot. Tag #androiddev #kotlin #compose. Engage with every comment for 48 hours after posting — this extends reach.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Connect with 10 Android developers at your top 10 target companies. Send a connection note: <span class="code">"Hi, I applied to your Android Developer role. I've been building with Kotlin and Compose for 2 years — would love to connect."</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome"><b>✓ End of W81 — what is in motion</b>30 applications sent. Referral requests dispatched to every relevant contact. Cold emails sent to 5 companies. Tracking spreadsheet live. LinkedIn post published. Project explanation drills recorded and reviewed. The machine is running.</div>
+  </div>
+</div><!-- /W81 -->
+
+<!-- W82 -->
+<div class="wk" id="w82">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,59,59,.1);color:var(--red)">W82</span>
+    <span class="wk-title">OA Week — Complete Every Online Assessment Same Day</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout danger">
+      <strong>The OA Rule — Non-Negotiable</strong>
+      Every OA you receive must be completed within 24 hours of receiving it. Ideally the same day. Companies track when you open and when you submit. Submitting 4 days later signals low interest. Some platforms auto-expire in 72 hours. Set a phone alarm for every OA deadline. Treat each OA like a final exam — because it is one.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · 6 AM</div><div class="bh-time">LeetCode warm-up + OA pattern review</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Daily LeetCode — OA-focused patterns</div>
+            <div class="t p"><span class="t-dot"></span><span><b>2 problems every commute — no exceptions.</b> This week: bias toward Array, String, and HashMap problems (problems 1–150 range) because these dominate OAs from Indian product companies. Think of these as warm-ups for actual OAs coming any day now.</span></div>
+            <div class="t"><span class="t-dot"></span><span>After solving each problem: ask yourself <span class="code">"what is the PATTERN here?"</span> Two Sum = HashMap for O(n) lookup. Sliding Window Maximum = Deque. Valid Parentheses = Stack. Pattern recognition across problems is what makes OAs fast.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Company research while commuting</div>
+            <div class="t"><span class="t-dot"></span><span>For companies that have sent OA invites: research their Glassdoor interview experiences specifically. What topics came up in their OAs historically? Adjust tonight's LeetCode focus accordingly.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM</div><div class="bh-time">OA completion + post-OA review</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">When an OA arrives (any day)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>OA process:</b> Read all problems first — 3 minutes. Identify the easiest one. Solve that first for guaranteed partial credit. Then attempt medium. Save hardest for last. Never spend more than 20 minutes stuck on one problem — move on and come back.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Write your approach in comments before coding: <span class="code">// Approach: HashMap to store seen values, O(n) time O(n) space</span>. If you run out of time, a commented brute force shows you understand the problem even if code is incomplete.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Edge cases to always check before submitting: empty input, single element, negative numbers, integer overflow (use Long in Kotlin), duplicate values.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Post-OA review (same night)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Within 1 hour of finishing each OA:</b> write down all 2–3 problems from memory. Look up the optimal solution for any you couldn't solve or solved suboptimally. Understanding the optimal pattern is more valuable than the score itself — you're building a personal pattern library.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Track patterns by frequency: <span class="code">Sliding Window: 3 times | BFS/DFS: 4 times | DP: 2 times</span>. After 5 OAs, the patterns repeat. Knowing which ones repeat most tells you what to practice most.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Nights without OAs — follow-ups</div>
+            <div class="t"><span class="t-dot"></span><span>For applications sent in W81 with no response after 5+ days: send one follow-up email: <span class="code">"Hi [Recruiter name], I applied for the Android Developer role on [date]. I wanted to confirm my application was received and check if there's any update on the process. I remain very interested in this role."</span></span></div>
+            <div class="t"><span class="t-dot"></span><span>Apply to 10 more companies. Never let the total active applications fall below 20. Some will go silent — you need volume to maintain enough active pipelines.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend + Study Block</div><div class="bh-time">Project explanation mastery + interview simulation</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">The "Trace it cold" exercise</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Critical exercise for technical rounds:</b> Open a blank file. Implement Retrofit + OkHttp setup from memory — the full client, interceptors, interface, and response handling. Set a 20-minute timer. This exact setup will be asked about in Android technical rounds. You must be able to trace the full request lifecycle from ViewModel to JSON response without looking anything up.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Do the same for Room: blank file, implement Entity + DAO + Database + Repository from memory in 15 minutes. Then Hilt module setup from memory. These are the "implement this live" questions that appear in Android technical rounds.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sunday — Pramp mock interview</div>
+            <div class="t"><span class="t-dot"></span><span>Schedule a Pramp.com session (free) for this Sunday. Request a DSA-focused round at hard difficulty. After the session: write down every question asked. Review every answer you gave. What was strong? What was vague? That's your prep target for W83.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome"><b>✓ End of W82 — OA rhythm established</b>Every OA received has been completed same day. Post-OA reviews are building a personal pattern library. Follow-ups sent to W81 applications. 40+ total applications active. Pramp mock done — feedback received and noted.</div>
+  </div>
+</div><!-- /W82 -->
+
+<!-- W83 -->
+<div class="wk" id="w83">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,59,59,.1);color:var(--red)">W83</span>
+    <span class="wk-title">Technical Round 1 — DSA Live Coding Mastery</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout info">
+      <strong>The single most important live coding habit</strong>
+      Before writing one character of code: say your approach out loud. "I'm going to use a HashMap because we need O(1) lookups. The time complexity will be O(n) and space O(n). Let me walk through the logic first." Interviewers give hints to candidates who talk. Silent coders get nothing. Even if your approach is wrong, stating it gives the interviewer a chance to redirect you before you waste 15 minutes on a dead end.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · 6 AM</div><div class="bh-time">Timed LeetCode — simulate interview pressure</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Timed solving — interview simulation</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Change the commute format this week:</b> pick one Medium problem, set a 25-minute timer on your phone. Solve it in your head completely — no coding, just reasoning through the algorithm. When you arrive at a solution mentally, check LeetCode. Right or wrong, you're building the "think before typing" muscle that wins live rounds.</span></div>
+            <div class="t"><span class="t-dot"></span><span>If a technical round is scheduled this week: the morning of the round, solve 2 easy problems to warm up your brain. Not hard problems — you want confidence and flow state, not frustration.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM</div><div class="bh-time">Technical round prep — Android depth</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Coroutines interview answers</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Write out these 5 answers fully — not bullet points, full paragraphs:</b></span></div>
+            <div class="t"><span class="t-dot"></span><span>"<b>What is structured concurrency?</b>" — Answer: coroutines are tied to a CoroutineScope. When the scope is cancelled (e.g., ViewModel is cleared), all child coroutines cancel automatically. This prevents the memory leaks that plagued pre-coroutines async code. In Android: viewModelScope is the most common scope, tied to ViewModel lifecycle.</span></div>
+            <div class="t"><span class="t-dot"></span><span>"<b>What is the difference between StateFlow and SharedFlow?</b>" — Answer: StateFlow always has a current value (it's a state holder — like LiveData). SharedFlow doesn't have a current value; it's an event emitter. Use StateFlow for UI state. Use SharedFlow for one-time events like navigation, toast messages, error events that shouldn't replay on resubscription.</span></div>
+            <div class="t"><span class="t-dot"></span><span>"<b>What is Dispatchers.IO vs Main vs Default?</b>" — Answer: IO is optimised for disk/network operations (can run 64+ threads). Main is the Android UI thread — only UI operations. Default is for CPU-intensive work (sorting, computation). Always withContext(Dispatchers.IO) for Room and Retrofit calls, never on Main.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Compose interview answers</div>
+            <div class="t"><span class="t-dot"></span><span>"<b>What triggers recomposition?</b>" — Answer: any State read inside a composable function. When the State value changes, Compose schedules a recomposition of every composable that read that state. Importantly: reading the same State in a parent function recomposes the parent and all children. This is why state hoisting matters.</span></div>
+            <div class="t"><span class="t-dot"></span><span>"<b>What is derivedStateOf and when do you use it?</b>" — Answer: when a state value is computed from another state but changes less frequently. Example: a button is enabled only when a text field is non-empty. Rather than recomposing every keystroke, derivedStateOf only triggers recomposition when the derived result actually changes (empty → non-empty or vice versa).</span></div>
+            <div class="t"><span class="t-dot"></span><span>"<b>What is the difference between remember and rememberSaveable?</b>" — Answer: remember stores value for the current composition lifetime — lost on configuration change (rotation). rememberSaveable stores the value across configuration changes using the SavedStateHandle under the hood. For anything the user typed or selected, use rememberSaveable.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Architecture interview answers</div>
+            <div class="t"><span class="t-dot"></span><span>"<b>Why Clean Architecture?</b>" — Answer: it enforces the dependency rule — inner layers have no knowledge of outer layers. Domain layer has zero Android imports. This means: (1) domain logic can be unit tested without Android framework. (2) Swapping Retrofit for Ktor only changes the data layer. (3) The codebase is modularisable because layers are decoupled.</span></div>
+            <div class="t"><span class="t-dot"></span><span>"<b>Why Hilt over manual DI?</b>" — Answer: at scale, manually wiring 40+ dependencies creates maintenance burden. Hilt generates the boilerplate at compile time (no runtime reflection like Dagger). Scoping is explicit and IDE-navigable. HiltViewModel integrates directly with Compose. The overhead is negligible and the scalability benefit is real.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri/Sat — Your project deep-dives</div>
+            <div class="t p"><span class="t-dot"></span><span><b>The most common Android technical round question:</b> "Walk me through [your project]." Practice this answer for every project until it flows completely naturally. Time limit: 4 minutes per project. Structure: (1) What problem it solves. (2) Architecture decision and why. (3) The hardest technical challenge you solved. (4) What you'd improve given more time.</span></div>
+            <div class="t"><span class="t-dot"></span><span>For Finance Tracker specifically: be ready to explain <b>why you built Canvas charts instead of using a library</b> (shows initiative, ownership, deep Compose knowledge). Be ready to explain the <b>Biometric flow</b> (ProcessLifecycleOwner, what happens on auth failure). Be ready to explain <b>EncryptedSharedPreferences</b> and why regular SharedPreferences would be wrong for financial data.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend Block</div><div class="bh-time">Mock technical interview + apply more</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Mock interview with a developer</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Ask a developer friend or classmate to give you a 45-minute mock interview:</b> 25 min DSA (1 medium problem, explain as you code), 20 min Android depth (5 questions from the list above). Do NOT prepare together — the interviewer should ask questions you don't know are coming.</span></div>
+            <div class="t"><span class="t-dot"></span><span>After: get honest feedback. Specifically ask: "Where did I lose you?" and "Where did I sound unsure?" These are your exact prep targets before real rounds.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">After-interview protocol (for any real round this week)</div>
+            <div class="t"><span class="t-dot"></span><span>Within 1 hour of any real technical round: write down every question asked. All of them. Then research the answers to everything you were uncertain about. This builds an interview question bank that helps in every subsequent round.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Within 24 hours: send a thank-you email to the interviewer. <span class="code">"Thank you for the interview today. I particularly enjoyed discussing [specific topic you talked about]. I'm very excited about this role and look forward to next steps."</span> 70% of candidates don't do this. It's remembered.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome"><b>✓ End of W83 — interview-ready depth</b>You can answer 10 core Android technical questions fluently, without notes. Project explanations are rehearsed to 4 minutes each. Mock interview done and feedback acted on. OA pattern library growing. 40+ applications active.</div>
+  </div>
+</div><!-- /W83 -->
+
+</div><!-- /ph-body 1 -->
+
+<!-- ══════════════ PHASE 2 ══════════════ -->
+<div class="ph" onclick="tp(this)">
+  <div class="ph-accent" style="background:var(--amber)"></div>
+  <div class="ph-inner">
+    <span class="ph-num" style="background:rgba(255,184,0,.1);color:var(--amber)">Phase 2</span>
+    <span class="ph-title">Active Interviews</span>
+    <span class="ph-wks">W84–W87</span>
+    <span class="ph-arr">▾</span>
+  </div>
+</div>
+<div class="ph-body">
+
+<!-- W84 -->
+<div class="wk" id="w84">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,184,0,.1);color:var(--amber)">W84</span>
+    <span class="wk-title">Live Interviews — Performing Under Pressure</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout info">
+      <strong>Interview day rhythm — do not change anything</strong>
+      The night before any interview: light review only (lifecycle states, Room setup steps, your 3 project descriptions). No cramming new material. Sleep at 11 PM strictly — cognitive performance drops measurably on less than 7 hours. Morning of interview: commute as normal, 2 easy LeetCode problems to warm up. Eat normally. You've spent 2 years preparing for this. Trust the preparation.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · 6 AM · Interview days</div><div class="bh-time">Warm-up only — no stress problems</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Interview morning commute</div>
+            <div class="t p"><span class="t-dot"></span><span><b>2 Easy LeetCode problems only</b> on interview mornings. Not mediums. The goal is to activate your problem-solving brain with confidence, not frustrate yourself with a hard problem 2 hours before a round.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Mental rehearsal: on the commute, walk through your Movie Browser architecture explanation once in your head. No notes. Just the flow: <b>UI → ViewModel → UseCase → Repository → Room/Retrofit → back up the chain</b>. This is almost certainly what they'll ask about first.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM · After interviews</div><div class="bh-time">Debrief + gap closure + follow-ups</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Post-interview debrief (same night)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Within 1 hour of every interview, write the debrief:</b> Every question asked (exact wording). Your answer. How confident you felt. What you'd answer differently. This document becomes your most valuable prep resource — after 5+ interviews, patterns emerge and you can prepare for the exact questions this company's interviewer pool asks.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Identify the top 2 gaps tonight. Spend 20 minutes closing them. Not 2 hours — 20 minutes of focused review of exactly what you didn't know. Spread learning across many nights, not one exhausting session.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thank-you emails</div>
+            <div class="t"><span class="t-dot"></span><span>Send thank-you email within 24 hours. Find the interviewer's LinkedIn if you have their name. Connect with a note: <span class="code">"It was great speaking with you today about [specific topic]. I learned a lot from your questions about [topic]."</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Non-interview nights</div>
+            <div class="t"><span class="t-dot"></span><span>Apply to 10 more companies. Never let the active pipeline dry up. Treat every non-interview night as an application night. The pipeline that feels strong today can go silent in 2 weeks if you stop feeding it.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Check: any OA deadlines tomorrow? Complete them tonight.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend Block</div><div class="bh-time">Interview simulation + pipeline management</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Sunday — Full pipeline audit</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Open your tracking spreadsheet. For every company:</b> what is the status? What is the next action? When is the next deadline? Update every row. Identify: which 5 pipelines are most likely to move to offer? Focus energy there this week without abandoning the others.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Calculate your conversion rates so far: Applications → OA rate. OA → Technical R1 rate. Technical R1 → R2 rate. If any conversion rate is <20%, diagnose why and fix it. Low OA rate = resume problem. Low R1 rate = DSA problem. Low R2 rate = Android depth or communication problem.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Monday — Pramp mock interview</div>
+            <div class="t"><span class="t-dot"></span><span>One Pramp session every week until you sign. The practice doesn't stop because real interviews started — real interviews are higher stakes and you need the reps.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome"><b>✓ End of W84 — interview machine running</b>Debrief documents building a pattern library. Thank-you emails sent within 24h of every round. Gap closure happening every night. Conversion rates tracked and diagnosed. Pipeline stays full — 50+ total applications active.</div>
+  </div>
+</div><!-- /W84 -->
+
+<!-- W85 -->
+<div class="wk" id="w85">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,184,0,.1);color:var(--amber)">W85</span>
+    <span class="wk-title">Multiple Active Pipelines — Never Stop Applying</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout warn">
+      <strong>The Pipeline Law</strong>
+      The moment you have one exciting offer in sight, the instinct is to slow applications and focus on that one. This is the mistake that leaves you with zero leverage. Keep every pipeline moving at full speed simultaneously. The reason: (1) Offers often disappear — company freezes hiring, budget cuts, role filled internally. (2) Having 2 offers when you negotiate gives you 10× more leverage than 1 offer. (3) The pipeline you ignore now takes 3 weeks to re-activate later. Never stop.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · 6 AM</div><div class="bh-time">LeetCode + pipeline status check</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode — maintain the streak</div>
+            <div class="t p"><span class="t-dot"></span><span><b>2 problems per commute, every day.</b> This week focus on whichever pattern appeared most in your OA debrief logs. Revisit any problem you solved in more than 30 minutes — solve it again, faster. Repeat problems are one of the best uses of commute time at this stage.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Commute — pipeline status in your head</div>
+            <div class="t"><span class="t-dot"></span><span>For each active pipeline, know: what round are you in? What is the next step? When is the last communication? Any pipeline silent for 7+ days needs a follow-up tonight. Track this mentally during commute so the night block is efficient.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM</div><div class="bh-time">Pipeline management + new applications</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Follow-up protocol</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Any pipeline silent for 7+ days gets a follow-up tonight:</b> <span class="code">"Hi [Recruiter], I wanted to check in on my application for the Android Developer role. I remain very excited about this opportunity and would love to know if there are any updates on next steps."</span> This is professional, not desperate. Recruiters manage 50+ candidates simultaneously and your follow-up brings you back to the top of their mind.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>If you have an offer with a deadline:</b> email every other active pipeline immediately: <span class="code">"I wanted to let you know I've received an offer with a deadline of [date]. I'm very interested in [your company] and would love to discuss if we can accelerate the process."</span> This message accelerates approximately 1 in 3 stalled pipelines.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">New applications — never below 20 active</div>
+            <div class="t"><span class="t-dot"></span><span>Apply to 10 new companies tonight from: LinkedIn job alerts, Naukri.com Android Developer filter, Instahyre (strong for product companies), AngelList/Wellfound (startups). Diversify the source of applications each week.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Referral network: message 5 new developers at companies you haven't reached out to yet. The referral pipeline takes 1–2 weeks to convert — start it early for companies you haven't applied to yet.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend Block</div><div class="bh-time">Android technical depth + community</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Practice: "Design this feature" questions</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Common Android technical round format:</b> "How would you implement an image caching library from scratch?" Set 30 minutes. Answer on paper: memory cache (LRU), disk cache (file system), network request with Retrofit, cache key (URL hash), eviction policy, thread safety. This tests systems thinking, not just framework knowledge.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Practice: "How would you implement infinite scroll with pagination in Compose?" Answer: PagingSource, Pager, PagingData, collectAsLazyPagingItems(), LoadState for loading/error footers. Know why Paging 3 handles duplicate items via the differ under the hood.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">GDG or developer community</div>
+            <div class="t"><span class="t-dot"></span><span>Attend any GDG Kolkata event this weekend if scheduled. Every conversation at a GDG event is a potential referral. Carry your portfolio URL on your phone — if someone asks what you work on, show them Finance Tracker on the Play Store in 30 seconds.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /W85 -->
+
+<!-- W86 -->
+<div class="wk" id="w86">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,184,0,.1);color:var(--amber)">W86</span>
+    <span class="wk-title">System Design Rounds — Mobile Architecture at Scale</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout info">
+      <strong>The System Design Framework — use this every time</strong>
+      Step 1 (2 min): Clarify requirements. "Should this work offline? How many users? Real-time or periodic sync?" Step 2 (5 min): Define the API and data models. Step 3 (10 min): Architecture — client-side layers, caching strategy, background sync. Step 4 (10 min): Deep dive into the hardest component. Step 5 (3 min): Trade-offs — what did you choose and what did you give up? This framework turns a vague question into a structured 30-minute answer.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-n w">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM — System Design Practice</div><div class="bh-time">1 design per night · 40 minutes on paper</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Design: Instagram-style Feed</div>
+            <div class="t p"><span class="t-dot"></span><span><b>40 minutes on paper. No phone. Use the framework.</b></span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Requirements to clarify:</b> How many posts per feed? Real-time new posts or pull-to-refresh? Video support? Offline browsing?</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>API:</b> <span class="code">GET /feed?cursor={lastPostId}&limit=20</span> — cursor-based pagination, not page numbers. Why? Page numbers break when new posts are inserted. Cursor-based is stable.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Client architecture:</b> PagingSource fetches from Retrofit. RemoteMediator caches to Room. Paging 3 serves from Room. Coil handles image loading with LRU memory cache + disk cache. LazyColumn displays with AsyncImage.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Trade-offs you made:</b> Room cache = stale data possible (trade-off: stale vs always-online). No WebSocket = no instant new post notification (trade-off: real-time vs battery). LRU evicts old images (trade-off: memory vs disk).</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Design: Zomato Delivery Tracking</div>
+            <div class="t"><span class="t-dot"></span><span><b>The hard part:</b> real-time driver location updates on a map every 5 seconds. Two approaches: (1) Polling — app requests location every 5 seconds (simple, battery-heavy). (2) WebSocket — server pushes updates (complex, battery-efficient). State your trade-off explicitly.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Offline handling:</b> if connection drops during delivery, show last known location with a "Connection lost" indicator. Store last location in Room so it shows on app reopen. </span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Push notifications for order status:</b> FCM. Delivery agent app updates Firestore, Cloud Function triggers FCM to customer. Know this chain — it's directly based on your Chat App work.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Design: Google Pay / UPI Payment App</div>
+            <div class="t"><span class="t-dot"></span><span><b>Security requirements (clarify these first):</b> biometric before every transaction. Transaction history encrypted at rest. Certificate pinning to prevent MITM.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Transaction history:</b> Room with TypeConverter for amounts (store as Long paise, display as ₹ formatted). Encrypted with SQLCipher or per-entry EncryptedSharedPreferences for small data.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Offline handling:</b> UPI cannot work offline (it requires bank server). Show "No internet — transactions require a connection" rather than pretending offline payment is possible. Honesty in constraints is a sign of engineering maturity.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Design: YouTube-style Video Player</div>
+            <div class="t"><span class="t-dot"></span><span><b>The hard part:</b> background playback. Solution: Foreground Service with MediaSession and MediaController. The service continues playing when the user navigates away. Notification shows playback controls (MediaStyle notification).</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Caching:</b> ExoPlayer (or Media3) handles adaptive streaming. Pre-cache next video in queue using ExoPlayer's DownloadManager when on WiFi. Bandwidth-aware: switch from 1080p to 480p automatically when network degrades (HLS adaptive streaming).</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Design your own app (Chat App or Finance Tracker)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Design Finance Tracker as if you're explaining it in an interview.</b> You built it — you know every decision. But can you articulate: why Room over SQLite? Why EncryptedSharedPreferences for settings? Why WorkManager for notifications? Why Canvas charts instead of MPAndroidChart? Each "why" is a trade-off. Practice articulating trade-offs — this is what separates mid-level from senior candidates.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-w w">
+        <div class="bh"><div class="bh-lbl">🟣 Weekend Study Block</div><div class="bh-time">Mock system design interview</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Mock system design session</div>
+            <div class="t p"><span class="t-dot"></span><span>Find a developer friend or classmate. Ask them to give you a 30-minute system design question: "Design the WhatsApp Android app." You draw, explain, and defend decisions. They can challenge: "What happens if Firebase goes down?" "How do you handle 10,000 messages in a chat?" This is the format of real system design rounds.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /W86 -->
+
+<!-- W87 -->
+<div class="wk" id="w87">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(255,184,0,.1);color:var(--amber)">W87</span>
+    <span class="wk-title">HR Rounds — STAR Stories + Salary Intelligence</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout warn">
+      <strong>The salary number rule — memorise this</strong>
+      Never give your number first. If asked "What are your salary expectations?" — respond: "I've done some research on the market rate for Android developers at this experience level. Could you share the budgeted range for this role?" This reframes the conversation. If they insist on a number, give a range where your target is at the bottom: "Based on my research, ₹18–22 LPA would be appropriate." This anchors the conversation at your target without being your ceiling.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · 6 AM</div><div class="bh-time">LeetCode + STAR story mental rehearsal</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">STAR story rehearsal on commute</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Rehearse one STAR story per commute this week.</b> STAR = Situation, Task, Action, Result. Every HR story needs all four components. A story without a Result is incomplete. A Result without a number is weak. "I improved performance" is vague. "I reduced cold start time by 340ms using a Baseline Profile, measurably improving our Day 1 retention in the Play Store" is a result.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Salary research (morning of HR round)</div>
+            <div class="t"><span class="t-dot"></span><span>Before any HR round: check Levels.fyi and AmbitionBox for the exact company and role. Know three numbers: their current market rate (what they pay), your target (what you want), your floor (absolute minimum you'd accept). Walk into the conversation with all three in your head.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · 10 PM</div><div class="bh-time">Write and refine STAR stories</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">The 6 STAR stories every HR round needs</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Write all 6 out in full tonight.</b> Keep them in a notes app so you can review before any HR round:</span></div>
+            <div class="t g"><span class="t-dot"></span><span><b>"Tell me about your greatest technical challenge."</b> → Finance Tracker Canvas Charts: you had to learn Compose DrawScope, calculate pie chart angles from scratch, add animation. The challenge: coordinate system was inverted from what you expected. You debugged with print statements on the DrawScope transform matrix. Result: charts built without any third-party library.</span></div>
+            <div class="t g"><span class="t-dot"></span><span><b>"Tell me about a time you failed."</b> → Your W01 Calculator project: you hardcoded the UI in Activities before learning Compose. The project worked but had zero reusability and no architecture. You rewrote it when you learned MVVM. Result: understood why architecture matters before it was painful in production.</span></div>
+            <div class="t g"><span class="t-dot"></span><span><b>"Tell me about a time you worked under pressure."</b> → Your exam period in Semesters 3–4. You maintained the daily LeetCode habit and Android learning even during exams. Result: 100+ LeetCode solved by end of Semester 4 without sacrificing CGPA.</span></div>
+            <div class="t g"><span class="t-dot"></span><span><b>"Where do you see yourself in 3 years?"</b> → Senior Android developer who specialises in performance and architecture, potentially leading a small Android team. KMP work to bridge Android and iOS. Contributing to open source. The goal isn't just the first job — it's compounding into someone worth ₹40+ LPA.</span></div>
+            <div class="t g"><span class="t-dot"></span><span><b>"Why this company?"</b> → This answer is <b>company-specific</b> — write a separate version for every company you have HR rounds with. Generic answers fail this question. Reference a specific engineering blog post, a specific feature they built, or a specific problem they solve that matches your interest.</span></div>
+            <div class="t g"><span class="t-dot"></span><span><b>"Tell me about yourself."</b> → <b>90 seconds exactly.</b> Format: current situation (final year CSE, BPPIMT) → what you built (4 projects, 2 on Play Store, Google AAD certified) → what you're looking for (Android Developer role where I can contribute to production mobile software) → why this company (1 specific sentence). End with a question: "I'd love to learn more about the Android team's current focus areas."</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend Block</div><div class="bh-time">Salary negotiation rehearsal</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Rehearse the counter-offer conversation out loud</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Say this out loud until it sounds completely natural, not rehearsed:</b> <span class="code">"Thank you so much for the offer — I'm genuinely excited about this role. I've done some research on the market rate for Android developers at this experience level, and given my published apps on the Play Store and Google AAD certification, I was hoping we could discuss bringing the base to [₹X]. Is there flexibility there?"</span></span></div>
+            <div class="t"><span class="t-dot"></span><span><b>The two responses and how to handle them:</b></span></div>
+            <div class="t g"><span class="t-dot"></span><span>"Yes, we can go to ₹X." → Express genuine excitement. Ask about signing bonus and joining date. Thank them. Take 24 hours to confirm in writing.</span></div>
+            <div class="t g"><span class="t-dot"></span><span>"Sorry, this is our best and final offer." → Say: <span class="code">"I appreciate you confirming that. Can you give me 48 hours to review the full package and get back to you?"</span> Never accept immediately under pressure. Always take time.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="tracker" style="margin-top:16px;">
+      <thead><tr><th>What's Negotiable</th><th>How to Ask</th><th>Typical Range</th></tr></thead>
+      <tbody>
+        <tr><td>Base salary</td><td>"Is there flexibility on the base?"</td><td>10–20% above initial offer</td></tr>
+        <tr><td>Joining bonus</td><td>"Is there a joining bonus available?"</td><td>₹50,000–₹2,00,000</td></tr>
+        <tr><td>Joining date</td><td>"Could we push the joining date by 3 weeks?"</td><td>Usually flexible ±4 weeks</td></tr>
+        <tr><td>Role title</td><td>"Can the role title reflect [X]?"</td><td>Junior → Mid, SDE I → SDE II</td></tr>
+        <tr><td>WFH days</td><td>"Is there flexibility on remote days?"</td><td>2–3 days WFH common now</td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div><!-- /W87 -->
+
+</div><!-- /ph-body 2 -->
+
+<!-- ══════════════ PHASE 3 ══════════════ -->
+<div class="ph" onclick="tp(this)">
+  <div class="ph-accent" style="background:var(--green)"></div>
+  <div class="ph-inner">
+    <span class="ph-num" style="background:rgba(0,199,122,.1);color:var(--green)">Phase 3</span>
+    <span class="ph-title">Offers, Negotiation & Decision</span>
+    <span class="ph-wks">W88–W92</span>
+    <span class="ph-arr">▾</span>
+  </div>
+</div>
+<div class="ph-body">
+
+<!-- W88 -->
+<div class="wk" id="w88">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(0,199,122,.1);color:var(--green)">W88</span>
+    <span class="wk-title">First Offer — Do Not Accept Immediately</span>
+    <span class="ms-pill">★ Milestone</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout danger">
+      <strong>The most expensive mistake you can make this week</strong>
+      Accepting the first offer the same day it arrives. Companies know they can get a yes out of an excited candidate by creating artificial urgency ("This offer expires in 24 hours"). This is a negotiation tactic. Every legitimate company will give you at least 1 week to review an offer. If a company refuses to give you 5 business days to review, that tells you something important about how they treat employees. Ask for the time. You will almost always get it.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-n w">
+        <div class="bh"><div class="bh-lbl">💻 When the offer arrives — do these in order</div><div class="bh-time">Same evening. Don't delay any of these steps.</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Step 1 — Express genuine excitement, buy time</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Call or email back within 2 hours:</b> <span class="code">"Thank you so much — I'm really excited about this offer and this role. Could I have until [date 7 days out] to review everything carefully and give you a thoughtful response? I want to make sure I'm fully aligned before committing."</span> This is always granted. This time is where your negotiation happens.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Step 2 — Accelerate every other active pipeline (same evening)</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Email every other company where you are in any active stage</b> (OA done, Technical R1 done, anywhere):</span></div>
+            <div class="t"><span class="t-dot"></span><span><span class="code">"Hi [Recruiter], I wanted to let you know that I have received an offer from another company with a deadline of [date]. I'm very interested in [Company] and would strongly prefer to explore this opportunity. Is there any way to accelerate the remaining process before that date?"</span></span></div>
+            <div class="t"><span class="t-dot"></span><span>This message is honest, professional, and effective. It creates real urgency without being manipulative. Expect approximately 30–40% of companies to respond with an accelerated timeline. This is the fastest way to manufacture competing offers.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Step 3 — Research and calculate total compensation</div>
+            <div class="t"><span class="t-dot"></span><span>Read the offer letter completely. Note every component: Base salary, Variable pay / performance bonus, Joining bonus, ESOPs (note the vesting schedule — 4-year vest with 1-year cliff is standard), Medical insurance cover, Flexible benefits. The total year-1 number is what you compare, not just base.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Check Levels.fyi and AmbitionBox for this company + role level. Is their offer at, above, or below market? If below market: counter with confidence. If at market: still counter — the worst they say is no.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Step 4 — Determine your counter number</div>
+            <div class="t"><span class="t-dot"></span><span>Your counter formula: <span class="code">market rate × 1.1 to 1.2</span>. If the market rate for this role + company is ₹18 LPA and they offered ₹16 LPA, counter at ₹19–20 LPA. If they offered ₹19 LPA (above market), counter at ₹21 LPA. Always counter once, regardless.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Know your three numbers: <b>Target</b> (what you want), <b>Floor</b> (absolute minimum you'd accept), <b>Market</b> (what the data says). Target is what you ask for. Floor is your mental reservation — never share it.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-ms">
+        <div class="bh"><div class="bh-lbl">★ What a first offer means</div></div>
+        <div class="bc">
+          <div class="t p"><span class="t-dot"></span><span>You did it. From W01 — no Android knowledge, 47kg, a 3-hour daily commute — to this moment where a company wants to hire you. The first offer is proof that everything worked: the daily LeetCode on the bus, the 10 PM Night Blocks on your MacBook, the Finance Tracker published to Play Store, the Google AAD exam. Now: do not accept. Use it as leverage to get 2 more.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /W88 -->
+
+<!-- W89 -->
+<div class="wk" id="w89">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(0,199,122,.1);color:var(--green)">W89</span>
+    <span class="wk-title">Counter Every Offer — Every Single One, Without Exception</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout success">
+      <strong>Why you counter even offers you love</strong>
+      Negotiating does not make you look greedy. It makes you look like someone who knows their value. Hiring managers expect negotiation — they build a 10–15% buffer into initial offers specifically because they know candidates will counter. By not countering, you leave that buffer on the table permanently. The salary you accept now affects your next raise (usually a % of current), your next job's starting point, and your lifetime earnings. One conversation is worth potentially ₹1–2 LPA annually.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-n w">
+        <div class="bh"><div class="bh-lbl">💻 When to counter — and exactly what to say</div><div class="bh-time">Counter within 5 days of receiving any offer</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">The counter conversation — phone or email</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Phone call (preferred — harder to say no to a voice):</b> <span class="code">"Hi [Recruiter], thank you again for the offer — I'm genuinely excited about this role and the team. I've had a chance to review everything and do some market research. Based on my published apps, the Google AAD certification, and the scope of this role, I was hoping we could discuss bringing the base salary to ₹[your target number]. Is there flexibility there?"</span></span></div>
+            <div class="t"><span class="t-dot"></span><span>Then: <b>stop talking.</b> The silence after you state your number is the most important 10 seconds of the negotiation. Do not fill it. Do not justify further. Do not say "but I understand if that's not possible." Just wait for their response.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Email counter (if phone not possible)</div>
+            <div class="t"><span class="t-dot"></span><span><span class="code">"Hi [Recruiter], thank you for the offer — I'm very excited about joining [Company] and contributing to the Android team. After reviewing the package and researching current market rates on Levels.fyi and AmbitionBox, I'd like to propose a base salary of ₹[target]. This reflects the value of my published Android apps, Google AAD certification, and 2+ years of Kotlin/Compose development. I'm confident I can add immediate value and hope we can align on this. Please let me know your thoughts."</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Counter only once — then decide</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Counter once. If they come back with an improved but not full number:</b> say <span class="code">"I appreciate the flexibility. I'll review the updated offer and get back to you by [date]."</span> Then decide based on the full picture, not just base salary. A ₹2 LPA raise at a great company beats ₹4 LPA more at a miserable one.</span></div>
+            <div class="t"><span class="t-dot"></span><span><b>If they say "this is our best and final":</b> <span class="code">"Thank you for being direct. I'll review the full package and get back to you by [date]."</span> Now make your decision based on the total offer and your alternatives. Do not counter a second time after "best and final."</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend — Keep every other pipeline moving</div><div class="bh-time">Never stop until you sign</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Full speed on every other pipeline</div>
+            <div class="t p"><span class="t-dot"></span><span>Even with an offer on the table: attend every scheduled interview at full energy. An offer only becomes leverage when there are 2 offers. The second offer might come from the interview you consider skipping because "I already have one." Don't skip any.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Calculate: what is each remaining pipeline's expected timeline? If Pipeline B is 1 week from offer and Pipeline A's deadline is in 10 days, Pipeline B might come through in time for you to use as leverage or backup. Know the timelines.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /W89 -->
+
+<!-- W90 -->
+<div class="wk" id="w90">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(0,199,122,.1);color:var(--green)">W90</span>
+    <span class="wk-title">Multiple Offers — The Decision Matrix</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="slot-grid">
+      <div class="block bl-n w">
+        <div class="bh"><div class="bh-lbl">💻 The Decision Framework</div><div class="bh-time">Use this when you have 2+ offers</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Build the decision matrix tonight</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Open a spreadsheet. Score each offer 1–10 on each dimension. Multiply by weight. Add up. The highest score wins — but also gut-check it.</b></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="tracker">
+      <thead><tr><th>Dimension</th><th>Weight</th><th>Why it matters</th><th>How to assess</th></tr></thead>
+      <tbody>
+        <tr><td>Total Year-1 Compensation</td><td>25%</td><td>Immediate financial security and lifestyle</td><td>Base + bonus + joining bonus + ESOP value (discounted)</td></tr>
+        <tr><td>Growth Trajectory</td><td>25%</td><td>What you'll be worth in 3 years</td><td>Company growth rate, team size, do they promote from within?</td></tr>
+        <tr><td>Technical Quality of Work</td><td>20%</td><td>Will you become a better engineer here?</td><td>Glassdoor reviews on engineering quality, their engineering blog</td></tr>
+        <tr><td>Team & Culture</td><td>15%</td><td>Who you work with shapes who you become</td><td>Glassdoor reviews, LinkedIn: how long do people stay?</td></tr>
+        <tr><td>Location / Remote Policy</td><td>10%</td><td>Your daily commute is already 3 hours</td><td>Full remote? Hybrid? Which days?</td></tr>
+        <tr><td>Brand & Resume Value</td><td>5%</td><td>How does this company name help your next job?</td><td>Is it a well-known product company in the space?</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info" style="margin-top:16px;">
+      <strong>Questions to ask before deciding</strong>
+      Call the recruiter at your top choice and ask: "Can you tell me about the onboarding process for Android developers?" "What does the Android team's current technical roadmap look like for the next 6 months?" "What would success look like in my first 90 days?" These questions give you real information AND signal ownership mindset before Day 1.
+    </div>
+
+    <div class="slot-grid" style="margin-top:12px;">
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend — Talk to people who work there</div><div class="bh-time">Second opinions before a permanent decision</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Find a current or former employee</div>
+            <div class="t p"><span class="t-dot"></span><span>LinkedIn: search "[Company] Android developer" and filter by "People." Find someone who has been there 1–3 years. Send a DM: <span class="code">"Hi [Name], I have an offer from [Company] and I'm doing my due diligence. Could I ask you 3 quick questions about the team and culture? I'd really value a candid perspective from someone who knows the team well."</span> Most people are happy to help — it takes 10 minutes of their time.</span></div>
+            <div class="t"><span class="t-dot"></span><span>3 questions to ask: (1) "What do you wish you'd known before joining?" (2) "How is the code quality and technical culture on the Android team?" (3) "Is it easy to learn and grow there, or do you feel stagnant?"</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /W90 -->
+
+<!-- W91 -->
+<div class="wk" id="w91">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(0,199,122,.1);color:var(--green)">W91</span>
+    <span class="wk-title">Accept, Sign, and Decline Others Gracefully</span>
+    <span class="ms-pill">★ Milestone</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="slot-grid">
+      <div class="block bl-n w">
+        <div class="bh"><div class="bh-lbl">💻 Night Block — The Accept and Decline Process</div><div class="bh-time">Do all of this within 24 hours of deciding</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Step 1 — Accept in writing</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Email:</b> <span class="code">"Hi [Recruiter], I'm delighted to formally accept the offer for the Android Developer role at [Company]. I've reviewed the offer letter in full and am excited to join the team on [joining date]. Please let me know the next steps for onboarding documentation."</span></span></div>
+            <div class="t"><span class="t-dot"></span><span>Read the offer letter one final time before signing: verify role title (SDE I / Android Developer / Junior Software Engineer), exact base salary, notice period length, joining date, and whether there's a probation period with specific terms.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Step 2 — Decline all others within 24 hours</div>
+            <div class="t p"><span class="t-dot"></span><span><b>Every company that made you an offer gets a written decline within 24 hours.</b> Template: <span class="code">"Hi [Recruiter], thank you so much for the offer to join [Company] as an Android Developer. After careful consideration, I have decided to accept another opportunity that is a better fit for my current goals. I have great respect for your team and the work you do, and I hope our paths cross again in the future. Thank you for the time you invested in my interviews."</span></span></div>
+            <div class="t"><span class="t-dot"></span><span>Do not ghost. Do not just stop responding. The Android developer community in India is small — Bangalore, Hyderabad, and the remote ecosystem are tightly connected. The recruiter you decline politely today is the recruiter who refers you at their next company in 3 years. A graceful decline costs you nothing and earns long-term goodwill.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Step 3 — Stop all pending applications</div>
+            <div class="t"><span class="t-dot"></span><span>Log into every job platform and withdraw pending applications. If you're mid-process somewhere and haven't received an offer, send a withdrawal email: <span class="code">"Hi, I wanted to let you know that I have accepted another offer and am withdrawing my application. Thank you for the consideration."</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-a w">
+        <div class="bh"><div class="bh-lbl">🖥️ Weekend — The Public Announcement</div><div class="bh-time">Update everything. Right now. Tonight.</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Update every profile tonight</div>
+            <div class="t p"><span class="t-dot"></span><span><b>LinkedIn:</b> Add the new role to your Experience section. Set start date. Write a 2-sentence description. Then post: <span class="code">"Excited to share that I'm joining [Company] as an Android Developer! After 2 years of building with Kotlin, Jetpack Compose, and Clean Architecture — from 0 projects to 4 published apps including a live app on the Google Play Store — I can't wait to build production software with an amazing team. Thank you to everyone who helped along the way. See you on the other side 🚀"</span></span></div>
+            <div class="t"><span class="t-dot"></span><span><b>Turn off "Open to Work"</b> on LinkedIn. Update GitHub profile README — remove the "looking for opportunities" section. Update portfolio website if you have one.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Connect with future teammates</div>
+            <div class="t"><span class="t-dot"></span><span>Find your future manager and teammates on LinkedIn. Connect with a note: <span class="code">"Hi [Name], I'm joining the Android team at [Company] next month. Looking forward to meeting you and learning from the team!"</span> Shows initiative before Day 1 even starts.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outcome"><b>✓ W91 — You have a signed offer. You have declined gracefully. Your LinkedIn shows your new role. Your future teammates know you're coming. The job search is over.</b></div>
+  </div>
+</div><!-- /W91 -->
+
+<!-- W92 -->
+<div class="wk" id="w92">
+  <div class="wk-hdr" onclick="tw(this)">
+    <span class="wk-num" style="background:rgba(0,191,165,.1);color:var(--teal)">W92</span>
+    <span class="wk-title">Before Day 1 — Prepare to Make an Impression From Hour 1</span>
+    <span class="ms-pill">★ Final Milestone</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+
+    <div class="callout success">
+      <strong>The 90-day plan document — bring this on Day 1</strong>
+      Write a one-page "My 90-day plan" document before Day 1. Section 1 (Days 1–30): What I want to understand — team processes, codebase architecture, CI/CD pipeline, deployment process. Section 2 (Days 31–60): My first contribution — one feature or bug fix shipped to production. Section 3 (Days 61–90): Deeper ownership — one area I want to own. Bring this document to your first 1:1 with your manager. It signals ownership mindset before you've written a single line of their code.
+    </div>
+
+    <div class="slot-grid">
+      <div class="block bl-c">
+        <div class="bh"><div class="bh-lbl">📱 Commute · Final weeks</div><div class="bh-time">LeetCode continues permanently</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">The habit is now permanent</div>
+            <div class="t p"><span class="t-dot"></span><span><b>2 LeetCode problems per commute does not stop when you sign.</b> It becomes a permanent professional habit. Your next job search (in 2–3 years when you're ready to jump to a higher level) requires 300+ solved. Starting from 250 is a lot easier than starting from 0. The commute hasn't changed. The habit doesn't need to either.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Also: read your new company's engineering blog on the commute. Understand their technical culture before Day 1. Know what they've written about publicly — their architecture choices, their scale challenges, their tech debt. First-week conversations will reference all of this.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-n">
+        <div class="bh"><div class="bh-lbl">💻 Night Block · Preparation work</div><div class="bh-time">Set yourself up for a strong start</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="tg-lbl">Technical preparation</div>
+            <div class="t"><span class="t-dot"></span><span>Fresh Android Studio install on Day 1 minus 3. Clear old AVDs that won't be needed. Update all Gradle plugins, SDKs, and emulator images. Set up SSH keys for GitHub if the company uses GitHub Enterprise. Install any company-required VPN or tools mentioned in the onboarding email.</span></div>
+            <div class="t"><span class="t-dot"></span><span>Review any open source repos the company has on GitHub. Understand their code style, package naming conventions, test structure. Show up knowing their patterns.</span></div>
+            <div class="t"><span class="t-dot"></span><span>If the company has a public Android app: install it. Use every feature. Note every interaction, every loading state, every transition. What would you improve? What is done particularly well? This becomes conversation material in your first week.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Write the 90-day plan</div>
+            <div class="t p"><span class="t-dot"></span><span>Write it in a Google Doc. 3 sections (30 days each). Be specific enough to show real thought but flexible enough to adapt to what you find on the ground. Share with your manager in the first 1:1. The reaction will almost certainly be positive — most new joiners don't come in with this level of intentionality.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block bl-ms">
+        <div class="bh"><div class="bh-lbl">★ The 96-Week Journey — What You Built</div></div>
+        <div class="bc">
+          <div class="tg">
+            <div class="t p"><span class="t-dot"></span><span><b>W01:</b> Installed Android Studio. Wrote "Hello World" on your MacBook Air M1. Did not know what a ViewModel was.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W28:</b> To-Do App live on GitHub. Room, Coroutines, Flow, Compose — all working. First 100 LeetCode problems solved on a moving bus.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W44:</b> Movie Browser — Clean Architecture, Hilt, Paging 3, unit tests, CI/CD, offline-first. A flagship project that reads like a senior engineer built it.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W59:</b> Finance Tracker published on Google Play. A real app. Real users. Real reviews. The line on your resume that changes how every recruiter reads the rest of it.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W61:</b> Google Associate Android Developer certified. Google verified your skills independently of BPPIMT. The badge that neutralises the college name filter.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W64:</b> Chat App with Firebase Firestore, Auth, Storage, FCM. Real-time. Two emulators chatting live. 200+ LeetCode solved.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W80:</b> 5 mock interviews done, 30 companies mapped, 250+ LeetCode, system design practiced, STAR stories written, salary research done. Ready.</span></div>
+            <div class="t p"><span class="t-dot"></span><span><b>W91:</b> Signed offer letter. ₹15–30 LPA at a product company. Every 6 AM bus commute compounded into this. Every 10 PM Night Block on the MacBook compounded into this. Every set in your chair workout at 8:30 PM compounded into the energy and discipline that made all of this possible. You earned this — not because luck broke your way, but because you showed up for 92 weeks straight.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /W92 -->
+
+</div><!-- /ph-body 3 -->
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+function tp(ph){ ph.classList.toggle('open'); }
+function tw(h){ h.parentElement.classList.toggle('open'); }
+document.querySelectorAll('.wk:first-child').forEach(w => w.classList.add('open'));
+</script>
+</body>
+</html>

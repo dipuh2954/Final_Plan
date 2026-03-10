@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resource Bible — Zero to Hired</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0e0f;
+  --bg2: #111416;
+  --card: #161a1c;
+  --card2: #1c2124;
+  --border: #252b2e;
+  --border2: #2e373c;
+  --text: #e8edf0;
+  --mid: #7a8f9a;
+  --muted: #3d4f58;
+
+  /* category colours */
+  --kotlin:   #8b5cf6;
+  --android:  #3ddc84;
+  --compose:  #06b6d4;
+  --arch:     #f59e0b;
+  --di:       #f97316;
+  --network:  #3b82f6;
+  --db:       #10b981;
+  --corout:   #ec4899;
+  --test:     #a78bfa;
+  --perf:     #fbbf24;
+  --firebase: #ff6d00;
+  --kmp:      #7c3aed;
+  --dsa:      #ef4444;
+  --sysdes:   #64748b;
+  --career:   #0ea5e9;
+  --fitness:  #22c55e;
+  --violin:   #e879f9;
+
+  /* resource type */
+  --paid:  #fbbf24;
+  --free:  #34d399;
+  --book:  #f472b6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;}
+
+/* ── HEADER ── */
+header{
+  padding:56px 48px 48px;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+header::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 80% 50%, rgba(139,92,246,.07), transparent);
+  pointer-events:none;
+}
+.h-tag{
+  font-family:'Fira Code',monospace;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--kotlin);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.h-tag::before{content:'//';color:var(--muted);}
+h1{
+  font-size:clamp(32px,5vw,62px);font-weight:800;
+  line-height:1.0;letter-spacing:-1px;margin-bottom:14px;
+}
+h1 em{font-style:italic;color:var(--kotlin);}
+.h-sub{font-size:14px;color:var(--mid);max-width:560px;line-height:1.7;font-weight:400;margin-bottom:28px;}
+.type-legend{display:flex;gap:14px;flex-wrap:wrap;}
+.tleg{
+  display:flex;align-items:center;gap:7px;
+  font-family:'Fira Code',monospace;font-size:10px;letter-spacing:1px;
+  color:var(--mid);
+}
+.tleg-dot{width:8px;height:8px;border-radius:50%;}
+
+/* ── LAYOUT ── */
+.layout{display:flex;}
+.sidebar{
+  width:210px;min-width:210px;position:sticky;top:0;height:100vh;
+  overflow-y:auto;background:var(--bg2);border-right:1px solid var(--border);
+  flex-shrink:0;
+}
+.sb-sec{
+  font-family:'Fira Code',monospace;font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);padding:14px 16px 4px;
+}
+.sb-link{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 16px;text-decoration:none;
+  font-size:12px;font-weight:500;color:var(--mid);
+  transition:color .15s,background .15s;
+  border-left:2px solid transparent;
+}
+.sb-link:hover{color:var(--text);background:rgba(255,255,255,.03);}
+.sb-link .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.main{flex:1;min-width:0;padding:32px 48px 80px;}
+
+/* ── SECTION ── */
+.section{margin-bottom:48px;}
+.sec-head{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:20px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.sec-num{
+  font-family:'Fira Code',monospace;font-size:10px;
+  font-weight:500;color:var(--muted);flex-shrink:0;
+}
+.sec-title{
+  font-size:20px;font-weight:700;letter-spacing:-.3px;
+}
+.sec-badge{
+  font-family:'Fira Code',monospace;font-size:9px;
+  padding:3px 8px;border-radius:2px;letter-spacing:1px;
+  flex-shrink:0;
+}
+.sec-desc{
+  font-size:12.5px;color:var(--mid);line-height:1.65;
+  margin-bottom:18px;font-family:'Lora',serif;font-style:italic;
+}
+
+/* ── RESOURCE GRID ── */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+
+/* ── RESOURCE CARD ── */
+.rc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .2s,transform .15s;
+}
+.rc:hover{border-color:var(--border2);transform:translateY(-1px);}
+.rc-type{
+  padding:8px 14px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid var(--border);
+}
+.rc-type-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.rc-type-lbl{
+  font-family:'Fira Code',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;font-weight:500;
+}
+.rc-price{
+  margin-left:auto;font-family:'Fira Code',monospace;
+  font-size:9px;color:var(--muted);letter-spacing:1px;
+}
+.rc-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:8px;}
+.rc-name{font-size:13px;font-weight:700;line-height:1.3;color:var(--text);}
+.rc-by{font-family:'Fira Code',monospace;font-size:10px;color:var(--mid);}
+.rc-desc{font-size:11.5px;color:var(--mid);line-height:1.55;flex:1;font-family:'Lora',serif;}
+.rc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+.rc-tag{
+  font-family:'Fira Code',monospace;font-size:9px;
+  padding:2px 7px;border-radius:2px;
+  background:rgba(255,255,255,.05);color:var(--muted);
+  letter-spacing:.5px;
+}
+.rc-link{
+  display:block;padding:10px 14px;
+  text-decoration:none;
+  font-family:'Fira Code',monospace;font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;border-top:1px solid var(--border);
+  transition:background .15s;
+}
+.rc-link:hover{background:rgba(255,255,255,.04);}
+
+/* Type themes */
+.rc.paid .rc-type{background:rgba(251,191,36,.06);}
+.rc.paid .rc-type-dot{background:var(--paid);}
+.rc.paid .rc-type-lbl{color:var(--paid);}
+.rc.paid .rc-link{color:var(--paid);}
+.rc.paid .rc-link:hover{background:rgba(251,191,36,.06);}
+
+.rc.free .rc-type{background:rgba(52,211,153,.06);}
+.rc.free .rc-type-dot{background:var(--free);}
+.rc.free .rc-type-lbl{color:var(--free);}
+.rc.free .rc-link{color:var(--free);}
+.rc.free .rc-link:hover{background:rgba(52,211,153,.06);}
+
+.rc.book .rc-type{background:rgba(244,114,182,.06);}
+.rc.book .rc-type-dot{background:var(--book);}
+.rc.book .rc-type-lbl{color:var(--book);}
+.rc.book .rc-link{color:var(--book);}
+.rc.book .rc-link:hover{background:rgba(244,114,182,.06);}
+
+/* priority note */
+.priority{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Fira Code',monospace;font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;padding:5px 10px;border-radius:2px;
+  margin-bottom:14px;
+}
+.priority.must{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.priority.good{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2);}
+.priority.later{background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2);}
+
+/* divider */
+.div-line{height:1px;background:var(--border);margin:8px 0 24px;}
+
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .main{padding:20px 16px 60px;}
+  .res-grid{grid-template-columns:1fr;}
+}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="h-tag">Resource Bible · Every Topic · Zero to Hired</div>
+  <h1>Learn from the<br><em>best sources.</em></h1>
+  <div class="h-sub">One paid course, one free resource, and one book for every single topic in your 96-week plan. Kotlin → Android → DSA → Career → Personal Development. In priority order.</div>
+  <div class="type-legend">
+    <div class="tleg"><span class="tleg-dot" style="background:var(--paid)"></span>Paid Course</div>
+    <div class="tleg"><span class="tleg-dot" style="background:var(--free)"></span>Free / YouTube</div>
+    <div class="tleg"><span class="tleg-dot" style="background:var(--book)"></span>Book / Docs</div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-sec">Android</div>
+  <a class="sb-link" href="#kotlin"><span class="dot" style="background:var(--kotlin)"></span>Kotlin</a>
+  <a class="sb-link" href="#android-core"><span class="dot" style="background:var(--android)"></span>Android Core</a>
+  <a class="sb-link" href="#compose"><span class="dot" style="background:var(--compose)"></span>Jetpack Compose</a>
+  <a class="sb-link" href="#arch"><span class="dot" style="background:var(--arch)"></span>Architecture</a>
+  <a class="sb-link" href="#di"><span class="dot" style="background:var(--di)"></span>Hilt / DI</a>
+  <a class="sb-link" href="#network"><span class="dot" style="background:var(--network)"></span>Networking</a>
+  <a class="sb-link" href="#db"><span class="dot" style="background:var(--db)"></span>Room / Database</a>
+  <a class="sb-link" href="#corout"><span class="dot" style="background:var(--corout)"></span>Coroutines & Flow</a>
+  <a class="sb-link" href="#test"><span class="dot" style="background:var(--test)"></span>Testing</a>
+  <a class="sb-link" href="#perf"><span class="dot" style="background:var(--perf)"></span>Performance</a>
+  <a class="sb-link" href="#firebase"><span class="dot" style="background:var(--firebase)"></span>Firebase</a>
+  <a class="sb-link" href="#kmp"><span class="dot" style="background:var(--kmp)"></span>KMP</a>
+  <div class="sb-sec">Career</div>
+  <a class="sb-link" href="#dsa"><span class="dot" style="background:var(--dsa)"></span>DSA</a>
+  <a class="sb-link" href="#sysdes"><span class="dot" style="background:var(--sysdes)"></span>System Design</a>
+  <a class="sb-link" href="#career"><span class="dot" style="background:var(--career)"></span>Career & Placement</a>
+  <div class="sb-sec">Personal</div>
+  <a class="sb-link" href="#fitness"><span class="dot" style="background:var(--fitness)"></span>Fitness & Bulking</a>
+  <a class="sb-link" href="#violin"><span class="dot" style="background:var(--violin)"></span>Violin</a>
+</div>
+
+<div class="main">
+
+<!-- ═══ 01 KOTLIN ═══ -->
+<div class="section" id="kotlin">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <span class="sec-title" style="color:var(--kotlin)">Kotlin — Zero to Advanced</span>
+    <span class="sec-badge" style="background:rgba(139,92,246,.12);color:var(--kotlin)">Start Here</span>
+  </div>
+  <div class="priority must">★ Highest Priority — Learn this before anything else</div>
+  <div class="sec-desc">Everything in your plan runs on Kotlin. Null safety, coroutines, sealed classes, extension functions — these are not optional extras. They are the language itself. Invest seriously here.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin for Android Developers</div>
+        <div class="rc-by">by Antonio Leiva · Udemy</div>
+        <div class="rc-desc">Written by the author of the book with the same name. Covers Kotlin idioms specifically in the Android context — the exact patterns you'll use daily. Very practical, not just language theory.</div>
+        <div class="rc-tags"><span class="rc-tag">lambdas</span><span class="rc-tag">null safety</span><span class="rc-tag">android context</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/kotlin-android/" target="_blank">→ Find on Udemy (search: "Kotlin Android Antonio Leiva")</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Official + YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin Koans + Kotlin by JetBrains YouTube</div>
+        <div class="rc-by">JetBrains · kotlinlang.org/koans</div>
+        <div class="rc-desc">Kotlin Koans are interactive exercises at kotlinlang.org/koans — 42 problems covering every language feature. You write code and tests go green. The JetBrains YouTube channel has excellent deep-dive videos on coroutines, sealed classes, and idioms.</div>
+        <div class="rc-tags"><span class="rc-tag">interactive</span><span class="rc-tag">free</span><span class="rc-tag">official</span></div>
+      </div>
+      <a class="rc-link" href="https://kotlinlang.org/docs/koans.html" target="_blank">→ kotlinlang.org/docs/koans.html</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹3,500</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin in Action, 2nd Edition</div>
+        <div class="rc-by">Dmitry Jemerov & Svetlana Isakova · Manning</div>
+        <div class="rc-desc">Written by two JetBrains engineers who built Kotlin. This is the definitive Kotlin book — explains the reasoning behind language decisions, not just syntax. The coroutines chapter alone is worth the price. 2nd edition covers Kotlin 1.9+.</div>
+        <div class="rc-tags"><span class="rc-tag">definitive</span><span class="rc-tag">deep internals</span><span class="rc-tag">coroutines chapter</span></div>
+      </div>
+      <a class="rc-link" href="https://www.manning.com/books/kotlin-in-action-second-edition" target="_blank">→ manning.com · "Kotlin in Action Second Edition"</a>
+    </div>
+  </div>
+  <div class="div-line"></div>
+  <!-- Kotlin extra: Koans specifically -->
+  <div class="sec-desc" style="margin-top:-8px">Also worth using daily: <strong>Kotlin Playground</strong> (play.kotlinlang.org) — run Kotlin in a browser tab without installing anything. Use it on your commute breaks to test small ideas.</div>
+</div>
+
+<!-- ═══ 02 ANDROID CORE ═══ -->
+<div class="section" id="android-core">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <span class="sec-title" style="color:var(--android)">Android Core — Activities, Lifecycle, Intents</span>
+    <span class="sec-badge" style="background:rgba(61,220,132,.12);color:var(--android)">Sem 3–4</span>
+  </div>
+  <div class="priority must">★ Must master — foundation of everything</div>
+  <div class="sec-desc">Lifecycle, fragments, intents, permissions, services, broadcasts. These concepts appear in every Android interview. Knowing them deeply separates seniors from juniors.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">The Complete Android 14 & Kotlin Development Masterclass</div>
+        <div class="rc-by">Denis Panjuta · Udemy</div>
+        <div class="rc-desc">One of the most comprehensive Android courses on Udemy — covers Activity lifecycle, RecyclerView, Intents, Permissions, and ties it all together with Kotlin. Good for building a solid mental model of how Android works before moving to Compose.</div>
+        <div class="rc-tags"><span class="rc-tag">activity</span><span class="rc-tag">lifecycle</span><span class="rc-tag">permissions</span><span class="rc-tag">intents</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/android-kotlin-developer/" target="_blank">→ Udemy · search "Complete Android 14 Kotlin Denis Panjuta"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube + Docs</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Philipp Lackner — Android Fundamentals Series</div>
+        <div class="rc-by">youtube.com/@PhilippLackner</div>
+        <div class="rc-desc">Philipp Lackner's channel is the single best free Android resource. His fundamentals playlists cover every core concept clearly. Subscribe and work through his Android playlist sequentially — each video is focused and practical with code you can follow along.</div>
+        <div class="rc-tags"><span class="rc-tag">youtube</span><span class="rc-tag">free</span><span class="rc-tag">practical</span></div>
+      </div>
+      <a class="rc-link" href="https://www.youtube.com/@PhilippLackner" target="_blank">→ youtube.com/@PhilippLackner</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹4,000</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Programming: The Big Nerd Ranch Guide, 5th Ed.</div>
+        <div class="rc-by">Bill Phillips, Chris Stewart · Big Nerd Ranch</div>
+        <div class="rc-desc">The gold standard Android book for building deep understanding — not skimming surface syntax. Explains WHY the framework works the way it does. Written for people who want to truly understand Android internals, not just copy-paste code. Use alongside online resources.</div>
+        <div class="rc-tags"><span class="rc-tag">deep understanding</span><span class="rc-tag">why not just how</span></div>
+      </div>
+      <a class="rc-link" href="https://www.bignerdranch.com/books/android-programming-the-big-nerd-ranch-guide-5th-edition/" target="_blank">→ bignerdranch.com · Android Programming 5th Ed.</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 03 JETPACK COMPOSE ═══ -->
+<div class="section" id="compose">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <span class="sec-title" style="color:var(--compose)">Jetpack Compose — Modern UI</span>
+    <span class="sec-badge" style="background:rgba(6,182,212,.12);color:var(--compose)">Sem 3–4</span>
+  </div>
+  <div class="priority must">★ This is the present and future of Android UI</div>
+  <div class="sec-desc">Compose replaces XML in almost every new Android project. State, recomposition, LazyColumn, Navigation, animations — you'll use all of these every single day. Learn it properly from the start.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Jetpack Compose Masterclass</div>
+        <div class="rc-by">Philipp Lackner · Udemy</div>
+        <div class="rc-desc">The most comprehensive Compose course available. Covers state management, side effects, animations, Navigation, Canvas drawing, and performance. Philipp builds real features, not toy examples. This is the Compose course most professional Android developers recommend.</div>
+        <div class="rc-tags"><span class="rc-tag">state</span><span class="rc-tag">navigation</span><span class="rc-tag">animation</span><span class="rc-tag">canvas</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/jetpack-compose-masterclass/" target="_blank">→ Udemy · "Jetpack Compose Masterclass Philipp Lackner"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Codelabs + YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Compose Pathway + Android Developers YouTube</div>
+        <div class="rc-by">developer.android.com/courses/pathways/compose</div>
+        <div class="rc-desc">Google's official Compose learning pathway — a structured series of codelabs where you build a real app. Each lab is 30–60 minutes. Do all of them. Supplement with the Android Developers YouTube channel which has Google I/O Compose talks that explain the "thinking in Compose" mental model.</div>
+        <div class="rc-tags"><span class="rc-tag">official</span><span class="rc-tag">codelabs</span><span class="rc-tag">structured path</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/courses/pathways/compose" target="_blank">→ developer.android.com/courses/pathways/compose</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹3,200</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Jetpack Compose by Tutorials, 4th Edition</div>
+        <div class="rc-by">Kodeco (formerly raywenderlich.com)</div>
+        <div class="rc-desc">The only book dedicated entirely to Jetpack Compose. Each chapter builds a complete feature, covering state management, custom layouts, themes, animations, and accessibility. Updated for Material 3. Best used as a reference alongside your projects.</div>
+        <div class="rc-tags"><span class="rc-tag">material 3</span><span class="rc-tag">animations</span><span class="rc-tag">reference</span></div>
+      </div>
+      <a class="rc-link" href="https://www.kodeco.com/books/jetpack-compose-by-tutorials" target="_blank">→ kodeco.com/books/jetpack-compose-by-tutorials</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 04 ARCHITECTURE ═══ -->
+<div class="section" id="arch">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <span class="sec-title" style="color:var(--arch)">Architecture — MVVM + Clean Architecture</span>
+    <span class="sec-badge" style="background:rgba(245,158,11,.12);color:var(--arch)">Sem 5</span>
+  </div>
+  <div class="priority must">★ The skill that takes you from junior to mid-level</div>
+  <div class="sec-desc">MVVM, Clean Architecture, Repository pattern, Use Cases — this is what separates developers who build projects from developers who build maintainable software. Every senior Android role expects this.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Clean Architecture — Kotlin, Ktor & Compose</div>
+        <div class="rc-by">Philipp Lackner · Udemy</div>
+        <div class="rc-desc">Philipp builds a production-grade app from scratch using Clean Architecture with 3 separate layers. Shows exactly why each layer exists, how dependency inversion works in practice, and how to structure a real-world project. The most directly applicable paid course for your Semester 5 goals.</div>
+        <div class="rc-tags"><span class="rc-tag">clean arch</span><span class="rc-tag">3 layers</span><span class="rc-tag">use cases</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/clean-architecture-android-course/" target="_blank">→ Udemy · "Clean Architecture Android Philipp Lackner"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Guide to App Architecture — Official Docs + YouTube Talk</div>
+        <div class="rc-by">developer.android.com/topic/architecture</div>
+        <div class="rc-desc">Read the official Android Architecture Guide completely — it explains Google's recommended architecture. Then watch "Modern Android Architecture" from Google I/O 2022 on YouTube. Also: Philipp Lackner's free "MVVM Best Practices" video on YouTube is 40 minutes and covers every common mistake.</div>
+        <div class="rc-tags"><span class="rc-tag">official google</span><span class="rc-tag">free</span><span class="rc-tag">recommended patterns</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/topic/architecture" target="_blank">→ developer.android.com/topic/architecture</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book — The Classic</span><span class="rc-price">~₹2,500</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Clean Architecture</div>
+        <div class="rc-by">Robert C. Martin ("Uncle Bob") · Prentice Hall</div>
+        <div class="rc-desc">Not Android-specific, but THE foundational text that all Android Clean Architecture is based on. Read chapters 1–5 and Part IV (Components) carefully. Understanding the dependency rule at a conceptual level makes the Android implementation obvious. Every senior engineer has read this.</div>
+        <div class="rc-tags"><span class="rc-tag">foundational</span><span class="rc-tag">dependency rule</span><span class="rc-tag">components</span></div>
+      </div>
+      <a class="rc-link" href="https://www.amazon.in/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164" target="_blank">→ Amazon.in · "Clean Architecture Robert Martin"</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 05 HILT / DI ═══ -->
+<div class="section" id="di">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <span class="sec-title" style="color:var(--di)">Hilt — Dependency Injection</span>
+    <span class="sec-badge" style="background:rgba(249,115,22,.12);color:var(--di)">Sem 5</span>
+  </div>
+  <div class="priority good">✦ High priority — required for senior-level architecture</div>
+  <div class="sec-desc">Hilt is Google's recommended DI framework for Android. Understanding it deeply means understanding how objects are created and scoped. Every large Android app uses it.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">covered in broader courses</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Dependency Injection in Android with Dagger-Hilt</div>
+        <div class="rc-by">Philipp Lackner · Udemy</div>
+        <div class="rc-desc">The only dedicated Hilt course worth buying. Starts with manual DI so you understand what Hilt replaces, then covers every Hilt annotation, scoping, testing with Hilt, and multi-module setups. Building the "before Hilt" version first is the key to actually understanding why every annotation exists.</div>
+        <div class="rc-tags"><span class="rc-tag">hilt</span><span class="rc-tag">scoping</span><span class="rc-tag">modules</span><span class="rc-tag">testing</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/dependency-injection-android-dagger-hilt/" target="_blank">→ Udemy · "Dependency Injection Android Dagger Hilt"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Codelab</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Hilt Official Codelab</div>
+        <div class="rc-by">developer.android.com/codelabs/android-hilt</div>
+        <div class="rc-desc">Google's official Hilt codelab — takes a manually DI'd app and migrates it to Hilt step by step. This is the most efficient 2-hour introduction to Hilt that exists. Do this BEFORE watching any YouTube videos. Then watch Philipp Lackner's Hilt tutorial playlist for deeper understanding.</div>
+        <div class="rc-tags"><span class="rc-tag">official codelab</span><span class="rc-tag">free</span><span class="rc-tag">step by step</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/codelabs/android-hilt" target="_blank">→ developer.android.com/codelabs/android-hilt</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book Chapter</span><span class="rc-price">free online</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Hilt in the Android Developer Docs</div>
+        <div class="rc-by">developer.android.com/training/dependency-injection/hilt-android</div>
+        <div class="rc-desc">No standalone book covers Hilt as well as the official documentation. Read the entire Hilt docs section sequentially — it's 12 pages and covers everything. The "Hilt in multi-module apps" and "Hilt and Jetpack integrations" pages are especially important for your Semester 7 work.</div>
+        <div class="rc-tags"><span class="rc-tag">official docs</span><span class="rc-tag">complete reference</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/training/dependency-injection/hilt-android" target="_blank">→ developer.android.com · Hilt documentation</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 06 NETWORKING ═══ -->
+<div class="section" id="network">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <span class="sec-title" style="color:var(--network)">Networking — Retrofit, OkHttp, REST APIs</span>
+    <span class="sec-badge" style="background:rgba(59,130,246,.12);color:var(--network)">Sem 3–4</span>
+  </div>
+  <div class="priority good">✦ High priority — every app talks to a server</div>
+  <div class="sec-desc">Retrofit + OkHttp is the industry standard Android networking stack. Interceptors, error handling, coroutine adapters, and timeout configuration are the real-world details that matter.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Covered in</span><span class="rc-price">Android Masterclass above</span></div>
+      <div class="rc-body">
+        <div class="rc-name">No separate paid course needed</div>
+        <div class="rc-by">Retrofit is covered in every good Android course</div>
+        <div class="rc-desc">Retrofit doesn't need a dedicated paid course — it's well-documented and the Philipp Lackner Android Clean Architecture course covers Retrofit thoroughly within the context of a real app. Save your money. Use the free resources below instead.</div>
+        <div class="rc-tags"><span class="rc-tag">covered elsewhere</span></div>
+      </div>
+      <a class="rc-link" href="https://square.github.io/retrofit/" target="_blank">→ square.github.io/retrofit (official docs)</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Philipp Lackner — Retrofit + Coroutines Playlist</div>
+        <div class="rc-by">youtube.com/@PhilippLackner</div>
+        <div class="rc-desc">Search "Retrofit Coroutines Philipp Lackner" on YouTube. His series covers: setup, coroutine call adapter, sealed class response wrapper, interceptors, and error handling. Each video is focused. Watch the OkHttp interceptors video separately — it's one of his best.</div>
+        <div class="rc-tags"><span class="rc-tag">retrofit</span><span class="rc-tag">okhttp</span><span class="rc-tag">interceptors</span></div>
+      </div>
+      <a class="rc-link" href="https://www.youtube.com/@PhilippLackner" target="_blank">→ YouTube · search "Retrofit Philipp Lackner"</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Reference</span><span class="rc-price">free online</span></div>
+      <div class="rc-body">
+        <div class="rc-name">OkHttp + Retrofit Official Documentation</div>
+        <div class="rc-by">square.github.io/retrofit · square.github.io/okhttp</div>
+        <div class="rc-desc">Both are Square's open-source libraries with excellent documentation. Read all of Retrofit's docs in one sitting (30 min). For OkHttp, focus on: Interceptors, Caching, Connection pooling, and Recipes. The OkHttp Recipes page alone contains solutions to 90% of real networking problems you'll encounter.</div>
+        <div class="rc-tags"><span class="rc-tag">official</span><span class="rc-tag">recipes page</span><span class="rc-tag">interceptors</span></div>
+      </div>
+      <a class="rc-link" href="https://square.github.io/okhttp/recipes/" target="_blank">→ square.github.io/okhttp/recipes</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 07 ROOM ═══ -->
+<div class="section" id="db">
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <span class="sec-title" style="color:var(--db)">Room — Local Database</span>
+    <span class="sec-badge" style="background:rgba(16,185,129,.12);color:var(--db)">Sem 3–4</span>
+  </div>
+  <div class="priority good">✦ Essential for offline-first apps</div>
+  <div class="sec-desc">Room is Android's SQLite abstraction. Entities, DAOs, Flows, migrations, and in-memory testing — know all of these. Offline-first is a senior-level skill that most tutorial apps skip.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Jetpack Masterclass — Room, ViewModel, LiveData</div>
+        <div class="rc-by">Catalin Stefan · Udemy</div>
+        <div class="rc-desc">Focused entirely on Jetpack components including Room. Covers the full Room setup, relationships (one-to-many, many-to-many), migrations, and testing with in-memory databases. More focused than the general Android masterclasses for just this topic.</div>
+        <div class="rc-tags"><span class="rc-tag">room</span><span class="rc-tag">migrations</span><span class="rc-tag">relationships</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/android-architecture-componentsmvvm-with-dagger-retrofit/" target="_blank">→ Udemy · search "Android Jetpack Masterclass Room"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Codelab</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Room with a View — Official Android Codelab</div>
+        <div class="rc-by">developer.android.com/codelabs/android-room-with-a-view-kotlin</div>
+        <div class="rc-desc">Google's official Room codelab — builds a complete words app with Room from scratch. Covers Entity, DAO, Database, Repository pattern, and Flow integration. After completing this, you'll understand every component. Takes about 2 hours. The definitive free starting point.</div>
+        <div class="rc-tags"><span class="rc-tag">official codelab</span><span class="rc-tag">flow integration</span><span class="rc-tag">repository</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/codelabs/android-room-with-a-view-kotlin" target="_blank">→ developer.android.com · Room with a View codelab</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Reference Book</span><span class="rc-price">~₹3,200</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android's Architecture Components Book — Kodeco</div>
+        <div class="rc-by">kodeco.com/books/android-apprentice</div>
+        <div class="rc-desc">The "Android Apprentice" book by Kodeco has the most thorough Room coverage in any book, including complex queries, transactions, TypeConverters, and multi-table joins. The SQLite chapter underneath Room is also worth reading — knowing what Room generates helps you understand its limitations.</div>
+        <div class="rc-tags"><span class="rc-tag">typeconverters</span><span class="rc-tag">transactions</span><span class="rc-tag">joins</span></div>
+      </div>
+      <a class="rc-link" href="https://www.kodeco.com/books/android-apprentice" target="_blank">→ kodeco.com/books/android-apprentice</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 08 COROUTINES ═══ -->
+<div class="section" id="corout">
+  <div class="sec-head">
+    <span class="sec-num">08</span>
+    <span class="sec-title" style="color:var(--corout)">Coroutines & Flow — Concurrency in Kotlin</span>
+    <span class="sec-badge" style="background:rgba(236,72,153,.12);color:var(--corout)">Core Skill</span>
+  </div>
+  <div class="priority must">★ The most asked-about Android interview topic</div>
+  <div class="sec-desc">Coroutines and Flow are in every Android interview. Structured concurrency, dispatchers, StateFlow vs SharedFlow, callbackFlow, cold vs hot streams — interviewers love this topic because most candidates only know the surface.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin Coroutines & Flow — Complete Guide</div>
+        <div class="rc-by">Philipp Lackner · Udemy</div>
+        <div class="rc-desc">The most focused paid resource on coroutines. Covers launch vs async, exception handling, structured concurrency, Flow operators, StateFlow, SharedFlow, and callbackFlow. Philipp explains the "why" behind each concept clearly. This is a 1-2 week investment that pays back in every Android project.</div>
+        <div class="rc-tags"><span class="rc-tag">stateflow</span><span class="rc-tag">sharedflow</span><span class="rc-tag">exception handling</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/kotlin-coroutines-and-flow/" target="_blank">→ Udemy · "Kotlin Coroutines Flow Complete Guide"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube + Codelab</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Roman Elizarov Talks + Coroutines on Android Codelab</div>
+        <div class="rc-by">YouTube: Roman Elizarov · Codelab: developer.android.com</div>
+        <div class="rc-desc">Roman Elizarov is the original designer of Kotlin Coroutines. His KotlinConf talks on YouTube (search "Roman Elizarov Kotlin Coroutines") explain structured concurrency from first principles. Supplement with Google's "Coroutines on Android" codelab which covers the Android-specific patterns.</div>
+        <div class="rc-tags"><span class="rc-tag">first principles</span><span class="rc-tag">structured concurrency</span><span class="rc-tag">designer of coroutines</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/codelabs/kotlin-coroutines" target="_blank">→ YouTube: "Roman Elizarov Coroutines" + developer.android.com/codelabs/kotlin-coroutines</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹2,800</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin Coroutines: Deep Dive</div>
+        <div class="rc-by">Marcin Moskala · Kt. Academy</div>
+        <div class="rc-desc">The most thorough book on Kotlin Coroutines available. Covers everything from the CPS transformation that makes coroutines work, to Flow operators, to testing coroutines. Chapter 25 on "Best practices" alone is worth reading before every Android interview. Available at leanpub.com also.</div>
+        <div class="rc-tags"><span class="rc-tag">CPS internals</span><span class="rc-tag">flow operators</span><span class="rc-tag">testing</span><span class="rc-tag">best practices</span></div>
+      </div>
+      <a class="rc-link" href="https://kt.academy/book/coroutines" target="_blank">→ kt.academy/book/coroutines</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 09 TESTING ═══ -->
+<div class="section" id="test">
+  <div class="sec-head">
+    <span class="sec-num">09</span>
+    <span class="sec-title" style="color:var(--test)">Testing — Unit, Integration, Compose UI</span>
+    <span class="sec-badge" style="background:rgba(167,139,250,.12);color:var(--test)">Sem 6</span>
+  </div>
+  <div class="priority good">✦ Differentiates your portfolio from tutorial projects</div>
+  <div class="sec-desc">JUnit 4, MockK, Turbine for Flow testing, Compose testing semantics — tested code is the single clearest signal to a recruiter that you write production-quality software.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Testing: Unit & UI Testing with JUnit5 & MockK</div>
+        <div class="rc-by">Philipp Lackner · Udemy</div>
+        <div class="rc-desc">Dedicated to Android testing. Covers JUnit 4/5, MockK for mocking, testing ViewModels with coroutines, Compose UI testing with semantics and actions, and end-to-end test strategy. The only dedicated Android testing course you'll need — nothing else comes close for Android-specific testing.</div>
+        <div class="rc-tags"><span class="rc-tag">mockk</span><span class="rc-tag">viewmodel testing</span><span class="rc-tag">compose testing</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/test-driven-development-tdd-with-android/" target="_blank">→ Udemy · "Android Testing Unit UI JUnit MockK Philipp Lackner"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Docs + GitHub</span></div>
+      <div class="rc-body">
+        <div class="rc-name">MockK Docs + Turbine GitHub README + Android Testing Docs</div>
+        <div class="rc-by">mockk.io · github.com/cashapp/turbine</div>
+        <div class="rc-desc">The MockK docs at mockk.io cover every feature clearly with examples. The Turbine README on GitHub is the complete guide to Flow testing — read it once completely and you'll know the full API. Android testing fundamentals at developer.android.com/training/testing fills in the philosophy.</div>
+        <div class="rc-tags"><span class="rc-tag">mockk.io</span><span class="rc-tag">turbine</span><span class="rc-tag">official docs</span></div>
+      </div>
+      <a class="rc-link" href="https://mockk.io" target="_blank">→ mockk.io + github.com/cashapp/turbine</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹3,500</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Test-Driven Development by Tutorials</div>
+        <div class="rc-by">Victoria Gonda, Lance Gleason · Kodeco</div>
+        <div class="rc-desc">The only book focused specifically on TDD for Android. Teaches you to write tests first, then implementation — a discipline that makes your architecture clean by default. Covers the full testing pyramid: unit → integration → UI. The chapter on testing with Hilt is especially practical.</div>
+        <div class="rc-tags"><span class="rc-tag">TDD methodology</span><span class="rc-tag">testing pyramid</span><span class="rc-tag">hilt testing</span></div>
+      </div>
+      <a class="rc-link" href="https://www.kodeco.com/books/android-test-driven-development-by-tutorials" target="_blank">→ kodeco.com/books/android-test-driven-development</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 10 PERFORMANCE ═══ -->
+<div class="section" id="perf">
+  <div class="sec-head">
+    <span class="sec-num">10</span>
+    <span class="sec-title" style="color:var(--perf)">Performance — Profiler, LeakCanary, Compose Optimization</span>
+    <span class="sec-badge" style="background:rgba(251,191,36,.12);color:var(--perf)">Sem 6</span>
+  </div>
+  <div class="priority good">✦ Senior-level awareness that most juniors lack</div>
+  <div class="sec-desc">Memory leaks, unnecessary recompositions, CPU jank — fixing these with data from the Profiler is the skill that gets you from "it works" to "it works well." Rare in junior portfolios.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid — Part of broader course</span></div>
+      <div class="rc-body">
+        <div class="rc-name">No dedicated paid course needed</div>
+        <div class="rc-by">Covered in Android Profiler docs + free resources</div>
+        <div class="rc-desc">Performance tooling is better learned through practice than a paid course. The Android Profiler documentation is exhaustive and free. LeakCanary has an excellent blog series. The real learning happens when you open the Profiler on your own app and find actual issues.</div>
+        <div class="rc-tags"><span class="rc-tag">learn by doing</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/studio/profile" target="_blank">→ developer.android.com/studio/profile</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube + Blog</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Android Developers YouTube — Performance Playlist</div>
+        <div class="rc-by">youtube.com/@AndroidDevelopers</div>
+        <div class="rc-desc">Search "Android Performance" on the Android Developers YouTube channel. The "Android Vitals" and "App Performance" series are directly practical. Also: LeakCanary blog at square.github.io/leakcanary — especially "Fixing a Memory Leak" posts which are written by Square engineers showing real-world examples.</div>
+        <div class="rc-tags"><span class="rc-tag">android vitals</span><span class="rc-tag">leakcanary blog</span><span class="rc-tag">profiler demos</span></div>
+      </div>
+      <a class="rc-link" href="https://www.youtube.com/@AndroidDevelopers" target="_blank">→ YouTube: Android Developers · search "Performance"</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book Chapter</span><span class="rc-price">free</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Compose Performance — Official Docs + Compose Compiler Reports</div>
+        <div class="rc-by">developer.android.com/jetpack/compose/performance</div>
+        <div class="rc-desc">The official Compose performance documentation is the most complete reference on optimizing Compose. It explains: stable vs unstable types, when recomposition triggers, derivedStateOf, @Stable and @Immutable annotations, and how to generate compiler reports to find actual recomposition problems. Read it all.</div>
+        <div class="rc-tags"><span class="rc-tag">stability</span><span class="rc-tag">recomposition</span><span class="rc-tag">compiler reports</span></div>
+      </div>
+      <a class="rc-link" href="https://developer.android.com/jetpack/compose/performance" target="_blank">→ developer.android.com/jetpack/compose/performance</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 11 FIREBASE ═══ -->
+<div class="section" id="firebase">
+  <div class="sec-head">
+    <span class="sec-num">11</span>
+    <span class="sec-title" style="color:var(--firebase)">Firebase — Firestore, Auth, Storage, FCM</span>
+    <span class="sec-badge" style="background:rgba(255,109,0,.12);color:var(--firebase)">Sem 6</span>
+  </div>
+  <div class="priority good">✦ Powers the Chat App — real-time + backend without a server</div>
+  <div class="sec-desc">Firebase gives you a real-time database, authentication, file storage, and push notifications with zero server maintenance. Knowing it well is a genuine superpower for building full-featured demo apps quickly.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">The Complete Firebase Bootcamp — Android with Kotlin</div>
+        <div class="rc-by">Rahul Pandey · Udemy</div>
+        <div class="rc-desc">Covers Firestore, Authentication, Cloud Storage, and FCM with Kotlin and Coroutines integration. Uses the modern Firebase KTX extensions (suspend functions instead of callbacks). Builds a real-time chat app as the main project — directly aligned with your Semester 6 goal.</div>
+        <div class="rc-tags"><span class="rc-tag">firestore</span><span class="rc-tag">auth</span><span class="rc-tag">fcm</span><span class="rc-tag">kotlin ktx</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/firebase-android/" target="_blank">→ Udemy · search "Firebase Android Kotlin Bootcamp"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Firebase YouTube Channel + Firestore Codelabs</div>
+        <div class="rc-by">youtube.com/@Firebase</div>
+        <div class="rc-desc">The official Firebase YouTube channel has "Get to Know Firebase" and "Firebase Fundamentals" series — short, focused videos on each product. The Firestore codelab (firebase.google.com/codelabs/firestore-android) is the best 2-hour hands-on introduction. Watch the Firebase Data Modelling videos — Firestore structure decisions are hard to undo.</div>
+        <div class="rc-tags"><span class="rc-tag">official channel</span><span class="rc-tag">data modelling</span><span class="rc-tag">codelabs</span></div>
+      </div>
+      <a class="rc-link" href="https://www.youtube.com/@Firebase" target="_blank">→ youtube.com/@Firebase · + firebase.google.com/codelabs</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Reference</span><span class="rc-price">free</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Firebase Documentation — firestore.google.com</div>
+        <div class="rc-by">firebase.google.com/docs</div>
+        <div class="rc-desc">Firebase's official docs are among the best-written technical docs anywhere. Read the Firestore Data Modelling guide carefully — decisions about subcollections vs nested arrays affect performance at scale. The Security Rules documentation is critical before you go live — default rules deny all access.</div>
+        <div class="rc-tags"><span class="rc-tag">data modelling</span><span class="rc-tag">security rules</span><span class="rc-tag">complete reference</span></div>
+      </div>
+      <a class="rc-link" href="https://firebase.google.com/docs/firestore/data-model" target="_blank">→ firebase.google.com/docs/firestore/data-model</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 12 KMP ═══ -->
+<div class="section" id="kmp">
+  <div class="sec-head">
+    <span class="sec-num">12</span>
+    <span class="sec-title" style="color:var(--kmp)">Kotlin Multiplatform — Shared Business Logic</span>
+    <span class="sec-badge" style="background:rgba(124,58,237,.12);color:var(--kmp)">Sem 7</span>
+  </div>
+  <div class="priority later">◉ Future-focused — learn in Semester 7</div>
+  <div class="sec-desc">KMP lets you share domain logic between Android and iOS. It's the fastest-growing Android-adjacent skill in 2025–2026. Companies building cross-platform are actively hiring for it.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500 on sale</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin Multiplatform Mobile for Android & iOS Developers</div>
+        <div class="rc-by">Philipp Lackner · Udemy</div>
+        <div class="rc-desc">Builds a shared KMP module with Ktor for networking, SQLDelight for shared database, and Compose Multiplatform for shared UI (optional). Covers the expect/actual mechanism, CommonMain structure, and how to consume the shared module from an Android app. The most practical KMP course available.</div>
+        <div class="rc-tags"><span class="rc-tag">ktor</span><span class="rc-tag">sqldelight</span><span class="rc-tag">expect/actual</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com/course/kotlin-multiplatform-mobile/" target="_blank">→ Udemy · "Kotlin Multiplatform Mobile Philipp Lackner"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Official Docs</span></div>
+      <div class="rc-body">
+        <div class="rc-name">KMP Getting Started Guide — JetBrains</div>
+        <div class="rc-by">kotlinlang.org/docs/multiplatform-mobile-getting-started.html</div>
+        <div class="rc-desc">JetBrains' official KMP tutorial is one of the best-structured getting-started guides in the Kotlin ecosystem. Takes you from zero to a working Android + iOS shared app. The "Create a multiplatform app" section is the right starting point. Also watch Touchlab's YouTube channel — they are the KMP community leaders.</div>
+        <div class="rc-tags"><span class="rc-tag">official</span><span class="rc-tag">touchlab</span><span class="rc-tag">step by step</span></div>
+      </div>
+      <a class="rc-link" href="https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html" target="_blank">→ kotlinlang.org/docs/multiplatform-mobile-getting-started</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹2,800</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Kotlin Multiplatform by Tutorials</div>
+        <div class="rc-by">Kodeco (raywenderlich)</div>
+        <div class="rc-desc">The only dedicated book on KMP — covers shared networking, shared database, expect/actual platform APIs, and Compose Multiplatform UI sharing. Each chapter builds a real shared feature. Good as a reference to dip into when you encounter a specific KMP problem rather than reading cover-to-cover.</div>
+        <div class="rc-tags"><span class="rc-tag">shared networking</span><span class="rc-tag">shared database</span><span class="rc-tag">compose multiplatform</span></div>
+      </div>
+      <a class="rc-link" href="https://www.kodeco.com/books/kotlin-multiplatform-by-tutorials" target="_blank">→ kodeco.com/books/kotlin-multiplatform-by-tutorials</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 13 DSA ═══ -->
+<div class="section" id="dsa">
+  <div class="sec-head">
+    <span class="sec-num">13</span>
+    <span class="sec-title" style="color:var(--dsa)">DSA — Data Structures & Algorithms</span>
+    <span class="sec-badge" style="background:rgba(239,68,68,.12);color:var(--dsa)">Daily · All Semesters</span>
+  </div>
+  <div class="priority must">★ The gate to every product company — no DSA = no offer</div>
+  <div class="sec-desc">Arrays, linked lists, trees, graphs, DP, heaps, tries — practice in Kotlin daily. 200+ LeetCode solved before Semester 7 applications. 250+ before Semester 8 simultaneous applications.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free (Premium Optional)</span><span class="rc-price">LeetCode Premium: ~₹1,600/mo</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Striver's A2Z DSA Course — TakeUForward</div>
+        <div class="rc-by">takeuforward.org/strivers-a2z-dsa-course · Raj Vikramaditya (Striver)</div>
+        <div class="rc-desc">The single best DSA curriculum for Indian students targeting product companies. Completely free. Structured in the exact right order — from arrays to DP to graphs. Every topic has a video explanation + LeetCode/GFG problem list. Most IIT/NIT engineers who cracked Flipkart, CRED, Razorpay used this. Your primary DSA curriculum.</div>
+        <div class="rc-tags"><span class="rc-tag">free</span><span class="rc-tag">perfect ordering</span><span class="rc-tag">indian product companies</span></div>
+      </div>
+      <a class="rc-link" href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/" target="_blank">→ takeuforward.org · Striver's A2Z Sheet</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube + Website</span></div>
+      <div class="rc-body">
+        <div class="rc-name">NeetCode.io + NeetCode YouTube</div>
+        <div class="rc-by">neetcode.io · youtube.com/@NeetCode</div>
+        <div class="rc-desc">NeetCode has Blind 75 and NeetCode 150 problem lists with a clean roadmap and video explanation for every single problem. When Striver's explanation doesn't click, NeetCode's usually does. Their system design videos are also excellent. Use as the secondary reference when you're stuck on a pattern.</div>
+        <div class="rc-tags"><span class="rc-tag">blind 75</span><span class="rc-tag">video per problem</span><span class="rc-tag">free</span></div>
+      </div>
+      <a class="rc-link" href="https://neetcode.io/roadmap" target="_blank">→ neetcode.io/roadmap</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book — Interview Bible</span><span class="rc-price">~₹2,800</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Cracking the Coding Interview, 6th Edition</div>
+        <div class="rc-by">Gayle Laakmann McDowell</div>
+        <div class="rc-desc">The most famous interview prep book. Don't use it as your primary DSA learning resource — it's an interview prep book, not a teaching book. Read it in Semester 7 before active interviews. The "Before the Interview" chapter, behavioral interview guidance, and the tips on communicating your thinking process are what make this book essential.</div>
+        <div class="rc-tags"><span class="rc-tag">interview prep</span><span class="rc-tag">behavioral chapter</span><span class="rc-tag">communication tips</span></div>
+      </div>
+      <a class="rc-link" href="https://www.amazon.in/Cracking-Coding-Interview-Programming-Questions/dp/0984782850" target="_blank">→ Amazon.in · "Cracking the Coding Interview 6th Edition"</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 14 SYSTEM DESIGN ═══ -->
+<div class="section" id="sysdes">
+  <div class="sec-head">
+    <span class="sec-num">14</span>
+    <span class="sec-title" style="color:var(--sysdes)">System Design — Mobile + Backend</span>
+    <span class="sec-badge" style="background:rgba(100,116,139,.12);color:var(--sysdes)">Sem 7</span>
+  </div>
+  <div class="priority good">✦ Required at mid-level and above</div>
+  <div class="sec-desc">Mobile system design (offline-first, caching, pagination, real-time) + basic backend system design. You'll face this from senior interviews onwards — usually from Semester 7 level applications.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹1,600/month</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Grokking the System Design Interview</div>
+        <div class="rc-by">Design Gurus · designgurus.io</div>
+        <div class="rc-desc">The most popular system design interview prep resource. Covers URL shortener, Instagram, WhatsApp, YouTube, Uber — each one walks through requirements → API design → data model → component design → trade-offs. The format directly mirrors real interviews. Start with the free tier to see if the style suits you.</div>
+        <div class="rc-tags"><span class="rc-tag">real interview format</span><span class="rc-tag">trade-offs</span><span class="rc-tag">common systems</span></div>
+      </div>
+      <a class="rc-link" href="https://www.designgurus.io/course/grokking-the-system-design-interview" target="_blank">→ designgurus.io · Grokking System Design</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — GitHub PDF + YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Mobile System Design by Alex Lementuev (GitHub)</div>
+        <div class="rc-by">github.com/weeeBox/mobile-system-design</div>
+        <div class="rc-desc">A completely free PDF/GitHub repo specifically for mobile system design interviews. Covers: feed systems, chat apps, image loading, offline-first patterns. This is mobile-specific which most system design resources ignore. Read this before your first system design round. Supplement with NeetCode's system design YouTube series for backend components.</div>
+        <div class="rc-tags"><span class="rc-tag">mobile-specific</span><span class="rc-tag">free</span><span class="rc-tag">offline-first</span></div>
+      </div>
+      <a class="rc-link" href="https://github.com/weeeBox/mobile-system-design" target="_blank">→ github.com/weeeBox/mobile-system-design</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹2,200</span></div>
+      <div class="rc-body">
+        <div class="rc-name">System Design Interview — An Insider's Guide, Vol. 1</div>
+        <div class="rc-by">Alex Xu</div>
+        <div class="rc-desc">The most widely recommended system design interview book. Clear, practical, and structured exactly like an interview. Each chapter is one system: URL shortener, web crawler, notification system, news feed, chat system. Read the chat system and notification system chapters carefully — they directly apply to your Chat App architecture thinking.</div>
+        <div class="rc-tags"><span class="rc-tag">notification system</span><span class="rc-tag">chat system</span><span class="rc-tag">news feed</span></div>
+      </div>
+      <a class="rc-link" href="https://www.amazon.in/System-Design-Interview-Insiders-Guide/dp/B08CMF2CQF" target="_blank">→ Amazon.in · "System Design Interview Alex Xu Volume 1"</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 15 CAREER ═══ -->
+<div class="section" id="career">
+  <div class="sec-head">
+    <span class="sec-num">15</span>
+    <span class="sec-title" style="color:var(--career)">Career — Resume, LinkedIn, Negotiation, Off-Campus</span>
+    <span class="sec-badge" style="background:rgba(14,165,233,.12);color:var(--career)">Sem 5–8</span>
+  </div>
+  <div class="priority good">✦ Skills pay double when you know how to present them</div>
+  <div class="sec-desc">Building skills is necessary but not sufficient. You also need a resume that passes ATS, a LinkedIn profile that gets recruiter messages, and the knowledge to negotiate your first offer upward by 20–30%.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Course</span><span class="rc-price">~₹500</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Break Into Tech — Complete Job Search Bootcamp</div>
+        <div class="rc-by">Udemy · multiple instructors</div>
+        <div class="rc-desc">Covers resume writing, LinkedIn optimisation, networking strategy, mock interviews, and negotiation. More practical for Indian market than US-focused courses. Search "tech job search bootcamp resume LinkedIn" on Udemy and filter by rating. Alternatively, the "Zero to Offer" course by various instructors is well-rated.</div>
+        <div class="rc-tags"><span class="rc-tag">resume</span><span class="rc-tag">linkedin</span><span class="rc-tag">negotiation</span></div>
+      </div>
+      <a class="rc-link" href="https://www.udemy.com" target="_blank">→ Udemy · search "tech job search resume LinkedIn negotiation"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — Articles + Tools</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Patrick McKenzie Salary Negotiation + Jobscan + Levels.fyi</div>
+        <div class="rc-by">patio11.com · jobscan.co · levels.fyi</div>
+        <div class="rc-desc">Three free tools that together cover career strategy: (1) Patrick McKenzie's "Salary Negotiation" essay at patio11.com — the best free writing on negotiation. (2) Jobscan.co — paste your resume + a JD to get an ATS compatibility score. (3) Levels.fyi — real salary data from employees at Indian product companies. Use all three from Semester 7.</div>
+        <div class="rc-tags"><span class="rc-tag">negotiation essay</span><span class="rc-tag">ATS checker</span><span class="rc-tag">salary data</span></div>
+      </div>
+      <a class="rc-link" href="https://www.kalzumeus.com/2012/01/23/salary-negotiation/" target="_blank">→ patio11.com · "Salary Negotiation" + jobscan.co + levels.fyi</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹600</span></div>
+      <div class="rc-body">
+        <div class="rc-name">The Tech Resume Inside Out</div>
+        <div class="rc-by">Gergely Orosz · The Pragmatic Engineer</div>
+        <div class="rc-desc">Written by a former Uber engineer who reviewed thousands of resumes. Explains exactly what makes a tech resume get shortlisted vs filtered. Covers: the one-page rule, quantifying impact, ATS optimisation, project descriptions, and the "recruiter 6-second scan." Very practical. Read once in Semester 5 and apply everything immediately.</div>
+        <div class="rc-tags"><span class="rc-tag">resume writing</span><span class="rc-tag">ATS</span><span class="rc-tag">by ex-Uber engineer</span></div>
+      </div>
+      <a class="rc-link" href="https://www.amazon.in/Tech-Resume-Inside-Out-Effective/dp/B08R3PJZNH" target="_blank">→ Amazon.in · "The Tech Resume Inside Out Gergely Orosz"</a>
+    </div>
+  </div>
+  <!-- bonus: Jake's resume template -->
+  <div class="sec-desc" style="margin-top:12px">Free resume template: <strong>Jake's Resume</strong> — overleaf.com/latex/templates/jakes-resume. ATS-friendly LaTeX template used by thousands of students who cracked Google, Microsoft, Amazon. Fill in your projects with the "[Action verb] + [what] + [metric]" formula.</div>
+</div>
+
+<!-- ═══ 16 FITNESS ═══ -->
+<div class="section" id="fitness">
+  <div class="sec-head">
+    <span class="sec-num">16</span>
+    <span class="sec-title" style="color:var(--fitness)">Fitness & Bulking — Gaining Strength at 47kg</span>
+    <span class="sec-badge" style="background:rgba(34,197,94,.12);color:var(--fitness)">Daily</span>
+  </div>
+  <div class="priority must">★ Non-negotiable — your body is infrastructure too</div>
+  <div class="sec-desc">You're bulking from 47kg with dumbbell + chair workouts and a homemade diet. The principles are: progressive overload, sufficient protein, enough sleep, and consistency over intensity. These resources are the best for exactly your situation.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid Program</span><span class="rc-price">~₹2,500 one-time</span></div>
+      <div class="rc-body">
+        <div class="rc-name">RP Hypertrophy App — Renaissance Periodization</div>
+        <div class="rc-by">rpstrength.com · Dr. Mike Israetel</div>
+        <div class="rc-desc">Created by exercise science PhDs. Auto-regulates your training volume based on performance each session. The most evidence-based approach to hypertrophy (muscle building) that exists. Even if you use your current plan, the RP YouTube channel (free) explains the science behind what makes muscles grow. Worth understanding even if you don't buy the app.</div>
+        <div class="rc-tags"><span class="rc-tag">evidence-based</span><span class="rc-tag">hypertrophy</span><span class="rc-tag">progressive overload</span></div>
+      </div>
+      <a class="rc-link" href="https://rpstrength.com/products/hypertrophy-app" target="_blank">→ rpstrength.com · RP Hypertrophy App</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Jeff Nippard Science-Based Training</div>
+        <div class="rc-by">youtube.com/@JeffNippard</div>
+        <div class="rc-desc">Jeff Nippard covers evidence-based fitness — how to actually build muscle, what rep ranges work, how much protein you need, how to eat for bulking on a budget. His "How to Bulk" and "Skinny Guy's Guide to Building Muscle" videos are exactly what you need. The protein series is essential for your Sattu + egg-based diet planning.</div>
+        <div class="rc-tags"><span class="rc-tag">evidence-based</span><span class="rc-tag">budget bulking</span><span class="rc-tag">skinny guy guide</span></div>
+      </div>
+      <a class="rc-link" href="https://www.youtube.com/@JeffNippard" target="_blank">→ youtube.com/@JeffNippard</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book</span><span class="rc-price">~₹1,800</span></div>
+      <div class="rc-body">
+        <div class="rc-name">The Renaissance Diet 2.0</div>
+        <div class="rc-by">Dr. Mike Israetel, Dr. Melissa Davis · Renaissance Periodization</div>
+        <div class="rc-desc">The most evidence-based nutrition book for muscle building. Explains: caloric surplus for bulking, protein requirements (1.6–2.2g per kg bodyweight — meaning you need 75–100g/day at your current weight), meal timing, and how to structure a bulk/cut cycle. Practical tables you can apply to your Sattu + egg + rice diet directly.</div>
+        <div class="rc-tags"><span class="rc-tag">protein targets</span><span class="rc-tag">bulk surplus</span><span class="rc-tag">meal timing</span></div>
+      </div>
+      <a class="rc-link" href="https://www.amazon.in/Renaissance-Diet-2-0-Scientific-Nutrition/dp/B08HHMF7MW" target="_blank">→ Amazon.in · "The Renaissance Diet 2.0"</a>
+    </div>
+  </div>
+  <div class="sec-desc" style="margin-top:12px">Free Indian-specific resource: <strong>Dr. Nikhil Patil on YouTube</strong> — covers natural bulking on an Indian vegetarian/egg-based diet. His protein series is directly applicable to your Sattu + egg + milk diet. Search "Dr Nikhil Patil bulking protein" on YouTube.</div>
+</div>
+
+<!-- ═══ 17 VIOLIN ═══ -->
+<div class="section" id="violin">
+  <div class="sec-head">
+    <span class="sec-num">17</span>
+    <span class="sec-title" style="color:var(--violin)">Violin — Indian Carnatic + Western Technique</span>
+    <span class="sec-badge" style="background:rgba(232,121,249,.12);color:var(--violin)">Daily · Evening</span>
+  </div>
+  <div class="priority good">✦ Your creative outlet — protect it, don't optimise it away</div>
+  <div class="sec-desc">You're working on Sarali Varisai, Alankars, and blending Indian and Western playing positions. You have a daily morning Raga block and an evening cool-down session. These resources support exactly that path.</div>
+  <div class="res-grid">
+    <div class="rc paid">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Paid — Online Lessons</span><span class="rc-price">₹500–₹1,500/hr</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Indian Classical Violin Lessons — Superprof / Sulekha</div>
+        <div class="rc-by">superprof.co.in · sulekha.com</div>
+        <div class="rc-desc">For Carnatic violin specifically, an in-person or online teacher is worth more than any course. Search Superprof.co.in or Sulekha.com for Carnatic violin teachers in Kolkata (or online). Even 2 sessions per month with a guru who can correct your bowing position and Sarali Varisai execution will accelerate your progress faster than any YouTube video.</div>
+        <div class="rc-tags"><span class="rc-tag">carnatic violin</span><span class="rc-tag">guru-led</span><span class="rc-tag">sarali varisai</span></div>
+      </div>
+      <a class="rc-link" href="https://www.superprof.co.in/s/violin+kolkata" target="_blank">→ superprof.co.in · search "violin Kolkata" or "violin online"</a>
+    </div>
+    <div class="rc free">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Free — YouTube</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Carnatic Violin with Lalgudi Jayaraman Academy + TwoSetViolin</div>
+        <div class="rc-by">YouTube: search "Carnatic violin tutorial" + youtube.com/@TwoSetViolin</div>
+        <div class="rc-desc">For Carnatic technique: search "Sarali Varisai violin tutorial" and "Alankar violin Carnatic" on YouTube — several academy channels have excellent free structured lessons. For the Western bowing position and music theory that blends with your approach: TwoSetViolin is the most entertaining and educational violin channel on YouTube with millions of subscribers.</div>
+        <div class="rc-tags"><span class="rc-tag">carnatic</span><span class="rc-tag">sarali varisai</span><span class="rc-tag">western bowing</span></div>
+      </div>
+      <a class="rc-link" href="https://www.youtube.com/@TwoSetViolin" target="_blank">→ YouTube: "Carnatic violin tutorial" + youtube.com/@TwoSetViolin</a>
+    </div>
+    <div class="rc book">
+      <div class="rc-type"><span class="rc-type-dot"></span><span class="rc-type-lbl">Book / Method</span><span class="rc-price">~₹800</span></div>
+      <div class="rc-body">
+        <div class="rc-name">Suzuki Violin Method — Books 1 & 2</div>
+        <div class="rc-by">Shinichi Suzuki · Suzuki Association</div>
+        <div class="rc-desc">The most widely used Western violin teaching method in the world. Even if your primary focus is Carnatic, the Suzuki method's attention to tone production, bowing technique, and long-tone exercises directly improves your sound quality regardless of style. The "long bowing" in your daily routine is a Suzuki core exercise. Books 1 and 2 are enough for the next 2 years.</div>
+        <div class="rc-tags"><span class="rc-tag">bowing technique</span><span class="rc-tag">long tones</span><span class="rc-tag">tone production</span></div>
+      </div>
+      <a class="rc-link" href="https://www.amazon.in/Suzuki-Violin-School-Vol-Book/dp/0874872626" target="_blank">→ Amazon.in · "Suzuki Violin School Vol 1"</a>
+    </div>
+  </div>
+  <div class="sec-desc" style="margin-top:12px">Free daily tool: <strong>iReal Pro app (₹1,500 one-time)</strong> — generates backing tracks for any Raga or Western scale. Practice your morning Raga session with an actual accompaniment track instead of silence. Changes the feel of practice completely. Also: <strong>Intonation app</strong> (free) — records your playing and shows pitch accuracy in real time.</div>
+</div>
+
+<!-- FINAL NOTE -->
+<div style="margin-top:48px;padding:28px 32px;background:var(--card2);border:1px solid var(--border);border-left:3px solid var(--kotlin);">
+  <div style="font-family:'Fira Code',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--kotlin);margin-bottom:10px">// One Rule Above All</div>
+  <div style="font-family:'Lora',serif;font-size:15px;line-height:1.7;color:var(--mid)">Resources are inputs. Projects are outputs. You cannot learn Kotlin by reading about Kotlin. You learn it by writing 5,000 lines of Kotlin. Every resource above is worthless unless you close it and build something. The Striver's sheet, the JetBrains coroutines book, the Patrick McKenzie essay — they exist to serve your work, not replace it. Use one resource per topic, start building, and return to reference material when you hit a real problem. That is the only way this compounds into a ₹15–30 LPA Android Developer offer at a product company.</div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+</body>
+</html>

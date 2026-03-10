@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week-by-Week Android Developer Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@400;600;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c14;
+  --surface: #121220;
+  --card: #171726;
+  --border: #222238;
+  --border2: #2a2a48;
+  --text: #e4e4f4;
+  --muted: #5a5a80;
+  --mid: #8888aa;
+
+  --android: #3ddc84;
+  --android-bg: rgba(61,220,132,0.08);
+  --android-border: rgba(61,220,132,0.2);
+
+  --dsa: #60a5fa;
+  --dsa-bg: rgba(96,165,250,0.08);
+  --dsa-border: rgba(96,165,250,0.2);
+
+  --career: #fb923c;
+  --career-bg: rgba(251,146,60,0.08);
+  --career-border: rgba(251,146,60,0.2);
+
+  --weekend: #c084fc;
+  --weekend-bg: rgba(192,132,252,0.08);
+  --weekend-border: rgba(192,132,252,0.2);
+
+  --milestone: #fbbf24;
+  --milestone-bg: rgba(251,191,36,0.08);
+  --milestone-border: rgba(251,191,36,0.3);
+
+  /* Semester colors */
+  --s34: #3ddc84;
+  --s5: #60a5fa;
+  --s6: #fb923c;
+  --s7: #c084fc;
+  --s8: #f87171;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo .logo-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--android);
+  line-height: 1.3;
+}
+
+.sidebar-logo .logo-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.sidebar-nav { padding: 12px 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 18px 4px;
+}
+
+.nav-sem {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 8px;
+}
+
+.nav-sem-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border: none;
+  background: none;
+  color: var(--mid);
+  text-align: left;
+  width: 100%;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.nav-sem-btn:hover { background: var(--card); color: var(--text); }
+.nav-sem-btn.active { background: var(--card); color: var(--text); }
+
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid;
+}
+
+.nav-sem-btn.active .nav-dot { border-color: transparent; }
+
+.week-links {
+  display: none;
+  flex-direction: column;
+  padding: 0 0 4px 36px;
+}
+
+.nav-sem-btn.active + .week-links { display: flex; }
+
+.week-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  padding: 4px 8px;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.week-link:hover { color: var(--text); }
+
+/* LEGEND */
+.legend {
+  padding: 14px 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.legend-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* MAIN CONTENT */
+.main {
+  margin-left: 220px;
+  flex: 1;
+  min-height: 100vh;
+}
+
+/* SEMESTER PANELS */
+.sem-panel { display: none; }
+.sem-panel.active { display: block; }
+
+/* SEM HERO */
+.sem-hero {
+  padding: 40px 40px 32px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.sem-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sem-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.sem-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.sem-desc {
+  font-size: 14px;
+  color: var(--mid);
+  max-width: 600px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.sem-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.sem-stat { }
+.sem-stat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sem-stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* WEEKS CONTAINER */
+.weeks-container {
+  padding: 32px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* WEEK CARD */
+.week-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.week-card:hover { border-color: var(--border2); }
+
+.week-card.milestone-week {
+  border-color: var(--milestone-border);
+  background: linear-gradient(135deg, var(--card) 0%, rgba(251,191,36,0.03) 100%);
+}
+
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.week-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  letter-spacing: 1px;
+}
+
+.week-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.week-tags {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.week-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+.milestone-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  background: var(--milestone-bg);
+  color: var(--milestone);
+  border: 1px solid var(--milestone-border);
+  padding: 3px 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.week-toggle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--muted);
+  transition: transform 0.25s;
+  flex-shrink: 0;
+}
+
+.week-card.open .week-toggle { transform: rotate(180deg); }
+
+/* WEEK BODY */
+.week-body {
+  display: none;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.week-card:not(.open) .week-body { display: none; }
+.week-card.open .week-body { display: grid; }
+
+.task-block {
+  border-radius: 4px;
+  border: 1px solid;
+  padding: 14px 16px;
+}
+
+.task-block.full-width { grid-column: 1 / -1; }
+
+.task-block-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-block-label::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-list li {
+  font-size: 12px;
+  color: var(--mid);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.task-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.task-list li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Android block */
+.tb-android { background: var(--android-bg); border-color: var(--android-border); }
+.tb-android .task-block-label { color: var(--android); }
+.tb-android .task-block-label::before { background: var(--android); }
+
+/* DSA block */
+.tb-dsa { background: var(--dsa-bg); border-color: var(--dsa-border); }
+.tb-dsa .task-block-label { color: var(--dsa); }
+.tb-dsa .task-block-label::before { background: var(--dsa); }
+
+/* Career block */
+.tb-career { background: var(--career-bg); border-color: var(--career-border); }
+.tb-career .task-block-label { color: var(--career); }
+.tb-career .task-block-label::before { background: var(--career); }
+
+/* Weekend block */
+.tb-weekend { background: var(--weekend-bg); border-color: var(--weekend-border); }
+.tb-weekend .task-block-label { color: var(--weekend); }
+.tb-weekend .task-block-label::before { background: var(--weekend); }
+
+/* Milestone block */
+.tb-milestone { background: var(--milestone-bg); border-color: var(--milestone-border); grid-column: 1 / -1; }
+.tb-milestone .task-block-label { color: var(--milestone); }
+.tb-milestone .task-block-label::before { background: var(--milestone); }
+
+/* SECTION DIVIDERS */
+.section-break {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.section-break-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.section-break-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* DAILY RHYTHM BOX */
+.daily-rhythm {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 32px 40px 0;
+}
+
+.dr-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.dr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.dr-slot {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+}
+
+.dr-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.dr-activity { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.dr-detail { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .week-body { grid-template-columns: 1fr; }
+  .weeks-container { padding: 20px 16px 40px; }
+  .sem-hero { padding: 24px 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-title">ANDROID DEV<br>WEEKLY PLAN</div>
+    <div class="logo-sub">BPPIMT → HIGH SALARY</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Semesters</div>
+
+    <div class="nav-sem">
+      <button class="nav-sem-btn active" onclick="showSem('s34', this)" style="--c:var(--s34)">
+        <span class="nav-dot" style="border-color:var(--s34)"></span>
+        Sem 3–4 · Foundation
+      </button>
+      <div class="week-links" id="wl-s34"></div>
+    </div>
+
+    <div class="nav-sem">
+      <button class="nav-sem-btn" onclick="showSem('s5', this)" style="--c:var(--s5)">
+        <span class="nav-dot" style="border-color:var(--s5)"></span>
+        Sem 5 · Build
+      </button>
+      <div class="week-links" id="wl-s5"></div>
+    </div>
+
+    <div class="nav-sem">
+      <button class="nav-sem-btn" onclick="showSem('s6', this)" style="--c:var(--s6)">
+        <span class="nav-dot" style="border-color:var(--s6)"></span>
+        Sem 6 · Internship
+      </button>
+      <div class="week-links" id="wl-s6"></div>
+    </div>
+
+    <div class="nav-sem">
+      <button class="nav-sem-btn" onclick="showSem('s7', this)" style="--c:var(--s7)">
+        <span class="nav-dot" style="border-color:var(--s7)"></span>
+        Sem 7 · Interview Ready
+      </button>
+      <div class="week-links" id="wl-s7"></div>
+    </div>
+
+    <div class="nav-sem">
+      <button class="nav-sem-btn" onclick="showSem('s8', this)" style="--c:var(--s8)">
+        <span class="nav-dot" style="border-color:var(--s8)"></span>
+        Sem 8 · Placement
+      </button>
+      <div class="week-links" id="wl-s8"></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px">Legend</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--android)"></span>Android / Technical</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--dsa)"></span>DSA / Algorithms</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--career)"></span>Career / Profile</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--weekend)"></span>Weekend Project</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--milestone)"></span>Milestone</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="mainContent"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const semesters = [
+  {
+    id: 's34',
+    color: '#3ddc84',
+    eyebrow: 'Semester 3–4',
+    title: 'Foundation',
+    subtitle: 'Zero to first working Android apps',
+    desc: 'This is where everything begins. Kotlin mastery, Android fundamentals, Jetpack Compose, Coroutines, Room. You are building the base that everything else sits on. Don\'t rush. Do NOT skip weeks here.',
+    stats: [
+      { num: '32', label: 'Weeks' },
+      { num: '2hrs/day', label: 'DSA daily' },
+      { num: '3hrs/day', label: 'Android daily' },
+      { num: '2', label: 'Full projects' }
+    ],
+    weeks: [
+      {
+        num: 'W01', title: 'Setup + Kotlin Fundamentals Begin',
+        android: ['Install Android Studio, configure AVD emulator', 'Understand project structure: manifests, Gradle, res/, src/', 'Learn val vs var, data types, string templates, type inference'],
+        dsa: ['Learn Big-O notation — O(n), O(n²), O(log n), O(1). Watch NeetCode Big-O video', 'Solve 5 LeetCode Easy: Two Sum (#1), Contains Duplicate (#217), Best Time to Buy/Sell Stock (#121)'],
+        career: ['Create GitHub account with professional username', 'Create LinkedIn account — add real photo, BPPIMT education, CSE degree'],
+        weekend: ['Complete Kotlin Koans: Introduction section (kotlinlang.org/koans). All exercises pass green.']
+      },
+      {
+        num: 'W02', title: 'Kotlin: Functions, Control Flow, Null Safety',
+        android: ['Functions: parameters, return types, default/named args, single-expression functions', 'Control flow: if/else, when (exhaustive), for, while, do-while', 'Null safety: ?, ?., ?:, !!, let with null checks — understand every operator'],
+        dsa: ['Arrays: solve 8 Easy problems — Maximum Subarray (#53), Move Zeroes (#283), Plus One (#66), Single Number (#136), Missing Number (#268)'],
+        career: ['Create first GitHub repo "kotlin-practice". Push every exercise. Commit daily — no blank days.'],
+        weekend: ['Build Kotlin CLI Calculator: +, -, *, /, history of last 5 calculations. No Android yet — pure .kt files.']
+      },
+      {
+        num: 'W03', title: 'Kotlin OOP: Classes, Inheritance, Interfaces',
+        android: ['Classes, primary/secondary constructors, init block, properties vs fields', 'Inheritance with open/override, abstract classes, interfaces with default implementations', 'Data classes (copy, equals, hashCode, toString auto-generated), object keyword'],
+        dsa: ['Two Pointers: Valid Palindrome (#125), Two Sum II (#167), 3Sum (#15), Container With Most Water (#11)'],
+        career: ['Learn Git properly: branches, merge, rebase, pull requests. Practice on your kotlin-practice repo.'],
+        weekend: ['Extend Calculator: add history class, operation class hierarchy using OOP. Refactor with proper encapsulation.']
+      },
+      {
+        num: 'W04', title: 'Kotlin: Sealed Classes, Enums, Companion Objects',
+        android: ['Sealed classes: model states (Success/Loading/Error pattern — use this EVERYWHERE)', 'Enums with properties and functions, when exhaustiveness on sealed/enum', 'Companion objects, object declarations (singletons)'],
+        dsa: ['Strings: Valid Anagram (#242), Group Anagrams (#49), Longest Common Prefix (#14), Reverse String (#344)'],
+        career: ['Follow 20 Android developers on LinkedIn: Philipp Lackner, Manuel Vivo, Leland Richardson, Nick Butcher', 'Subscribe to Android Weekly newsletter (androidweekly.net)'],
+        weekend: ['Build CLI Contact Book: add, list, search, edit, delete contacts. Use sealed class for operation results. OOP throughout.']
+      },
+      {
+        num: 'W05', title: 'Kotlin: Lambdas, Higher-Order Functions',
+        android: ['Lambda syntax, function types: (Int) -> String, () -> Unit', 'Higher-order functions: passing lambdas, returning functions, inline functions', 'Common HOFs: map, filter, reduce, forEach, any, all, none, first, find'],
+        dsa: ['Strings continued: Longest Substring Without Repeating Characters (#3), Valid Parentheses (#20), Longest Palindromic Substring (#5)'],
+        career: ['Write a README for your Contact Book project: description, how to run, features list. Push to GitHub.'],
+        weekend: ['Refactor Contact Book: use lambdas for filtering/sorting. Add "sort by name", "filter by first letter" using HOFs.']
+      },
+      {
+        num: 'W06', title: 'Kotlin: Collections, Scope Functions',
+        android: ['Collections: List, MutableList, Set, Map — creation, operations, immutability', 'Collection ops: map, filter, flatMap, groupBy, sortedBy, zip, chunked, windowed', 'Scope functions: let, run, apply, also, with — when to use each one'],
+        dsa: ['Hashing: Two Sum with HashMap (#1 again, O(n)), Longest Consecutive Sequence (#128), Ransom Note (#383)'],
+        career: ['Research 10 companies you want to work at: note their tech stack, Android team size, Glassdoor salary', 'Start "Today I Learned" file in Notion/Obsidian — write 2-3 lines every day you code'],
+        weekend: ['Kotlin Koans: complete Collections section. Then rewrite Contact Book using only functional operators — no loops.']
+      },
+      {
+        num: 'W07', title: 'Kotlin: Generics, Extension Functions, Delegation',
+        android: ['Generics: <T>, type bounds <T: Comparable<T>>, covariance (out), contravariance (in)', 'Extension functions and properties — extending existing classes without inheritance', 'Lazy delegation, by Delegates.observable, custom delegates'],
+        dsa: ['Sliding Window: Maximum Average Subarray (#643), Minimum Window Substring (#76), Longest Substring with At Most K Distinct'],
+        career: ['Start draft of first LinkedIn post: "I am learning Android development — here is what week 7 looks like"'],
+        weekend: ['Build: Kotlin generic Stack and Queue data structures. Build extension functions for String manipulation.']
+      },
+      {
+        num: 'W08', title: 'Kotlin Deep Review + Android Studio Mastery',
+        android: ['Review ALL Kotlin from weeks 1–7. Write code from memory — no looking at notes', 'Android Studio: shortcuts, refactoring tools, Git integration, Logcat, Run/Debug configurations', 'Understand Android Manifest: <activity>, <uses-permission>, <intent-filter>'],
+        dsa: ['Sliding Window continued: Permutation in String (#567), Find All Anagrams (#438), Fruit into Baskets'],
+        career: ['Publish first LinkedIn post about your learning journey. Tag #kotlin #androiddev #100daysofcode', 'GitHub audit: every repo should have a README. Fix any missing ones.'],
+        weekend: ['Kotlin challenge: write 5 programs from scratch without IDE autocomplete hints. Time yourself. This tests real retention.'],
+        milestone: true,
+        milestoneText: 'Checkpoint: Can you write a Kotlin OOP program from scratch in <30 minutes without looking at notes? Can you explain null safety in plain English? If yes — you\'re ready for Android UI.'
+      },
+      {
+        num: 'W09', title: 'Android Activity + Lifecycle',
+        android: ['Activity lifecycle: onCreate, onStart, onResume, onPause, onStop, onDestroy — log each one', 'Configuration changes (rotation): onSaveInstanceState, savedInstanceState bundle', 'Back stack basics, finish(), intent flags'],
+        dsa: ['Stack: Valid Parentheses (#20), Min Stack (#155), Daily Temperatures (#739), Evaluate Reverse Polish (#150)'],
+        career: ['Publish first LinkedIn post now if not done. Even 5 likes = 5 people know you exist.'],
+        weekend: ['Build: Single screen "tap counter" app that survives rotation. Test by rotating the device.']
+      },
+      {
+        num: 'W10', title: 'Intents + Multi-Screen Apps',
+        android: ['Explicit intents (start specific Activity), implicit intents (open camera, share, call)', 'Fragment basics: fragment lifecycle, add/replace transactions, back stack, fragment manager', 'Passing data: putExtra, Bundle, serializable/parcelable'],
+        dsa: ['Queue/Deque: Sliding Window Maximum (#239), Design Circular Queue (#622), Number of Recent Calls'],
+        career: ['Join r/androiddev subreddit. Read top posts of the week. Note recurring questions.', 'Join Android Developers Discord server'],
+        weekend: ['Build: 2-screen app — list of 10 movies → click any → open detail screen using Intents. Static data is fine.']
+      },
+      {
+        num: 'W11', title: 'XML Layouts: ConstraintLayout + RecyclerView',
+        android: ['ConstraintLayout: chains, guidelines, barriers, percentage sizing, aspect ratios', 'RecyclerView: Adapter, ViewHolder pattern, DiffUtil for efficient updates', 'ViewBinding setup — never use findViewById again'],
+        dsa: ['Linked List: Reverse Linked List (#206), Merge Two Sorted Lists (#21), Linked List Cycle (#141), Find Middle (#876)'],
+        career: ['Set up Android Weekly newsletter reading habit: every Saturday, read the new issue start to finish'],
+        weekend: ['Build: Contacts list app with RecyclerView + ViewBinding. Add, click to view details. XML layouts.']
+      },
+      {
+        num: 'W12', title: 'XML Layouts Advanced + Material Design',
+        android: ['Material Design Components: MaterialButton, TextInputLayout, CardView, BottomNavigationView', 'Themes, styles, attrs in XML. Light/Dark theme basics.', 'MotionLayout intro: simple transition animation'],
+        dsa: ['Linked List: Remove Nth from End (#19), Add Two Numbers (#2), LRU Cache (#146) — study this one well'],
+        career: ['Post on LinkedIn: share a screenshot of your contacts list app UI. Caption: "Week 12 — built RecyclerView from scratch"'],
+        weekend: ['Polish the contacts app: add Material Design, custom dividers, empty state, FAB button to add contacts.']
+      },
+      {
+        num: 'W13', title: 'Jetpack Compose: Basics',
+        android: ['Composable functions, recomposition trigger understanding (what causes recompose?)', 'Basic composables: Text, Button, Image, Icon, Spacer, Divider', 'Layout composables: Column, Row, Box, alignment, arrangement, padding modifier'],
+        dsa: ['Binary Search: classic (#704), Search in Rotated Sorted Array (#33), Find Minimum in Rotated (#153)'],
+        career: ['Follow #jetpackcompose hashtag on LinkedIn. Save 5 good Compose articles to read later.'],
+        weekend: ['Rebuild your contacts list UI in Compose (no XML). Get it looking identical to the XML version.']
+      },
+      {
+        num: 'W14', title: 'Compose: State, Remember, State Hoisting',
+        android: ['remember{}, mutableStateOf(), State<T> type', 'State hoisting: lift state up to make composables reusable/testable', 'Stateful vs stateless composables. Why stateless is preferred.'],
+        dsa: ['Binary Search: Koko Eating Bananas (#875), Capacity to Ship (#1011), Find Peak Element (#162)'],
+        career: ['Connect with 5 developers from r/androiddev or Android Discord on LinkedIn'],
+        weekend: ['Build: interactive shopping cart in Compose. Add item → total updates. Remove item → total updates. Pure Compose state.']
+      },
+      {
+        num: 'W15', title: 'Compose: LazyColumn + Navigation',
+        android: ['LazyColumn, LazyRow, LazyVerticalGrid, item vs items vs itemsIndexed', 'Navigation Component in Compose: NavController, NavHost, composable routes', 'Passing arguments between screens, navigateUp(), popBackStack()'],
+        dsa: ['Recursion: Fibonacci (memoized), Power function, implement Merge Sort, implement Quick Sort'],
+        career: ['Create dev.to or Medium account. Write a draft "What I learned building my first Compose app" — don\'t publish yet'],
+        weekend: ['Build: Multi-screen Notes app in Compose. Home (list) → Create → Detail → Edit. Navigation working end-to-end.']
+      },
+      {
+        num: 'W16', title: 'Sem 3 Capstone: To-Do App',
+        android: ['Build complete To-Do App: Compose UI + Navigation + in-memory data (no DB yet)', 'Features: add task, complete task, delete task, filter (all/active/completed)', 'Polish: empty state, animations on delete (AnimatedVisibility), Material3 theme'],
+        dsa: ['Solve 10 mixed Easy/Medium problems — pick any 10 from previous topics you felt weak on'],
+        career: ['Push To-Do App to GitHub with full README: screenshots, feature list, tech stack', 'Update LinkedIn: add "Jetpack Compose" and "Kotlin" as skills'],
+        weekend: ['Record a 2-minute screen recording of your To-Do App. Post on LinkedIn. Caption: "Semester 3 complete — first Android app built from scratch"'],
+        milestone: true,
+        milestoneText: 'Milestone: To-Do App is LIVE on GitHub. You built a real multi-screen Android app with Compose and Navigation. Semester 3 = done. Rest for 2 days before Semester 4.'
+      },
+      {
+        num: 'W17', title: 'Room Database: Full CRUD',
+        android: ['Room setup: @Entity, @Dao, @Database, @PrimaryKey, @ColumnInfo', 'Dao: @Insert, @Update, @Delete, @Query — writing SQL queries in Room', 'Return types: suspend fun for single ops, Flow<List<T>> for reactive queries'],
+        dsa: ['Trees: Inorder/Preorder/Postorder traversal (#94, #144, #145), Max Depth (#104), Diameter (#543)'],
+        career: ['Set up Internshala account. Set up LinkedIn Jobs alerts for "Android Developer Intern" in India'],
+        weekend: ['Upgrade To-Do App: replace in-memory list with Room database. Tasks persist after app kill.']
+      },
+      {
+        num: 'W18', title: 'DataStore + SharedPreferences Migration',
+        android: ['Preferences DataStore: DataStore<Preferences>, PreferencesKeys, edit{}, data flow', 'Why DataStore over SharedPreferences (async, no ANR risk, coroutine-native)', 'Proto DataStore intro'],
+        dsa: ['Trees: Level Order Traversal (#102), Symmetric Tree (#101), Invert Binary Tree (#226), Path Sum (#112)'],
+        career: ['Publish first article on dev.to: "How I built my first Android app — a beginner\'s honest experience." 300+ words.'],
+        weekend: ['Add Settings screen to To-Do App: dark mode toggle, sort order preference — stored in DataStore.']
+      },
+      {
+        num: 'W19', title: 'Coroutines: Basics',
+        android: ['What is a coroutine? Concurrency vs parallelism. Why coroutines over threads.', 'launch{}, async{}/await(), runBlocking{} (tests only), suspend keyword', 'viewModelScope.launch{} pattern — the one you\'ll use every day'],
+        dsa: ['Trees: Validate BST (#98), Kth Smallest in BST (#230), Lowest Common Ancestor BST (#235)'],
+        career: ['Apply to 5 internships on Internshala — don\'t overthink it, just apply. Practice the application process.'],
+        weekend: ['Convert all Room DB operations in To-Do App to use coroutines properly. No blocking the main thread.']
+      },
+      {
+        num: 'W20', title: 'Coroutines: Dispatchers + Exception Handling',
+        android: ['Dispatchers: IO (network/db), Main (UI), Default (CPU), Unconfined', 'withContext{} to switch dispatcher within a coroutine', 'try-catch in coroutines, CoroutineExceptionHandler, supervisorScope vs coroutineScope'],
+        dsa: ['Graphs: BFS and DFS implementation on adjacency list. Number of Islands (#200), Flood Fill (#733)'],
+        career: ['Find GDG Kolkata on LinkedIn/Meetup.com. Follow them. Register for next event (or online session).'],
+        weekend: ['Build coroutine lab: experiment — launch 5 coroutines with delays, observe execution. Test exception propagation.']
+      },
+      {
+        num: 'W21', title: 'Flow: Cold Streams, Collect, StateFlow',
+        android: ['Cold Flow: flow{} builder, emit(), collect{} — what "cold" means', 'StateFlow: hot stream, value property, MutableStateFlow, read-only StateFlow exposure from ViewModel', 'collectAsState() in Compose to connect Flow to UI'],
+        dsa: ['Graphs: Clone Graph (#133), Course Schedule (#207), Pacific Atlantic Water Flow (#417)'],
+        career: ['Update LinkedIn "About" section: mention Coroutines, Flow, Room — show you know modern Android'],
+        weekend: ['Upgrade To-Do App ViewModel: use MutableStateFlow<List<Todo>> instead of direct callbacks. UI reacts to state.']
+      },
+      {
+        num: 'W22', title: 'Flow: Operators + SharedFlow',
+        android: ['Flow operators: map, filter, transform, combine, flatMapLatest, zip, onEach', 'debounce + distinctUntilChanged (search use case), buffer, conflate', 'SharedFlow: multiple collectors, replay, tryEmit vs emit'],
+        dsa: ['Graphs: Number of Connected Components (#323), Redundant Connection (#684)'],
+        career: ['Send 3 genuine cold LinkedIn DMs to Android developers at companies you want to intern at. Be specific and short.'],
+        weekend: ['Add search to To-Do App: search bar with debounce(300ms) using Flow. Results update as you type, not on every keystroke.']
+      },
+      {
+        num: 'W23', title: 'ViewModel: Full Pattern',
+        android: ['ViewModel class: survives rotation, tied to lifecycle, never holds View references', 'ViewModelProvider, by viewModels() delegate, by activityViewModels() for shared VM', 'Full MVVM preview: Compose ↔ ViewModel ↔ Repository (build this instinct now)'],
+        dsa: ['DP: Climbing Stairs (#70), House Robber (#198), Coin Change (#322), Combination Sum IV (#377)'],
+        career: ['Research Google Summer of Code 2025/2026. Find Android-related orgs. Note application timeline (Jan–March).'],
+        weekend: ['Fully refactor To-Do App: ViewModel holds all state and logic. Composables are pure UI — no logic inside them.']
+      },
+      {
+        num: 'W24', title: 'Material Design 3 + Theming',
+        android: ['MaterialTheme in Compose: colorScheme, typography, shapes customization', 'Dynamic Color (Material You): DynamicColorScheme, wallpaper-based theming', 'Dark/light theme toggle, custom typography with Google Fonts'],
+        dsa: ['DP: Longest Common Subsequence (#1143), 0/1 Knapsack, Unique Paths (#62), Jump Game (#55)'],
+        career: ['Polish To-Do App UI: add custom Material3 theme, proper typography, smooth colors. Take portfolio screenshots.'],
+        weekend: ['Give To-Do App a full design makeover using Material Design 3. It should look like a real published app.']
+      },
+      {
+        num: 'W25', title: 'Notifications + WorkManager',
+        android: ['NotificationManager, NotificationChannel (required API 26+), PendingIntent', 'WorkManager: OneTimeWorkRequest, PeriodicWorkRequest, Constraints (network, charging)', 'Work status observation, chaining work requests'],
+        dsa: ['Greedy: Jump Game II (#45), Merge Intervals (#56), Non-overlapping Intervals (#435), Meeting Rooms'],
+        career: ['Create portfolio website on GitHub Pages (yourname.github.io). Add To-Do App as project #1. Keep it simple.'],
+        weekend: ['Add to To-Do App: WorkManager sends daily reminder notification at user-set time. Even if app is closed.']
+      },
+      {
+        num: 'W26', title: 'Runtime Permissions + Camera',
+        android: ['Runtime permissions: ActivityResultContracts.RequestPermission, checkSelfPermission', 'Camera intent (ActivityResultContracts.TakePicture), gallery picker', 'MediaStore basics, FileProvider for sharing files'],
+        dsa: ['Backtracking: Subsets (#78), Permutations (#46), Combination Sum (#39)'],
+        career: ['Update resume with To-Do App project (Jake\'s LaTeX template on GitHub). Export as PDF.', 'Apply to 10 more internships this week.'],
+        weekend: ['Add to To-Do App: attach photo to a task. Uses camera permission + camera intent. Photo stored and displayed.']
+      },
+      {
+        num: 'W27', title: 'Retrofit + OkHttp: API Calls',
+        android: ['Retrofit setup: interface with @GET/@POST, OkHttp client, Gson converter, base URL', 'Suspend functions with Retrofit: the modern way. Handling Response<T>.', 'JSON to Kotlin data class mapping with @SerializedName'],
+        dsa: ['Heap: Kth Largest Element (#215), Top K Frequent Elements (#347), Find Median from Data Stream (#295)'],
+        career: ['Register on Wellfound (AngelList). Set up profile for startup internships.'],
+        weekend: ['Build standalone Quotes app: fetch random quotes from quotable.io free API. Compose UI. Coroutine + Retrofit.']
+      },
+      {
+        num: 'W28', title: 'Error Handling + Sealed State',
+        android: ['Sealed class UiState: data class Success(val data: T), object Loading, data class Error(val msg: String)', 'Map network errors: HttpException, IOException, generic Exception', 'Show loading skeleton, error message with retry button in Compose'],
+        dsa: ['Intervals + Bit Manipulation: Insert Interval (#57), Minimum Arrows (#452), Number of 1 Bits (#191), Reverse Bits (#190)'],
+        career: ['Post on LinkedIn: "Week 28 — built my first app using a real API." Show a screenshot. Tag #retrofitandroid'],
+        weekend: ['Add proper Loading/Success/Error states to Quotes app. Error shows retry button. Test by turning off internet.']
+      },
+      {
+        num: 'W29', title: 'Coil Image Loading + TMDB Exploration',
+        android: ['Coil setup in Compose: AsyncImage, ImageRequest, placeholder, error, crossfade', 'Coil caching: memory cache + disk cache, custom size, transformations (CircleCrop, BlurTransformation)', 'Explore TMDB API: get free API key, understand endpoints (popular, search, details, images)'],
+        dsa: ['LeetCode: 10 mixed Medium problems from random topics. Simulate interview conditions: no hints, 25 min each.'],
+        career: ['Apply to 10 internships — mix Internshala, LinkedIn, and 3 direct startup emails with your portfolio link'],
+        weekend: ['Build simple Movie List app: TMDB popular movies → LazyColumn with movie posters via Coil. Click for basic detail.']
+      },
+      {
+        num: 'W30', title: 'Weather App — Complete Build',
+        android: ['Build Weather App: OpenWeatherMap free API, City search, current weather + 5-day forecast', 'Architecture: Repository → ViewModel → Compose UI (simple, no full Clean Arch yet)', 'Handle: loading, error (city not found), network error, empty state'],
+        dsa: ['LeetCode Weekly Contest OR CodeChef Starters — participate regardless of result. Learn from problems.'],
+        career: ['Write README for Weather App: screenshots, API setup instructions, features. Push to GitHub.', 'Update portfolio website with Weather App.'],
+        weekend: ['Polish Weather App: background changes with weather (sunny = orange gradient, rain = grey). Looks beautiful.']
+      },
+      {
+        num: 'W31', title: 'Paging 3 Library Intro',
+        android: ['Why Paging: what happens without it (load 1000 items at once = crash). How Paging solves this.', 'PagingSource<Key, Value>, load(), LoadResult.Page, LoadResult.Error', 'Pager{}, PagingData<T>, collectAsLazyPagingItems() in Compose'],
+        dsa: ['Solve 15 problems from Blind 75 list — first 15 on the list you haven\'t done'],
+        career: ['LinkedIn: Post your Weather App. Ask friends to give it a look and comment. Engagement matters for reach.'],
+        weekend: ['Add Paging 3 to Movie List app: endless scroll through TMDB popular movies. 20 per page.']
+      },
+      {
+        num: 'W32', title: 'Semester 3–4 Review + Goal Setting',
+        android: ['Full review: Kotlin, Lifecycle, Compose, Room, Coroutines, Flow, Retrofit, Paging', 'Identify weak areas. Spend 2 days strengthening the weakest 2 topics.', 'Clean up all project code. Every project on GitHub should be clean and documented.'],
+        dsa: ['Tally: count problems solved. Target: 100+ by end of Sem 4. Fill gap if needed.', 'Review Big-O of every DS you know. Can you explain them in plain language?'],
+        career: ['Audit LinkedIn. Audit GitHub. Update resume. Write Semester 5 goals in a doc.', 'Count internship applications sent. Set target: 20/week starting Semester 5.'],
+        weekend: ['Write a personal reflection: what clicked, what was hard, what you\'d do differently. Keep it — you\'ll want to read this in Semester 8.'],
+        milestone: true,
+        milestoneText: 'Semesters 3–4 Complete. You have: 2 solid projects on GitHub, 100+ LeetCode problems, a live LinkedIn profile, and real Android knowledge. The next phase starts building your career-ready identity.'
+      }
+    ]
+  },
+  {
+    id: 's5',
+    color: '#60a5fa',
+    eyebrow: 'Semester 5',
+    title: 'Build & Apply',
+    subtitle: 'Architecture, DI, and your first real portfolio project',
+    desc: 'Clean Architecture, Hilt DI, Retrofit advanced, and your flagship Movie Browser project. You also start applying for internships seriously this semester. This is the phase that makes you employable.',
+    stats: [
+      { num: '16', label: 'Weeks' },
+      { num: '25+', label: 'Internship apps/week' },
+      { num: '1', label: 'Flagship project' },
+      { num: '150+', label: 'LeetCode target' }
+    ],
+    weeks: [
+      {
+        num: 'W33', title: 'MVVM Pattern: ViewModel + Repository',
+        android: ['The problem with no architecture: why 500-line Activities exist and why they\'re a nightmare', 'MVVM roles: View (Compose) observes ViewModel, ViewModel calls Repository, Repository decides source', 'Refactor Weather App into MVVM: separate Repository class, ViewModel with StateFlow'],
+        dsa: ['Trees: All tree problems from Blind 75 (8 problems). Aim: solve each in under 20 minutes.'],
+        career: ['List your 20 target companies in a spreadsheet: name, size, tech stack, salary (AmbitionBox), application link'],
+        weekend: ['Rebuild Weather App from scratch with MVVM. Clean separation. No logic in Composables.']
+      },
+      {
+        num: 'W34', title: 'Clean Architecture: The 3 Layers',
+        android: ['Presentation layer: Compose + ViewModel (depends on Domain)', 'Domain layer: UseCase classes, Entity models — pure Kotlin, NO Android imports', 'Data layer: Repository implementation, network models (DTOs), Room entities — implements Domain interfaces'],
+        dsa: ['Graphs: all Blind 75 graph problems (6 problems). Understand BFS vs DFS choice.'],
+        career: ['Start applying: 10 internship applications this week. Track in spreadsheet.', 'Post: "Learning Clean Architecture — here\'s what the layers mean in plain English" on LinkedIn'],
+        weekend: ['Sketch Clean Architecture for Movie Browser on paper before coding. Draw arrows. Understand dependencies flow inward.']
+      },
+      {
+        num: 'W35', title: 'Use Cases: The Domain Layer',
+        android: ['UseCase class: single public operator fun invoke(). Why single responsibility.', 'GetPopularMoviesUseCase, SearchMoviesUseCase — return Flow<Result<List<Movie>>>', 'When to create a UseCase vs when to call Repository directly. The rule: >1 caller = UseCase.'],
+        dsa: ['DP: all Blind 75 DP problems (11 problems). These are interview favorites.'],
+        career: ['Publish article: "MVVM vs Clean Architecture — when does it matter?" on dev.to or Medium'],
+        weekend: ['Build Domain layer for Movie Browser: entities, repository interfaces, all use cases. No implementation yet.']
+      },
+      {
+        num: 'W36', title: 'Manual DI: Understand the Problem First',
+        android: ['Build a "ServiceLocator" from scratch. Understand circular dependencies.', 'Manual DI: pass dependencies through constructors. Feel the pain of wiring everything manually.', 'The DI problem: AppContainer, how dependencies compose, why frameworks help'],
+        dsa: ['LeetCode: 10 Medium problems from Stack/Heap/Queue you haven\'t done'],
+        career: ['Attend GDG Kolkata event (online or offline). Talk to at least 2 people. Follow them on LinkedIn.'],
+        weekend: ['Wire Movie Browser data layer with manual DI. Experience what Hilt will replace.']
+      },
+      {
+        num: 'W37', title: 'Hilt: Setup + Basics',
+        android: ['@HiltAndroidApp on Application class, @AndroidEntryPoint on Activity/Fragment/Composable', '@Inject constructor for automatic injection, @Singleton for one instance', '@Module + @InstallIn(SingletonComponent::class) + @Provides for interfaces'],
+        dsa: ['Binary Search: 10 Medium problems (all variations — search in matrix, rotated arrays, finding boundaries)'],
+        career: ['Update LinkedIn: "Currently building: Clean Architecture Android app with Hilt DI." Signal you know modern patterns.', 'Apply to 15 internships this week.'],
+        weekend: ['Migrate Movie Browser from manual DI to Hilt. Everything should inject cleanly with @Inject.']
+      },
+      {
+        num: 'W38', title: 'Hilt: Scoping + ViewModel Injection',
+        android: ['@HiltViewModel + @Inject on ViewModel constructor — hiltViewModel() in Compose', 'Scoping: @Singleton vs @ActivityScoped vs @ViewModelScoped — understand what scope means', '@Binds to bind interface to implementation (preferred over @Provides for simple cases)'],
+        dsa: ['Two Pointers + Sliding Window advanced: 10 Medium problems'],
+        career: ['Apply to 15 internships. Send 5 cold emails to Kolkata-based startups with your GitHub link.'],
+        weekend: ['Add Favorites feature to Movie Browser. Inject FavoritesRepository via Hilt into FavoritesUseCase into ViewModel.']
+      },
+      {
+        num: 'W39', title: 'Retrofit Advanced + Result Wrapper',
+        android: ['sealed interface Result<out T>: Loading, Success(data:T), Error(exception:Throwable)', 'OkHttp Interceptors: logging interceptor (HttpLoggingInterceptor), auth header interceptor', 'Retry logic, timeout configuration, connection pool settings'],
+        dsa: ['Linked List: Hard problems — Reverse Nodes in k-Group (#25), Sort List (#148)'],
+        career: ['Connect with 10 Android developers at your top 5 target companies on LinkedIn — send personalized notes'],
+        weekend: ['Add retry logic + proper error handling to all Movie Browser API calls. Test: disable wifi and see what happens.']
+      },
+      {
+        num: 'W40', title: 'Movie Browser: Data Layer',
+        android: ['Set up TMDB API key (free at themoviedb.org). Retrofit interfaces for: popular, search, detail, credits', 'Room DB: MovieEntity, FavoriteEntity, MovieDao, FavoriteDao', 'MovieRepositoryImpl: remote fetch → cache to Room → return Flow from Room (offline-first!)'],
+        dsa: ['Stacks: Largest Rectangle in Histogram (#84), Trapping Rain Water (#42) — classic Hards worth knowing'],
+        career: ['Create spreadsheet: target companies, required skills, salary range, application deadline, status. Update weekly.'],
+        weekend: ['Complete Movie Browser data layer. Test: API calls work, Room saves data, offline mode shows cached data.']
+      },
+      {
+        num: 'W41', title: 'Movie Browser: Domain + ViewModel',
+        android: ['All Use Cases implemented: GetPopularMoviesUseCase, SearchMoviesUseCase, GetMovieDetailUseCase, ToggleFavoriteUseCase', 'MovieViewModel: UiState sealed class with all screen states', 'Search ViewModel: debounce search input using Flow operators'],
+        dsa: ['Heap problems: Task Scheduler (#621), Reorganize String (#767), Merge K Sorted Lists (#23)'],
+        career: ['Post on LinkedIn: "Building Movie Browser App — week 2 update." Share architecture diagram.', 'Apply to 15 internships.'],
+        weekend: ['Complete all ViewModels. States emit correctly for all user actions.']
+      },
+      {
+        num: 'W42', title: 'Movie Browser: Compose UI',
+        android: ['Home screen: LazyVerticalGrid for movie posters, shimmer loading placeholder', 'Search screen: search bar with debounce, results list, empty state', 'Detail screen: movie backdrop, rating, overview, cast scroll, favorite button'],
+        dsa: ['Trees advanced: Serialize/Deserialize Binary Tree (#297), Binary Tree Max Path Sum (#124)'],
+        career: ['Post short video/GIF of Movie Browser UI on LinkedIn. This gets significantly more engagement than text.'],
+        weekend: ['Complete all UI screens. Navigation flow: Home → Detail. Search → Detail. Favorites screen.']
+      },
+      {
+        num: 'W43', title: 'Movie Browser: Paging 3 + Polish',
+        android: ['Replace List<Movie> with PagingData<Movie> for home screen — infinite scroll', 'Add RemoteMediator: load from API, cache to Room, serve from Room (real offline-first)', 'Add: pull-to-refresh, loading footer, error retry footer for paged list'],
+        dsa: ['Graph advanced: Topological Sort (BFS/DFS), # of Islands II, Accounts Merge'],
+        career: ['Enroll in Meta Android Developer Certificate on Coursera. Start Module 1 this week.'],
+        weekend: ['Integrate Paging 3 end-to-end in Movie Browser. Test: scroll 200+ movies smoothly.']
+      },
+      {
+        num: 'W44', title: 'Movie Browser: Testing',
+        android: ['Unit tests for all Use Cases with MockK (mock Repository)', 'Unit tests for MovieViewModel using runTest{} and Turbine for Flow assertions', 'Integration test: test Repository with in-memory Room database'],
+        dsa: ['DP advanced: Longest Increasing Subsequence (#300), Edit Distance (#72), Burst Balloons (#312)'],
+        career: ['Apply to 20 internships this week — this should feel routine by now. Track response rate.'],
+        weekend: ['Write 15 unit tests for Movie Browser. All green. Add test badge to README.']
+      },
+      {
+        num: 'W45', title: 'Movie Browser: Final Polish',
+        android: ['Dark mode: test every screen in dark mode, fix contrast issues', 'Error states: every screen has a proper empty/error/loading state', 'App icon, splash screen (Splash Screen API), proper back navigation behavior'],
+        dsa: ['LeetCode Mock: 2 Medium + 1 Hard in 90 minutes. Simulate exact OA conditions.'],
+        career: ['Write comprehensive README for Movie Browser: screenshots, architecture diagram, setup steps, features. This README gets shared.'],
+        weekend: ['Final Movie Browser QA: test every edge case. Record 3-minute demo video.']
+      },
+      {
+        num: 'W46', title: 'Movie Browser: Launch + Documentation',
+        android: ['Push final Movie Browser to GitHub. Architecture diagram in README (draw on Excalidraw).', 'Generate a signed debug APK. Share download link in README.', 'Write Architecture Decision Records: why Clean Architecture, why Hilt, why offline-first'],
+        dsa: ['LeetCode Weekly Contest — participate. Regardless of result, it\'s training.'],
+        career: ['Write article: "How I built a Movie Browser with Clean Architecture, Hilt, and Compose" — publish on Medium. Tag it well.', 'Add Movie Browser to LinkedIn Featured section.'],
+        weekend: ['LinkedIn post: "Semester 5 project complete — Movie Browser." Pin this post. Add Play Store APK download link if possible.'],
+        milestone: true,
+        milestoneText: 'MILESTONE: Movie Browser is LIVE on GitHub with full README, architecture diagram, unit tests, and a demo video. This is now your #1 portfolio project. Every recruiter who sees your profile sees this first.'
+      },
+      {
+        num: 'W47', title: 'Internship Blitz Week',
+        android: ['Light week — review and clean up all code. Write docstrings on key classes.'],
+        dsa: ['Striver\'s A2Z Sheet: complete the Arrays section fully (if not done). 30+ problems.'],
+        career: ['APPLY TO 25 PLACES THIS WEEK. LinkedIn Easy Apply, Internshala, Wellfound, cold emails. Track everything.', 'Craft perfect internship cold email template. Personalize first 2 lines for each company.', 'Follow up on any applications from 2+ weeks ago that got no response.'],
+        weekend: ['Research remote Android internships: RemoteOK.com, YC job board (ycombinator.com/jobs). Apply to 5.']
+      },
+      {
+        num: 'W48', title: 'Semester 5 Review + Sem 6 Planning',
+        android: ['Self-quiz: explain Clean Architecture to someone who doesn\'t know it. Can you do it clearly in 5 minutes?', 'Review: Hilt injection chain from @HiltAndroidApp to @HiltViewModel. Draw it on paper.'],
+        dsa: ['Count total LeetCode problems solved. Target: 150+ by end of Sem 5. Fill gap.', 'Striver\'s A2Z: complete LinkedList section.'],
+        career: ['Count: internship applications sent this semester. Responses? Interviews? Track your funnel.', 'Set Semester 6 goals: internship landing date, Finance Tracker completion, Play Store publish date.'],
+        weekend: ['Record 5-minute video: explain Movie Browser architecture. Watch it back. Fix what sounds unclear. This is interview prep disguised as reflection.']
+      }
+    ]
+  },
+  {
+    id: 's6',
+    color: '#fb923c',
+    eyebrow: 'Semester 6',
+    title: 'Internship + Polish',
+    subtitle: 'Testing, Performance, publish to Play Store',
+    desc: 'This semester you ship real production-quality code, learn to test, optimize performance, and publish your first app to the Play Store. If you land an internship — even unpaid — this semester transforms your profile.',
+    stats: [
+      { num: '16', label: 'Weeks' },
+      { num: '1', label: 'App on Play Store' },
+      { num: '80%+', label: 'Domain test coverage' },
+      { num: 'AAD', label: 'Google Certification' }
+    ],
+    weeks: [
+      {
+        num: 'W49', title: 'Unit Testing Fundamentals',
+        android: ['JUnit 4: @Test, @Before, @After, @BeforeClass, assertEquals, assertTrue, assertThrows', 'AAA pattern: Arrange (set up), Act (run code), Assert (verify result). Every test.', 'Test naming: should_ReturnError_When_NetworkIsUnavailable() — reads like documentation'],
+        dsa: ['Striver\'s A2Z: Binary Search full section (25 problems). Target: complete in this week + next.'],
+        career: ['Update resume with Movie Browser. Use Resumeworded.com (free) or Jobscan.co to check ATS score.'],
+        weekend: ['Write 20 unit tests for Movie Browser domain layer. All use cases fully tested.']
+      },
+      {
+        num: 'W50', title: 'MockK + Testing ViewModels',
+        android: ['MockK: mockk<T>(), every{}.returns{}, verify{}, slot<T>, coEvery for suspend functions', 'Testing ViewModel: TestCoroutineDispatcher, runTest{}, Turbine library for testing Flow emissions', 'Testing error states: make mock throw exception, assert Error state is emitted'],
+        dsa: ['Striver\'s A2Z: Trees full section completion.'],
+        career: ['Apply for summer internships: Jan–March is peak season. Apply 20+ this week. Remote too.'],
+        weekend: ['Test all ViewModels in Movie Browser. Every state (Loading, Success, Error) must have a test.']
+      },
+      {
+        num: 'W51', title: 'Compose UI Testing',
+        android: ['Compose test setup: createComposeRule, setContent{}', 'Finders: onNodeWithText, onNodeWithTag (add testTag() modifier), onAllNodesWithText', 'Actions: performClick(), performTextInput(), performScrollTo()', 'Assertions: assertIsDisplayed(), assertTextEquals(), assertIsEnabled()'],
+        dsa: ['Graphs: complete Striver\'s graph section (BFS, DFS, Topo Sort, Dijkstra, Union-Find)'],
+        career: ['Attend GDG Kolkata / Android meetup. Bring business cards or at least your LinkedIn QR code.'],
+        weekend: ['Write 5 Compose UI tests for Movie Browser home screen and search screen.']
+      },
+      {
+        num: 'W52', title: 'GitHub Actions CI/CD',
+        android: ['GitHub Actions workflow YAML: trigger on push/PR, run ./gradlew test, run lint', 'Build APK in CI: ./gradlew assembleDebug, upload artifact', 'Status badges in README: build passing, tests passing — looks professional'],
+        dsa: ['DP: Striver\'s DP section — start. First 15 problems (1D and 2D DP).'],
+        career: ['Add CI badge to Movie Browser README. Push. Now your GitHub profile shows a project that runs automated tests. Recruiters notice this.'],
+        weekend: ['Set up full CI pipeline for Movie Browser. Every push triggers tests. PRs can\'t merge if tests fail.']
+      },
+      {
+        num: 'W53', title: 'Android Profiler: CPU + Memory',
+        android: ['CPU Profiler: method trace vs callstack sampling. Find slow methods. Identify jank (frames >16ms).', 'Memory Profiler: heap dump, object allocations, GC pressure. What causes GC?', 'Network Inspector: examine every API call. Response times, payload sizes.'],
+        dsa: ['DP: Striver\'s section continued — 2D DP, Grid DP problems'],
+        career: ['Post on LinkedIn: "Set up CI/CD for my Android project — every push now runs automated tests." Show the green badge.'],
+        weekend: ['Open Profiler on Movie Browser. Find and fix 1 real CPU issue and 1 real memory issue. Document what you found.']
+      },
+      {
+        num: 'W54', title: 'LeakCanary + Memory Leak Hunting',
+        android: ['Add LeakCanary to Movie Browser. Run app normally. Find ALL leaks it detects.', 'Common Android leaks: static Context reference, anonymous inner class listener, uncleared Observer', 'Fix every single leak LeakCanary finds. Understand WHY each one was leaking.'],
+        dsa: ['DP: String DP — Edit Distance (#72), LCS (#1143), Palindrome problems'],
+        career: ['Update resume: add "Testing (JUnit5, MockK, Compose Testing), CI/CD (GitHub Actions), Performance (Profiler, LeakCanary)"'],
+        weekend: ['LeakCanary clean report. Profile Movie Browser: smooth 60fps on all screens. Fix any jank.']
+      },
+      {
+        num: 'W55', title: 'Compose Animations',
+        android: ['animate*AsState: animateDpAsState, animateColorAsState, animateFloatAsState', 'AnimatedVisibility: enter/exit transitions (fadeIn, slideIn, expandIn combinations)', 'AnimatedContent: transition between different composables based on state'],
+        dsa: ['Trie: implement Trie from scratch. Word Search II (#212), Implement Trie (#208)'],
+        career: ['Apply 15 internships. Specifically seek Android + Compose roles — they pay more and are less competitive.'],
+        weekend: ['Add animations to Movie Browser: cards animate in on load, favorite button bounces, screen transitions slide.']
+      },
+      {
+        num: 'W56', title: 'Compose: Custom Layouts + Canvas',
+        android: ['Custom Layout composable: override MeasurePolicy, measure children, place them manually', 'Canvas in Compose: drawRect, drawCircle, drawPath, drawArc for charts', 'DrawScope: coordinate system, colors, strokes, fill styles'],
+        dsa: ['Bit Manipulation: 10 Medium problems. XOR tricks are interview favorites.'],
+        career: ['Post on LinkedIn: short GIF of Movie Browser animations. Animations on a demo always get more engagement.'],
+        weekend: ['Build reusable components: circular progress indicator with Canvas, custom rating bar, animated counter.']
+      },
+      {
+        num: 'W57', title: 'Finance Tracker: Architecture Setup',
+        android: ['Plan Finance Tracker features: income/expense entry, categories, monthly summary, charts', 'Set up: Clean Architecture structure, Hilt modules, Room with migrations, initial navigation graph', 'Domain models: Transaction, Category, Budget, MonthSummary'],
+        dsa: ['LeetCode: 15 random Medium problems under timed conditions (25 min each, no hints)'],
+        career: ['Register for Google Associate Android Developer exam. Read the exam guide at developers.google.com/certification/associate-android-developer'],
+        weekend: ['Complete Finance Tracker data layer: Room entities, DAOs, Repository. All CRUD operations work.']
+      },
+      {
+        num: 'W58', title: 'Finance Tracker: Charts + Biometric',
+        android: ['Custom Canvas pie chart for category breakdown, bar chart for monthly income vs expense', 'BiometricPrompt API: show fingerprint dialog on app open, handle success/error/cancel', 'Animate charts on first draw using animateFloatAsState'],
+        dsa: ['Mock interview on Pramp.com: 1 session. Full feedback. Write down what went wrong.'],
+        career: ['Visit a local business near BPPIMT. Pitch: "I can build you an app for ₹12,000." Worst case they say no. Best case: first client.'],
+        weekend: ['Complete Finance Tracker UI: all screens working, charts animate, biometric locks app on background.']
+      },
+      {
+        num: 'W59', title: 'Finance Tracker: Security + WorkManager',
+        android: ['EncryptedSharedPreferences for sensitive settings, SQLCipher for Room encryption', 'WorkManager: periodic monthly summary notification, budget exceeded notification via FCM', 'ProGuard/R8 rules: protect class names, test that app works with minification'],
+        dsa: ['Graph algorithms: implement Dijkstra\'s from scratch, Prim\'s MST'],
+        career: ['Write article: "Building a secure Finance Tracker: biometric auth, encrypted storage, and more"'],
+        weekend: ['Finance Tracker complete. All features. Polish UI. Test on 3 different devices/screen sizes.']
+      },
+      {
+        num: 'W60', title: 'PUBLISH TO PLAY STORE',
+        android: ['Generate signed AAB (Android App Bundle) — required for Play Store', 'Play Console setup: create developer account (₹1,650 one-time fee), create app listing', 'Store listing: app description, screenshots (minimum 2), feature graphic, category, privacy policy (required)'],
+        dsa: ['Mock OA simulation: 3 problems, 90 minutes. No hints. Grade yourself.'],
+        career: ['THIS IS THE WEEK. Publish Finance Tracker to Play Store. Screenshot the "Published" status. Add "Published app on Google Play" to resume and LinkedIn.', 'Update portfolio website with Play Store link.'],
+        weekend: ['Finance Tracker is LIVE on Play Store. Share the link on LinkedIn. Post: "My first app is live on the Play Store."'],
+        milestone: true,
+        milestoneText: 'MILESTONE: You are a published Android developer. Finance Tracker is live on Google Play Store. This single fact changes how recruiters read your resume. You\'re no longer a student who builds projects — you\'re a developer who ships.'
+      },
+      {
+        num: 'W61', title: 'Security + Deep Links',
+        android: ['Certificate pinning with OkHttp CertificatePinner. Test with Charles Proxy.', 'App Links vs Deep Links: difference, AndroidManifest setup, verification', 'Deep links in Compose Navigation: handleDeepLink(), NavDeepLink builder'],
+        dsa: ['Hard problems: attempt 5 LeetCode Hard. Study solutions even if you can\'t solve. Patterns matter.'],
+        career: ['Connect with 5 recruiters (not developers — recruiters) at target companies on LinkedIn. Add note: "Android developer, published app on Play Store, looking for opportunities starting [month]."'],
+        weekend: ['Add deep links to Finance Tracker: share a transaction → link opens app to that transaction.']
+      },
+      {
+        num: 'W62', title: 'Accessibility + Adaptive Layouts',
+        android: ['TalkBack: test entire app with eyes closed. Fix every broken navigation flow.', 'Content descriptions for all images and icon buttons', 'WindowSizeClass: compact/medium/expanded. Adaptive layout using when(windowSizeClass).'],
+        dsa: ['Solve Blind 75: any remaining unsolved problems. Complete the list.'],
+        career: ['Apply to 20 off-campus entry-level Android roles on LinkedIn. Use "Easy Apply" for speed.', 'Request LinkedIn recommendations from any internship manager, professor, or developer you\'ve worked with.'],
+        weekend: ['Test Finance Tracker with accessibility scanner. Fix all issues. Test on tablet emulator.']
+      },
+      {
+        num: 'W63', title: 'Google AAD Exam Preparation',
+        android: ['Study AAD exam topics: Working with data (Room, APIs), Debugging, Android core (lifecycle, permissions), UI (Compose, XML)', 'Build the AAD sample app provided in the exam guide', 'Practice: build features under time pressure — the exam is timed'],
+        dsa: ['Striver\'s sheet: complete sections you haven\'t finished. Target: 80% of the sheet done.'],
+        career: ['Schedule your Google AAD exam appointment if haven\'t already. Set a concrete date.'],
+        weekend: ['Full AAD practice run: work through the sample assessment end-to-end.']
+      },
+      {
+        num: 'W64', title: 'AAD Exam + Semester Review',
+        android: ['TAKE THE GOOGLE AAD EXAM THIS WEEK (if exam is scheduled). Or final prep if scheduled next week.', 'Pass = Google-certified Android Developer badge on LinkedIn.'],
+        dsa: ['Total count: target 200+ problems by end of Semester 6. Note gaps.'],
+        career: ['Update LinkedIn immediately with Google AAD certification badge after passing.', 'Write Semester 7 plan: 30 target companies, internship follow-up, mock interview schedule.'],
+        weekend: ['Rest and plan. You\'ve completed 3 semesters of the plan. Review how far you\'ve come.'],
+        milestone: true,
+        milestoneText: 'Semester 6 Checkpoint: Play Store app ✓, Google AAD Certification ✓, Internship experience (or many applications) ✓, 200+ LeetCode problems ✓. You are now interview-ready for junior Android roles at product companies.'
+      }
+    ]
+  },
+  {
+    id: 's7',
+    color: '#c084fc',
+    eyebrow: 'Semester 7',
+    title: 'Interview Ready',
+    subtitle: 'Firebase, Chat App, DSA mastery, mock interviews',
+    desc: 'This is the technical deepening semester. Firebase real-time, your Chat App, advanced DSA, and 5+ mock interviews. By the end of this semester, you should be confidently applying to product companies.',
+    stats: [
+      { num: '16', label: 'Weeks' },
+      { num: '5+', label: 'Mock interviews' },
+      { num: '250+', label: 'LeetCode target' },
+      { num: '30', label: 'Target companies mapped' }
+    ],
+    weeks: [
+      {
+        num: 'W65', title: 'Firebase: Firestore Real-Time DB',
+        android: ['Firebase project setup, add to Android app (google-services.json)', 'Firestore: collections, documents, fields. CRUD with coroutines (await()), real-time with callbackFlow', 'Security rules: authenticated access only. Never leave rules open.'],
+        dsa: ['Advanced graphs: Minimum Spanning Tree (Prim\'s, Kruskal\'s implementations from scratch)'],
+        career: ['Create your 30-company target list. For each: name, role URL, required skills, glassdoor rating, salary from AmbitionBox, who to contact.'],
+        weekend: ['Build Firestore real-time todo list: multiple users can see each other\'s changes instantly.']
+      },
+      {
+        num: 'W66', title: 'Firebase Auth: Email + Google Sign-In',
+        android: ['Email/password auth: createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail', 'Google Sign-In with Credential Manager API (new modern approach, not deprecated GoogleSignInClient)', 'Auth state as Flow: callbackFlow{addAuthStateListener{…}}'],
+        dsa: ['Advanced DP: Partition DP — Matrix Chain Multiplication, Palindrome Partitioning'],
+        career: ['Apply to 10 off-campus entry-level roles this week. One application per day minimum.'],
+        weekend: ['Complete auth flow: register, login, Google sign-in, password reset, logout. All working with proper error handling.']
+      },
+      {
+        num: 'W67', title: 'Firebase Storage + FCM Push',
+        android: ['Firebase Storage: upload ByteArray/Uri, download URL, progress tracking with StateFlow', 'FCM: add to project, receive FCM token, handle foreground vs background notifications', 'Notification click action: open specific screen using deep link'],
+        dsa: ['Advanced Strings: 10 Medium/Hard (minimum window, wildcard matching, regex)'],
+        career: ['Ask 2 people you\'ve worked with for a LinkedIn recommendation. Even a classmate who worked on a project with you counts.'],
+        weekend: ['Profile picture upload using Firebase Storage. Push notification test with FCM. Both working end-to-end.']
+      },
+      {
+        num: 'W68', title: 'Chat App: Architecture + Data Layer',
+        android: ['Plan Chat App: user profiles, 1-on-1 chats, message history, online status, push notifications', 'Firestore structure: users/{userId}, chats/{chatId}/messages/{msgId}. Think through indexing.', 'ChatRepository: getMessages(chatId) returns Flow<List<Message>>, sendMessage(), updateOnlineStatus()'],
+        dsa: ['LeetCode Weekly Contest. Submit all problems even if wrong — learn from it.'],
+        career: ['Post on LinkedIn: "Building a real-time chat app with Firebase — architecture breakdown." Build in public.'],
+        weekend: ['Complete Chat App data layer: Firestore structure, models, repository with all methods working.']
+      },
+      {
+        num: 'W69', title: 'Chat App: ViewModel + UI',
+        android: ['ChatViewModel: messages as StateFlow<List<Message>>, send action, pagination (load more on scroll)', 'Compose UI: chat bubble (sent/received different styles), LazyColumn auto-scroll to bottom', 'Online indicator, last seen timestamp, typing indicator with debounce'],
+        dsa: ['Mock Interview #1 on Pramp.com: full 45-minute session with a real person. Write down every question.'],
+        career: ['Research your top 5 companies deeply: read their engineering blog, recent app store updates, LinkedIn posts from their Android team.'],
+        weekend: ['Chat App core messaging working: send message, receive message, real-time updates, scroll to bottom.']
+      },
+      {
+        num: 'W70', title: 'Chat App: Media + Push Notifications',
+        android: ['Image sharing: camera/gallery picker → compress → upload to Firebase Storage → send URL in message', 'FCM push: when user receives message and app is in background, show notification with sender name', 'Notification channel for chat messages, notification groups for multiple chats'],
+        dsa: ['Advanced string + backtracking: 10 Medium problems'],
+        career: ['Apply to 15 off-campus Android roles. Include startups via Wellfound — they move faster.'],
+        weekend: ['Chat App all features complete: text, images, push notifications. Test with 2 real devices.']
+      },
+      {
+        num: 'W71', title: 'Chat App: Polish + Deploy',
+        android: ['User profile screen: edit name/photo, about, phone number', 'Unread message count badge, conversation list sorted by last message time', 'Empty states, block/unblock user, delete message'],
+        dsa: ['Mock Interview #2 on Pramp.com. Compare to Mock #1 — are you improving?'],
+        career: ['DEPLOY Chat App to Play Store. Record a 2-minute demo video.', 'LinkedIn post with demo video: "Built a real-time Firebase chat app from scratch." This post will get significant reach.'],
+        weekend: ['Chat App published or demo APK ready. GitHub README complete with screenshots and architecture diagram.'],
+        milestone: true,
+        milestoneText: 'Chat App is your proof of real-world skills: real-time data, authentication, push notifications, cloud storage, production deployment. This is the project that ends interviews with "when can you start?"'
+      },
+      {
+        num: 'W72', title: 'Maps + Location Services',
+        android: ['Google Maps SDK in Compose: GoogleMap composable, Marker, Polyline, CameraPositionState', 'FusedLocationProviderClient: getCurrentLocation, requestLocationUpdates, foreground vs background', 'Geofencing: GeofencingClient, geofence triggers, intent broadcast'],
+        dsa: ['Complete any remaining Striver\'s A2Z sections. Target: 90% of the sheet completed.'],
+        career: ['Connect with recruiters (not just developers) at your top 10 companies. Short note: "Android developer, Play Store published app, final year CSE."'],
+        weekend: ['Add location feature to Finance Tracker: tag transactions with location. Map view of spending.']
+      },
+      {
+        num: 'W73', title: 'Android Interview Deep-Dive: Technical Prep',
+        android: ['Study: Coroutine internals (CPS transformation, how structured concurrency works)', 'Study: Compose recomposition — what triggers it, what prevents unnecessary recomposition (remember, key, stable types)', 'Study: ViewModel — why it survives rotation (ViewModelStore, ViewModelStoreOwner)'],
+        dsa: ['20 LeetCode Mediums under pressure: timed, no hints. Track which topics you still struggle on.'],
+        career: ['Write answers to top 30 Android interview questions. Actually write them — not just read. Writing forces precision.'],
+        weekend: ['Record yourself answering 5 Android technical questions. Watch it back. Fix where you sounded unsure.']
+      },
+      {
+        num: 'W74', title: 'System Design for Mobile',
+        android: ['Study: "Mobile System Design" by Alex Lementuev (free PDF on GitHub — search it)', 'Design patterns: offline-first, optimistic UI, caching strategies, pagination design', 'Practice: design Instagram feed architecture (data layer + caching + pagination + real-time likes)'],
+        dsa: ['Mock Interview #3: DSA focus. Ask friend or use Pramp. Solve 2 problems live.'],
+        career: ['Research exact interview process for your top 3 companies: search "[Company] Android interview experience" on Reddit, Glassdoor, Leetcode discuss'],
+        weekend: ['Design on paper: "Design YouTube\'s Android app from the ground up." Full architecture, all layers, all tradeoffs.']
+      },
+      {
+        num: 'W75', title: 'Behavioral Interview Prep',
+        android: ['Review all 4 projects. Prepare 3-minute walkthrough for each. Practice cold — no notes.'],
+        dsa: ['LeetCode: 3 Hard problems this week. Study solutions. Understand the insight.'],
+        career: ['STAR method stories for: biggest challenge, failure and lesson, disagreed with a decision, worked under pressure, handled ambiguity', 'Craft "Tell me about yourself" speech: 90 seconds. Rehearse until natural.', 'Practice "Why this company?" for each of your top 5 companies specifically.'],
+        weekend: ['Full mock interview with a friend: DSA (1 problem) + Android technical (5 questions) + 2 behavioral. Record it.']
+      },
+      {
+        num: 'W76', title: 'Kotlin Multiplatform: Introduction',
+        android: ['KMP project setup: shared module, androidMain, commonMain', 'expect/actual: write platform API declaration in common, implement per platform', 'Shared ViewModel with StateFlow, Ktor for shared networking, SQLDelight for shared DB'],
+        dsa: ['Mock Interview #4 on Pramp.com. Request an interviewer from a product company.'],
+        career: ['Start sending referral requests: "I noticed you work at [Company] on the Android team. I\'m a final-year student with [X,Y,Z]. Would you be willing to refer me for the Android Developer role?"'],
+        weekend: ['Build KMP app: shared data layer (Ktor + SQLDelight), Android UI in Compose.']
+      },
+      {
+        num: 'W77', title: 'ML Kit + On-Device AI',
+        android: ['ML Kit: text recognition, face detection, barcode scanning — add one to an existing project', 'TensorFlow Lite: add a pre-trained model (.tflite), run inference, display result', 'Gemini Nano on-device: AICore APIs for on-device LLM inference (future-proof skill)'],
+        dsa: ['All remaining Hard problems from Blind 75. Every single one.'],
+        career: ['Apply to 20 off-campus roles this week. Use referrals where you have them. LinkedIn Easy Apply for the rest.'],
+        weekend: ['Add ML Kit barcode scanner to Finance Tracker: scan a receipt barcode → auto-fill amount.']
+      },
+      {
+        num: 'W78', title: 'WorkManager Advanced + Foreground Services',
+        android: ['WorkManager: complex chains, conditional work, unique work sequences, expedited work', 'Foreground Service: startForeground(), ongoing notification, use case for audio/location/sync', 'JobScheduler vs AlarmManager vs WorkManager: when to use each'],
+        dsa: ['Mock Interview #5: full interview (45 min). This is your last practice before real interviews.'],
+        career: ['Resume final polish: every line must have impact. Share on LinkedIn and get feedback from 3 developers.'],
+        weekend: ['Add background sync to Movie Browser using WorkManager: sync favorites every 24 hours.']
+      },
+      {
+        num: 'W79', title: 'Modularization Intro',
+        android: ['Multi-module project: :app, :core, :feature:movies, :feature:auth — understand boundaries', 'Gradle convention plugins: DRY up build.gradle.kts across modules', 'Why modularize: build speed, team scalability, feature flags, dynamic delivery'],
+        dsa: ['Final DSA review: solve problems in your 3 weakest topic areas. Fill every gap.'],
+        career: ['30 target companies ready with: contact name, application URL, referral status, interview process notes, salary data.'],
+        weekend: ['Start converting Movie Browser into multi-module project. At minimum: :core:data, :core:domain, :feature:movies.']
+      },
+      {
+        num: 'W80', title: 'Semester 7 Review + Placement Launch',
+        android: ['All 4 projects polished. GitHub green every day this semester. Portfolio website up to date.', 'Can you explain, without notes: Coroutines, Compose recomposition, Clean Architecture, Hilt, Room offline-first?'],
+        dsa: ['Final count: target 250+ problems. Mock OA simulation: 3 problems, 90 minutes.'],
+        career: ['30 companies ready. Resume final. Mock interviews done. Referrals in flight.', 'LinkedIn: update "Open to Work" (recruiters only). Write a post: "Final year, actively looking for Android Developer roles."'],
+        weekend: ['Rest. Plan the 2 days per week you\'ll dedicate purely to applications in Semester 8.'],
+        milestone: true,
+        milestoneText: 'Semester 7 Complete. You have: 4 projects (2 on Play Store), Google AAD cert, 250+ LeetCode problems, 5 mock interviews done, 30 companies mapped, referrals in flight. Semester 8 is just execution.'
+      }
+    ]
+  },
+  {
+    id: 's8',
+    color: '#f87171',
+    eyebrow: 'Semester 8',
+    title: 'Full Placement Mode',
+    subtitle: 'Apply, interview, negotiate, accept',
+    desc: 'No new learning goals. This semester is pure execution. Applications, interviews, negotiation. Keep DSA warm. Keep building. The goal: 3+ competing offers before accepting anything.',
+    stats: [
+      { num: '30+', label: 'Companies applied' },
+      { num: '3+', label: 'Competing offers target' },
+      { num: 'Never', label: 'Stop DSA until signed' },
+      { num: '₹15–30L', label: 'Target range' }
+    ],
+    weeks: [
+      {
+        num: 'W81', title: 'LAUNCH: Apply to All 30 Companies',
+        android: ['Zero new learning. Review: Compose recomposition, Coroutine lifecycle, ViewModel survival.'],
+        dsa: ['Simulate OA: 3 problems, 90 minutes. Time yourself. This is your baseline.'],
+        career: ['APPLY TO ALL 30 COMPANIES TODAY. LinkedIn Easy Apply + direct portals + career pages.', 'Send referral request messages to all contacts at target companies (use the template you prepared).', 'Set up spreadsheet: Company | Role | Applied Date | Status | Next Step | Salary Range'],
+        weekend: ['Send 10 cold LinkedIn DMs to Android developers at companies that haven\'t responded to applications.']
+      },
+      {
+        num: 'W82', title: 'OAs Incoming: Complete Every One',
+        android: ['If OA comes: do it the same day. Don\'t delay.', 'Review: which data structures appear most in OAs? Arrays, strings, trees, graphs.'],
+        dsa: ['2 timed practice OA simulations this week. Track where you ran out of time.'],
+        career: ['15 more applications. Never stop applying while waiting for responses.', 'Follow up on Week 81 applications with no response: "Hi, I applied on [date] for the Android Developer role. I wanted to confirm my application was received."'],
+        weekend: ['Research each company that scheduled you for OA. Know their app, their tech blog, their engineering culture.']
+      },
+      {
+        num: 'W83', title: 'Technical Round Prep',
+        android: ['Practice explaining your projects: Movie Browser, Finance Tracker, Chat App. 3-minute each, cold.', 'Study: what happens step-by-step when you call retrofit.getMovies()? Trace the call fully.', 'Be ready: "What would you improve in this app?" — always have an answer about YOUR projects.'],
+        dsa: ['Timed practice: 2 Medium problems per day. Maintain the habit.'],
+        career: ['For every interview you get: research the interviewer on LinkedIn before the call. Know their background.', 'Prepare: list of questions to ask the interviewer at end of call. Shows genuine interest.'],
+        weekend: ['Mock technical interview: ask a developer friend to interview you for 45 minutes on Android.']
+      },
+      {
+        num: 'W84', title: 'First Technical Interviews',
+        android: ['Night before interview: light review, no cramming. Sleep 8 hours. Non-negotiable.', 'During: think aloud. If stuck, say what you\'re thinking. Interviewers can help if they know where you are.'],
+        dsa: ['Light practice: 1 problem per day. Keep the muscle warm, don\'t exhaust yourself.'],
+        career: ['After each interview: write down every question asked within 1 hour. Review your answers. Find the gaps.', 'Send thank-you email within 24 hours: "Thank you for the interview. I particularly enjoyed discussing [specific topic]. Looking forward to next steps."'],
+        weekend: ['Fix knowledge gaps exposed by this week\'s interviews. Immediately.']
+      },
+      {
+        num: 'W85', title: 'Pipeline Active: Multiple Interviews',
+        android: ['Keep refining: each interview teaches you what companies care about. Update your study focus accordingly.'],
+        dsa: ['Daily: 1-2 problems. Never stop, even with 3 interviews in a week.'],
+        career: ['Track: applications → OA → Technical R1 → Technical R2 → HR → Offer. Know your conversion rate.', 'Apply 10 more companies this week. Always have more in the pipeline than you think you need.'],
+        weekend: ['Mock HR interview: practice salary discussion. "What are your expectations?" Practice response: "I\'d like to understand the full scope before discussing compensation. Could you share the range for this role?"']
+      },
+      {
+        num: 'W86', title: 'System Design Rounds',
+        android: ['System design coming? Re-read Alex Lementuev\'s Mobile System Design.', 'Practice designs: Spotify player, Instagram Stories, WhatsApp delivery receipts. Each is a different architectural challenge.', 'For every design: start with requirements, then API, then data models, then architecture, then trade-offs.'],
+        dsa: ['Graph and DP: revisit if these came up in OA and you struggled'],
+        career: ['Research exact salary for your pending roles on Levels.fyi + AmbitionBox. Know the number before HR calls.'],
+        weekend: ['Design practice: "Design the Android architecture for a food delivery app." All layers. On paper. 45 minutes.']
+      },
+      {
+        num: 'W87', title: 'HR Rounds + Offer Signals',
+        android: ['Review: "Why Android? Why this company? Where do you see yourself in 3 years?" Rehearse.'],
+        dsa: ['Maintain: 1 problem per day. Don\'t break the streak even with offers coming.'],
+        career: ['If offer discussion starts: NEVER give a number first. "I\'m open to a competitive offer. Could you share the range?"', 'Research negotiation: watch Patrick McKenzie\'s salary negotiation article. Read it fully.'],
+        weekend: ['Update family / trusted people: you\'re in the negotiation zone. Talk through the offers you\'re expecting.']
+      },
+      {
+        num: 'W88', title: 'First Offer: Hold, Don\'t Fold',
+        android: ['Keep interviewing other companies. An offer only matters when you sign. Keep the pipeline moving.'],
+        dsa: ['Keep the streak alive.'],
+        career: ['First offer received: say "Thank you so much! I\'m very excited. I\'d like a few days to review the details carefully."', 'Buy yourself time: most companies give 1–2 weeks. Use it to generate competing offers.', 'Immediately message every other pipeline company: "I have an offer deadline. Can we accelerate the process?" Many will.'],
+        weekend: ['Compare offer on Levels.fyi. Is the number fair for the company and role? Note what you want to counter with.']
+      },
+      {
+        num: 'W89', title: 'Negotiation: Counter Every Single Offer',
+        android: ['Continue any pending interviews with maximum focus.'],
+        dsa: ['1 problem/day minimum.'],
+        career: ['Counter-offer script: "I\'m very excited about this opportunity. Based on my research and my skill set (published Play Store apps, Google AAD certified, 3 years of project work), I was hoping we could discuss [X amount]. Is there flexibility there?"', 'Counter EVERY offer — even ones you love. The worst they say is "this is our best and final." That\'s fine. Counter once.'],
+        weekend: ['Calculate total compensation: base salary + any joining bonus + annual bonus + stock/ESOP if applicable. Compare apples to apples.']
+      },
+      {
+        num: 'W90', title: 'Multiple Offers: The Decision',
+        android: ['Stop new learning. Focus entirely on closing.'],
+        dsa: ['Maintenance only.'],
+        career: ['Evaluate each offer on: base salary, growth trajectory (company stage), tech stack quality (will you learn?), team culture (Glassdoor reviews), location/remote policy, joining bonus, appraisal cycle.', 'Rule: never accept the first offer you get unless it\'s your dream company at the right number. 3 competing offers = real leverage.'],
+        weekend: ['Write a decision matrix: score each company on your 6 criteria 1-10. The winner isn\'t always obvious until you see the numbers.']
+      },
+      {
+        num: 'W91', title: 'Accept + Graceful Decline',
+        android: ['Review offer letter carefully: role title, CTC breakdown, notice period, joining date, non-compete clauses.'],
+        dsa: ['Continue until Day 1 of job. Seriously.'],
+        career: ['Accept your chosen offer: written confirmation + signed letter.', 'Decline other offers graciously: "Thank you for the offer. After careful consideration, I\'ve decided to go with another opportunity. I have tremendous respect for your team and hope our paths cross in the future."', 'Never ghost. The Android community in India is small.'],
+        weekend: ['Update LinkedIn: "Excited to announce I\'m joining [Company] as an Android Developer in [Month]!" Tag the company.']
+      },
+      {
+        num: 'W92', title: 'Before Day 1: Prepare',
+        android: ['Learn: read the company\'s engineering blog. Find out their Android tech stack. Study anything unfamiliar.', 'Set up: clean dev environment, fresh Android Studio, review git workflow.'],
+        dsa: ['This habit will serve you in future interviews. Don\'t stop.'],
+        career: ['Connect on LinkedIn with your future team members before day 1.', 'Prepare: "What do I want to learn in my first 90 days?" Write it down. Share with manager on day 1. Shows ownership mindset.'],
+        weekend: ['Rest. You earned it.'],
+        milestone: true,
+        milestoneText: 'YOU DID IT. From zero to Android Developer at a product company — in the timeline you planned. This is just the beginning. The skills you built here will compound for your entire career. Now the real game begins.'
+      }
+    ]
+  }
+];
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+function renderAll() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = '';
+
+  semesters.forEach((sem, si) => {
+    const panel = document.createElement('div');
+    panel.className = 'sem-panel' + (si === 0 ? ' active' : '');
+    panel.id = sem.id;
+
+    // Hero
+    panel.innerHTML = `
+      <div class="sem-hero" style="--sem-color:${sem.color}">
+        <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,${sem.color}10 0%,transparent 70%);pointer-events:none"></div>
+        <div class="sem-eyebrow" style="color:${sem.color}">${sem.eyebrow}</div>
+        <div class="sem-title">${sem.title}</div>
+        <div class="sem-desc">${sem.desc}</div>
+        <div class="sem-stats">
+          ${sem.stats.map(s => `<div class="sem-stat"><div class="sem-stat-num" style="color:${sem.color}">${s.num}</div><div class="sem-stat-label">${s.label}</div></div>`).join('')}
+        </div>
+      </div>
+    `;
+
+    // Daily rhythm (only show on first sem)
+    if (si === 0) {
+      panel.innerHTML += `
+        <div class="daily-rhythm">
+          <div class="dr-title">Your Daily Rhythm — Every Single Day</div>
+          <div class="dr-grid">
+            <div class="dr-slot"><div class="dr-time">6:00–7:30 AM</div><div class="dr-activity" style="color:var(--dsa)">DSA Practice</div><div class="dr-detail">2 LeetCode problems. Fresh brain = best problem-solving.</div></div>
+            <div class="dr-slot"><div class="dr-time">9:00 AM–12:00</div><div class="dr-activity" style="color:var(--mid)">College Classes</div><div class="dr-detail">Attend. Maintain CGPA. Don't skip exams.</div></div>
+            <div class="dr-slot"><div class="dr-time">2:00–5:00 PM</div><div class="dr-activity" style="color:var(--android)">Android Learning</div><div class="dr-detail">Study concept + build exercise. 3 hours deep work.</div></div>
+            <div class="dr-slot"><div class="dr-time">5:00–6:00 PM</div><div class="dr-activity" style="color:var(--career)">Career Work</div><div class="dr-detail">Apply, post on LinkedIn, network, read articles.</div></div>
+            <div class="dr-slot"><div class="dr-time">8:00–9:30 PM</div><div class="dr-activity" style="color:var(--android)">Android Continued</div><div class="dr-detail">Review the day. Push code to GitHub. Write TIL note.</div></div>
+            <div class="dr-slot"><div class="dr-time">Saturday</div><div class="dr-activity" style="color:var(--weekend)">Weekend Project</div><div class="dr-detail">Build the weekend project from this week's card.</div></div>
+            <div class="dr-slot"><div class="dr-time">Sunday</div><div class="dr-activity" style="color:var(--mid)">Contest + Rest</div><div class="dr-detail">LeetCode/CodeChef contest. Then actual rest.</div></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Weeks
+    const weeksDiv = document.createElement('div');
+    weeksDiv.className = 'weeks-container';
+
+    const wlContainer = document.getElementById(`wl-${sem.id}`);
+
+    sem.weeks.forEach((week, wi) => {
+      // Week link in sidebar
+      const wLink = document.createElement('a');
+      wLink.className = 'week-link';
+      wLink.href = `#week-${sem.id}-${wi}`;
+      wLink.textContent = `${week.num} · ${week.title.slice(0,22)}${week.title.length > 22 ? '…' : ''}`;
+      if (wlContainer) wlContainer.appendChild(wLink);
+
+      // Build card
+      const card = document.createElement('div');
+      card.className = `week-card${week.milestone ? ' milestone-week' : ''}`;
+      card.id = `week-${sem.id}-${wi}`;
+
+      const tagsHtml = [
+        `<span class="week-tag" style="color:var(--android);border-color:var(--android-border);background:var(--android-bg)">Android</span>`,
+        `<span class="week-tag" style="color:var(--dsa);border-color:var(--dsa-border);background:var(--dsa-bg)">DSA</span>`
+      ].join('');
+
+      card.innerHTML = `
+        <div class="week-header" onclick="toggleWeek(this)">
+          <span class="week-num" style="background:${sem.color}15;color:${sem.color}">${week.num}</span>
+          <span class="week-title">${week.title}</span>
+          <div class="week-tags">${tagsHtml}</div>
+          ${week.milestone ? '<span class="milestone-badge">★ MILESTONE</span>' : ''}
+          <span class="week-toggle">▾</span>
+        </div>
+        <div class="week-body">
+          <div class="task-block tb-android">
+            <div class="task-block-label">Android / Technical</div>
+            <ul class="task-list">${week.android.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="task-block tb-dsa">
+            <div class="task-block-label">DSA / Algorithms</div>
+            <ul class="task-list">${week.dsa.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="task-block tb-career">
+            <div class="task-block-label">Career / Profile</div>
+            <ul class="task-list">${week.career.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>
+          <div class="task-block tb-weekend">
+            <div class="task-block-label">Weekend Project</div>
+            <ul class="task-list">${week.weekend.map(t => `<li>${t}</li>`).join('')}</ul>
+          </div>
+          ${week.milestone ? `<div class="task-block tb-milestone"><div class="task-block-label">★ Milestone</div><ul class="task-list"><li><strong>${week.milestoneText}</strong></li></ul></div>` : ''}
+        </div>
+      `;
+
+      weeksDiv.appendChild(card);
+    });
+
+    panel.appendChild(weeksDiv);
+    main.appendChild(panel);
+  });
+}
+
+function toggleWeek(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+function showSem(id, btn) {
+  document.querySelectorAll('.sem-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-sem-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('mainContent').scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
+renderAll();
+</script>
+</body>
+</html>

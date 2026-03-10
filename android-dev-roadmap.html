@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Android Developer Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #1e1e2e;
+    --android: #3ddc84;
+    --android-dim: #1a4a33;
+    --accent: #ff6b35;
+    --blue: #4fc3f7;
+    --purple: #9c6cff;
+    --yellow: #ffd166;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --subtle: #2a2a3e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(61,220,132,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61,220,132,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glowing orb */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(61,220,132,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 0 60px;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--android-dim);
+    border: 1px solid rgba(61,220,132,0.3);
+    color: var(--android);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--android);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  h1 .line1 { display: block; color: var(--text); }
+  h1 .line2 {
+    display: block;
+    color: var(--android);
+    -webkit-text-stroke: 1px var(--android);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--muted);
+    margin: 20px auto 0;
+    max-width: 500px;
+    line-height: 1.6;
+    font-weight: 400;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 48px;
+    animation: fadeDown 0.6s 0.3s ease both;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--android);
+    font-family: 'Space Mono', monospace;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* PHASE SECTIONS */
+  .phase {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--card);
+    overflow: hidden;
+    transition: border-color 0.3s;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .phase:hover { border-color: var(--android-dim); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase:nth-child(1) { animation-delay: 0.1s; }
+  .phase:nth-child(2) { animation-delay: 0.2s; }
+  .phase:nth-child(3) { animation-delay: 0.3s; }
+  .phase:nth-child(4) { animation-delay: 0.4s; }
+  .phase:nth-child(5) { animation-delay: 0.5s; }
+  .phase:nth-child(6) { animation-delay: 0.6s; }
+  .phase:nth-child(7) { animation-delay: 0.7s; }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 28px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+
+  .phase-header::after {
+    content: '↓';
+    position: absolute;
+    right: 28px;
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .phase.open .phase-header::after { transform: rotate(180deg); }
+
+  .phase-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .phase-meta {
+    flex: 1;
+  }
+
+  .phase-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .phase-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .phase-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid;
+    flex-shrink: 0;
+    margin-right: 44px;
+  }
+
+  /* Phase colors */
+  .p1 .phase-number { background: rgba(61,220,132,0.1); color: var(--android); border: 1px solid rgba(61,220,132,0.3); }
+  .p1 .phase-tag { color: var(--android); border-color: rgba(61,220,132,0.3); background: rgba(61,220,132,0.05); }
+
+  .p2 .phase-number { background: rgba(79,195,247,0.1); color: var(--blue); border: 1px solid rgba(79,195,247,0.3); }
+  .p2 .phase-tag { color: var(--blue); border-color: rgba(79,195,247,0.3); background: rgba(79,195,247,0.05); }
+
+  .p3 .phase-number { background: rgba(255,107,53,0.1); color: var(--accent); border: 1px solid rgba(255,107,53,0.3); }
+  .p3 .phase-tag { color: var(--accent); border-color: rgba(255,107,53,0.3); background: rgba(255,107,53,0.05); }
+
+  .p4 .phase-number { background: rgba(156,108,255,0.1); color: var(--purple); border: 1px solid rgba(156,108,255,0.3); }
+  .p4 .phase-tag { color: var(--purple); border-color: rgba(156,108,255,0.3); background: rgba(156,108,255,0.05); }
+
+  .p5 .phase-number { background: rgba(255,209,102,0.1); color: var(--yellow); border: 1px solid rgba(255,209,102,0.3); }
+  .p5 .phase-tag { color: var(--yellow); border-color: rgba(255,209,102,0.3); background: rgba(255,209,102,0.05); }
+
+  .p6 .phase-number { background: rgba(61,220,132,0.15); color: var(--android); border: 1px solid rgba(61,220,132,0.4); }
+  .p6 .phase-tag { color: var(--android); border-color: rgba(61,220,132,0.4); background: rgba(61,220,132,0.08); }
+
+  .p7 .phase-number { background: rgba(255,107,53,0.15); color: var(--accent); border: 1px solid rgba(255,107,53,0.4); }
+  .p7 .phase-tag { color: var(--accent); border-color: rgba(255,107,53,0.4); background: rgba(255,107,53,0.08); }
+
+  /* PHASE BODY */
+  .phase-body {
+    display: none;
+    padding: 0 28px 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .phase.open .phase-body { display: block; }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--subtle);
+  }
+
+  .topic-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .topic-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .topic-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .topic-items li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .topic-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--android-dim);
+  }
+
+  /* Project showcase */
+  .projects-section {
+    margin-top: 20px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .project-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    border-radius: 0 4px 4px 0;
+    padding: 12px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .project-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .project-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* Resources */
+  .resources-section {
+    margin-top: 20px;
+  }
+
+  .resource-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 2px;
+    background: var(--subtle);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .chip:hover { background: var(--android-dim); color: var(--android); border-color: rgba(61,220,132,0.3); }
+
+  /* TIP BOX */
+  .tip-box {
+    margin-top: 20px;
+    background: rgba(61,220,132,0.04);
+    border: 1px solid rgba(61,220,132,0.2);
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #9be8bf;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+
+  .tip-box::before { content: '💡'; flex-shrink: 0; }
+
+  /* IRREPLACEABLE SECTION */
+  .irreplaceable {
+    margin-top: 60px;
+    background: linear-gradient(135deg, rgba(61,220,132,0.08) 0%, rgba(156,108,255,0.08) 100%);
+    border: 1px solid rgba(61,220,132,0.25);
+    border-radius: 4px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .irreplaceable::before {
+    content: 'IRREPLACEABLE';
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(61,220,132,0.2);
+    font-weight: 700;
+  }
+
+  .irreplaceable h2 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    color: var(--android);
+  }
+
+  .irreplaceable p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .trait {
+    background: rgba(10,10,15,0.5);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  .trait-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .trait-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .trait-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* Timeline connector */
+  .connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    position: relative;
+  }
+
+  .connector::before {
+    content: '';
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--border), transparent);
+    position: absolute;
+  }
+
+  /* FOOTER */
+  .footer-note {
+    text-align: center;
+    margin-top: 60px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .footer-note span { color: var(--android); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--android-dim); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-badge">Complete Roadmap 2024–2025</div>
+    <h1>
+      <span class="line1">Become an</span>
+      <span class="line2">Android Developer</span>
+    </h1>
+    <p class="hero-sub">From absolute zero to irreplaceable — a structured path through every skill that matters.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Phases</div></div>
+      <div class="stat"><div class="stat-num">12–18</div><div class="stat-label">Months</div></div>
+      <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Skills</div></div>
+      <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Real Projects</div></div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase p1 open">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">01</div>
+      <div class="phase-meta">
+        <div class="phase-title">Programming Foundations</div>
+        <div class="phase-desc">Kotlin & core CS fundamentals — the language of Android</div>
+      </div>
+      <div class="phase-tag">4–6 weeks</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">🧠</span>
+          <div class="topic-name">Kotlin Basics</div>
+          <ul class="topic-items">
+            <li>Variables, data types, val vs var</li>
+            <li>Functions, lambdas, higher-order functions</li>
+            <li>Control flow: if, when, loops</li>
+            <li>Null safety & the Elvis operator</li>
+            <li>String templates & interpolation</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🏗️</span>
+          <div class="topic-name">OOP Concepts</div>
+          <ul class="topic-items">
+            <li>Classes, objects, constructors</li>
+            <li>Inheritance & interfaces</li>
+            <li>Data classes, sealed classes, enums</li>
+            <li>Companion objects</li>
+            <li>Extension functions</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🔧</span>
+          <div class="topic-name">Kotlin Advanced</div>
+          <ul class="topic-items">
+            <li>Generics & type variance</li>
+            <li>Collections: List, Map, Set operations</li>
+            <li>Scope functions: let, run, apply, also</li>
+            <li>Delegation & lazy properties</li>
+            <li>Operator overloading</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">⚙️</span>
+          <div class="topic-name">Dev Environment</div>
+          <ul class="topic-items">
+            <li>Install Android Studio</li>
+            <li>Configure AVD (emulator)</li>
+            <li>Understand project structure</li>
+            <li>Gradle basics & dependencies</li>
+            <li>Git version control setup</li>
+          </ul>
+        </div>
+      </div>
+      <div class="projects-section">
+        <div class="section-label">📦 Milestone Projects</div>
+        <div class="projects-list">
+          <div class="project-item" style="border-left-color: var(--android)">
+            <div class="project-icon">🖩</div>
+            <div><div class="project-name">CLI Calculator</div><div class="project-desc">Pure Kotlin console app. Covers all basics: input, parsing, functions, error handling.</div></div>
+          </div>
+          <div class="project-item" style="border-left-color: var(--android)">
+            <div class="project-icon">📋</div>
+            <div><div class="project-name">Contact Book (CLI)</div><div class="project-desc">CRUD in memory using collections, OOP, and extension functions.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="resources-section">
+        <div class="section-label">📚 Resources</div>
+        <div class="resource-chips">
+          <span class="chip">kotlinlang.org/docs</span>
+          <span class="chip">Kotlin Bootcamp (Google)</span>
+          <span class="chip">JetBrains Academy</span>
+          <span class="chip">Kotlin Koans</span>
+        </div>
+      </div>
+      <div class="tip-box">Master Kotlin null safety thoroughly — NullPointerExceptions are the #1 source of Android crashes. Make it second nature early.</div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- PHASE 2 -->
+  <div class="phase p2">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">02</div>
+      <div class="phase-meta">
+        <div class="phase-title">Android Core</div>
+        <div class="phase-desc">Activities, Fragments, lifecycle, UI fundamentals</div>
+      </div>
+      <div class="phase-tag">6–8 weeks</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">📱</span>
+          <div class="topic-name">App Architecture</div>
+          <ul class="topic-items">
+            <li>Activity lifecycle in depth</li>
+            <li>Fragment lifecycle & back stack</li>
+            <li>Intents: explicit & implicit</li>
+            <li>AndroidManifest.xml structure</li>
+            <li>Permissions system</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🎨</span>
+          <div class="topic-name">XML Layouts (Legacy)</div>
+          <ul class="topic-items">
+            <li>ConstraintLayout mastery</li>
+            <li>RecyclerView & Adapters</li>
+            <li>ViewBinding & DataBinding</li>
+            <li>Themes, styles, resources</li>
+            <li>Material Design components</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🚀</span>
+          <div class="topic-name">Jetpack Compose</div>
+          <ul class="topic-items">
+            <li>Composable functions & recomposition</li>
+            <li>State: remember, mutableStateOf</li>
+            <li>Row, Column, Box, LazyColumn</li>
+            <li>Modifiers: padding, size, click</li>
+            <li>Navigation in Compose</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🧭</span>
+          <div class="topic-name">Navigation</div>
+          <ul class="topic-items">
+            <li>Navigation Component / NavController</li>
+            <li>Deep links & arguments</li>
+            <li>Bottom navigation patterns</li>
+            <li>Safe Args</li>
+            <li>Back stack manipulation</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🏪</span>
+          <div class="topic-name">Data Storage</div>
+          <ul class="topic-items">
+            <li>SharedPreferences / DataStore</li>
+            <li>Room database (SQLite ORM)</li>
+            <li>DAOs, entities, migrations</li>
+            <li>File system & assets</li>
+            <li>Content Providers intro</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">⏱️</span>
+          <div class="topic-name">Async Programming</div>
+          <ul class="topic-items">
+            <li>Coroutines: launch, async, await</li>
+            <li>Coroutine scopes & dispatchers</li>
+            <li>Flow: cold streams, collectAsState</li>
+            <li>StateFlow & SharedFlow</li>
+            <li>Exception handling in coroutines</li>
+          </ul>
+        </div>
+      </div>
+      <div class="projects-section">
+        <div class="section-label">📦 Milestone Projects</div>
+        <div class="projects-list">
+          <div class="project-item" style="border-left-color: var(--blue)">
+            <div class="project-icon">✅</div>
+            <div><div class="project-name">To-Do App with Room</div><div class="project-desc">Full CRUD, Room DB, RecyclerView or LazyColumn, DataStore for settings.</div></div>
+          </div>
+          <div class="project-item" style="border-left-color: var(--blue)">
+            <div class="project-icon">🌦️</div>
+            <div><div class="project-name">Local Weather Display</div><div class="project-desc">Multiple screens, navigation, static data. Focus on Compose UI & navigation patterns.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="resources-section">
+        <div class="section-label">📚 Resources</div>
+        <div class="resource-chips">
+          <span class="chip">developer.android.com</span>
+          <span class="chip">Android Basics in Kotlin</span>
+          <span class="chip">Jetpack Compose Pathway</span>
+          <span class="chip">Philipp Lackner (YouTube)</span>
+        </div>
+      </div>
+      <div class="tip-box">Learn BOTH XML and Compose — enterprise codebases still use XML heavily, but all new projects use Compose. You need both to be employable today.</div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- PHASE 3 -->
+  <div class="phase p3">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">03</div>
+      <div class="phase-meta">
+        <div class="phase-title">Architecture & Clean Code</div>
+        <div class="phase-desc">MVVM, Clean Architecture, Dependency Injection — what separates juniors from seniors</div>
+      </div>
+      <div class="phase-tag">4–6 weeks</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">🏛️</span>
+          <div class="topic-name">MVVM Pattern</div>
+          <ul class="topic-items">
+            <li>ViewModel & ViewModelScope</li>
+            <li>LiveData vs StateFlow</li>
+            <li>Repository pattern</li>
+            <li>UI state modeling</li>
+            <li>UDF: Unidirectional Data Flow</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🧱</span>
+          <div class="topic-name">Clean Architecture</div>
+          <ul class="topic-items">
+            <li>Presentation → Domain → Data layers</li>
+            <li>Use cases / Interactors</li>
+            <li>Entities & models separation</li>
+            <li>Dependency rule</li>
+            <li>Mappers & DTOs</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">💉</span>
+          <div class="topic-name">Dependency Injection</div>
+          <ul class="topic-items">
+            <li>Manual DI first (understand the why)</li>
+            <li>Hilt: modules, components, scopes</li>
+            <li>@Inject, @Provides, @Binds</li>
+            <li>ViewModelModule, AppModule</li>
+            <li>Testing with Hilt</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🔌</span>
+          <div class="topic-name">Networking</div>
+          <ul class="topic-items">
+            <li>Retrofit + OkHttp</li>
+            <li>REST API concepts, HTTP methods</li>
+            <li>Moshi / Gson JSON parsing</li>
+            <li>Result wrapper & error handling</li>
+            <li>Interceptors & logging</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">📦</span>
+          <div class="topic-name">Jetpack Suite</div>
+          <ul class="topic-items">
+            <li>WorkManager for background tasks</li>
+            <li>Paging 3 library</li>
+            <li>Lifecycle-aware components</li>
+            <li>Splash Screen API</li>
+            <li>AppStartup</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🖼️</span>
+          <div class="topic-name">Media & Images</div>
+          <ul class="topic-items">
+            <li>Coil image loading library</li>
+            <li>Camera & MediaStore API</li>
+            <li>File picker & storage access</li>
+            <li>Notifications system</li>
+            <li>Bitmap manipulation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="projects-section">
+        <div class="section-label">📦 Milestone Projects</div>
+        <div class="projects-list">
+          <div class="project-item" style="border-left-color: var(--accent)">
+            <div class="project-icon">📰</div>
+            <div><div class="project-name">News Reader App</div><div class="project-desc">Live API data via Retrofit, MVVM + Clean Architecture, Paging 3, offline caching with Room.</div></div>
+          </div>
+          <div class="project-item" style="border-left-color: var(--accent)">
+            <div class="project-icon">🎬</div>
+            <div><div class="project-name">Movie Browser (TMDB API)</div><div class="project-desc">Full Clean Architecture, Hilt DI, search, favorites, local DB, image loading. Portfolio-worthy.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="resources-section">
+        <div class="section-label">📚 Resources</div>
+        <div class="resource-chips">
+          <span class="chip">Guide to App Architecture</span>
+          <span class="chip">Now in Android (sample app)</span>
+          <span class="chip">Hilt Documentation</span>
+          <span class="chip">Clean Architecture by Uncle Bob</span>
+        </div>
+      </div>
+      <div class="tip-box">The Movie Browser project should become your flagship portfolio piece. Polish it like a real product: proper error states, loading skeletons, animations, dark mode.</div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- PHASE 4 -->
+  <div class="phase p4">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">04</div>
+      <div class="phase-meta">
+        <div class="phase-title">Testing & Quality</div>
+        <div class="phase-desc">Unit tests, UI tests, TDD — what makes code production-ready</div>
+      </div>
+      <div class="phase-tag">3–4 weeks</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">🧪</span>
+          <div class="topic-name">Unit Testing</div>
+          <ul class="topic-items">
+            <li>JUnit 4/5 fundamentals</li>
+            <li>MockK for mocking in Kotlin</li>
+            <li>Testing ViewModels</li>
+            <li>Testing Use Cases</li>
+            <li>Coroutine testing (runTest)</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">📲</span>
+          <div class="topic-name">UI Testing</div>
+          <ul class="topic-items">
+            <li>Espresso (XML-based UI)</li>
+            <li>Compose Testing (semantics)</li>
+            <li>Test Robots pattern</li>
+            <li>Screenshots testing</li>
+            <li>Firebase Test Lab</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🔄</span>
+          <div class="topic-name">TDD & Quality</div>
+          <ul class="topic-items">
+            <li>Test-Driven Development flow</li>
+            <li>Code coverage with JaCoCo</li>
+            <li>Lint & detekt static analysis</li>
+            <li>Ktlint code formatting</li>
+            <li>Code review best practices</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🔁</span>
+          <div class="topic-name">CI/CD Basics</div>
+          <ul class="topic-items">
+            <li>GitHub Actions workflows</li>
+            <li>Automated test pipelines</li>
+            <li>Build variants & flavors</li>
+            <li>Fastlane for automation</li>
+            <li>Play Store deployment pipeline</li>
+          </ul>
+        </div>
+      </div>
+      <div class="resources-section">
+        <div class="section-label">📚 Resources</div>
+        <div class="resource-chips">
+          <span class="chip">Android Testing Codelab</span>
+          <span class="chip">Testing Fundamentals (docs)</span>
+          <span class="chip">MockK documentation</span>
+          <span class="chip">Compose Testing Guide</span>
+        </div>
+      </div>
+      <div class="tip-box">Aim for 80%+ test coverage on your domain/use-case layer. It's the #1 signal that separates junior devs from mid+ engineers in code reviews.</div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- PHASE 5 -->
+  <div class="phase p5">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">05</div>
+      <div class="phase-meta">
+        <div class="phase-title">Performance & Advanced UI</div>
+        <div class="phase-desc">Make apps fast, smooth, and beautiful — the craft level</div>
+      </div>
+      <div class="phase-tag">4–5 weeks</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">⚡</span>
+          <div class="topic-name">Performance</div>
+          <ul class="topic-items">
+            <li>Android Profiler: CPU, Memory, Network</li>
+            <li>Baseline Profiles</li>
+            <li>App startup optimization</li>
+            <li>Memory leaks with LeakCanary</li>
+            <li>StrictMode & ANR prevention</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">✨</span>
+          <div class="topic-name">Advanced Compose</div>
+          <ul class="topic-items">
+            <li>Custom layouts & draw</li>
+            <li>Animations API (animate*AsState)</li>
+            <li>AnimatedVisibility & transitions</li>
+            <li>Canvas in Compose</li>
+            <li>Compose performance optimization</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🎭</span>
+          <div class="topic-name">Accessibility</div>
+          <ul class="topic-items">
+            <li>TalkBack & content descriptions</li>
+            <li>Semantic properties in Compose</li>
+            <li>Touch target sizing</li>
+            <li>Color contrast standards</li>
+            <li>Accessibility scanner</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🌍</span>
+          <div class="topic-name">Localization & Config</div>
+          <ul class="topic-items">
+            <li>String resources & plurals</li>
+            <li>RTL layout support</li>
+            <li>Configuration change handling</li>
+            <li>Screen sizes & adaptive layouts</li>
+            <li>Dynamic theming (Material You)</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🔒</span>
+          <div class="topic-name">Security</div>
+          <ul class="topic-items">
+            <li>Encrypted SharedPreferences</li>
+            <li>Certificate pinning</li>
+            <li>Biometric authentication</li>
+            <li>ProGuard / R8 obfuscation</li>
+            <li>Secure data storage practices</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">📊</span>
+          <div class="topic-name">Analytics & Monitoring</div>
+          <ul class="topic-items">
+            <li>Firebase Analytics</li>
+            <li>Crashlytics crash reporting</li>
+            <li>Firebase Performance Monitoring</li>
+            <li>Custom events & funnels</li>
+            <li>Remote Config for A/B testing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="projects-section">
+        <div class="section-label">📦 Milestone Project</div>
+        <div class="projects-list">
+          <div class="project-item" style="border-left-color: var(--yellow)">
+            <div class="project-icon">💰</div>
+            <div><div class="project-name">Finance Tracker App</div><div class="project-desc">Custom Compose Canvas charts, animations, biometric lock, encrypted local storage, full test coverage. This is the app you publish to the Play Store.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">Publish your Finance Tracker to the Play Store — even as a free app. The Play Store presence on your resume is more valuable than you'd expect.</div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- PHASE 6 -->
+  <div class="phase p6">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">06</div>
+      <div class="phase-meta">
+        <div class="phase-title">Real-World & Backend Integration</div>
+        <div class="phase-desc">Firebase, GraphQL, WebSockets, Push Notifications, Maps</div>
+      </div>
+      <div class="phase-tag">4–5 weeks</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">🔥</span>
+          <div class="topic-name">Firebase Suite</div>
+          <ul class="topic-items">
+            <li>Firestore real-time database</li>
+            <li>Firebase Auth (Google, email)</li>
+            <li>Cloud Storage for files</li>
+            <li>Cloud Functions basics</li>
+            <li>FCM push notifications</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🔗</span>
+          <div class="topic-name">Advanced Networking</div>
+          <ul class="topic-items">
+            <li>GraphQL with Apollo Android</li>
+            <li>WebSockets for real-time</li>
+            <li>gRPC basics</li>
+            <li>OAuth 2.0 & JWT tokens</li>
+            <li>Offline-first strategies</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🗺️</span>
+          <div class="topic-name">Maps & Location</div>
+          <ul class="topic-items">
+            <li>Google Maps SDK</li>
+            <li>Fused Location Provider</li>
+            <li>Geofencing</li>
+            <li>Directions & Places API</li>
+            <li>Background location handling</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">💳</span>
+          <div class="topic-name">Monetization</div>
+          <ul class="topic-items">
+            <li>Google Play Billing Library</li>
+            <li>In-app purchases & subscriptions</li>
+            <li>AdMob integration</li>
+            <li>Play Store listing optimization</li>
+            <li>In-app review API</li>
+          </ul>
+        </div>
+      </div>
+      <div class="projects-section">
+        <div class="section-label">📦 Milestone Project</div>
+        <div class="projects-list">
+          <div class="project-item" style="border-left-color: var(--android)">
+            <div class="project-icon">💬</div>
+            <div><div class="project-name">Real-Time Chat App</div><div class="project-desc">Firebase Auth + Firestore, FCM push, image sharing via Cloud Storage, online presence indicators. Demonstrates full-stack mobile skills.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">The chat app is your social proof project. Make it look amazing and share it on GitHub and LinkedIn. Real-time apps are impressive to recruiters and interviewers.</div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- PHASE 7 -->
+  <div class="phase p7">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-number">07</div>
+      <div class="phase-meta">
+        <div class="phase-title">Senior & Specialist Skills</div>
+        <div class="phase-desc">Multi-module apps, KMP, ML Kit, NDK — what makes you irreplaceable</div>
+      </div>
+      <div class="phase-tag">Ongoing</div>
+    </div>
+    <div class="phase-body">
+      <div class="topics-grid">
+        <div class="topic-card">
+          <span class="topic-icon">🧩</span>
+          <div class="topic-name">Modularization</div>
+          <ul class="topic-items">
+            <li>Feature modules vs library modules</li>
+            <li>Dynamic feature delivery</li>
+            <li>Gradle convention plugins</li>
+            <li>Build speed optimization</li>
+            <li>Version catalog (libs.versions.toml)</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🌐</span>
+          <div class="topic-name">Kotlin Multiplatform</div>
+          <ul class="topic-items">
+            <li>KMP shared business logic</li>
+            <li>Compose Multiplatform UI</li>
+            <li>expect/actual pattern</li>
+            <li>Ktor for multiplatform networking</li>
+            <li>SQLDelight shared database</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🤖</span>
+          <div class="topic-name">ML & AI on Device</div>
+          <ul class="topic-items">
+            <li>ML Kit: text, face, barcode, pose</li>
+            <li>TensorFlow Lite integration</li>
+            <li>Gemini Nano (on-device LLM)</li>
+            <li>MediaPipe solutions</li>
+            <li>Custom TFLite model deployment</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">🎮</span>
+          <div class="topic-name">Low-Level & System</div>
+          <ul class="topic-items">
+            <li>NDK & JNI basics</li>
+            <li>Hardware sensors API</li>
+            <li>Bluetooth & BLE</li>
+            <li>USB & NFC communication</li>
+            <li>Custom Gradle plugins</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">📐</span>
+          <div class="topic-name">Large Screen & TV</div>
+          <ul class="topic-items">
+            <li>Adaptive layouts for tablets</li>
+            <li>Foldable support (WindowManager)</li>
+            <li>Android TV & Leanback</li>
+            <li>Wear OS apps</li>
+            <li>ChromeOS compatibility</li>
+          </ul>
+        </div>
+        <div class="topic-card">
+          <span class="topic-icon">👑</span>
+          <div class="topic-name">Engineering Leadership</div>
+          <ul class="topic-items">
+            <li>Technical design documents</li>
+            <li>Architecture Decision Records</li>
+            <li>Mentoring junior developers</li>
+            <li>Cross-functional communication</li>
+            <li>Open source contributions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="projects-section">
+        <div class="section-label">📦 Capstone Project</div>
+        <div class="projects-list">
+          <div class="project-item" style="border-left-color: var(--accent)">
+            <div class="project-icon">🏆</div>
+            <div><div class="project-name">Your Own App Idea — Fully Shipped</div><div class="project-desc">Multi-module, KMP shared logic, on-device ML feature, published on Play Store with real users. This is your crown jewel. Choose something YOU would use.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">At this stage, pick ONE specialization to go deep: ML on Android, KMP, or system-level work. Being the go-to person for one area is more valuable than being average at everything.</div>
+    </div>
+  </div>
+
+  <!-- IRREPLACEABLE SECTION -->
+  <div class="irreplaceable">
+    <h2>The Irreplaceable Developer</h2>
+    <p>Technical skills get you the job. These traits make you impossible to let go.</p>
+    <div class="traits-grid">
+      <div class="trait">
+        <span class="trait-icon">🧠</span>
+        <div class="trait-title">Systems Thinking</div>
+        <div class="trait-desc">You understand how everything connects — UX, backend, infrastructure, business goals.</div>
+      </div>
+      <div class="trait">
+        <span class="trait-icon">🔍</span>
+        <div class="trait-title">Deep Debugger</div>
+        <div class="trait-desc">You diagnose the impossible bugs. You read stack traces like prose and reach for profiler first.</div>
+      </div>
+      <div class="trait">
+        <span class="trait-icon">📝</span>
+        <div class="trait-title">Clear Communicator</div>
+        <div class="trait-desc">You write PRs that explain the why. Your design docs are read by choice, not obligation.</div>
+      </div>
+      <div class="trait">
+        <span class="trait-icon">🚀</span>
+        <div class="trait-title">Ownership Mindset</div>
+        <div class="trait-desc">You treat the app like it's yours. Crashes feel personal. User delight is a mission.</div>
+      </div>
+      <div class="trait">
+        <span class="trait-icon">🌱</span>
+        <div class="trait-title">Always Learning</div>
+        <div class="trait-desc">You follow the Android Developer blog, try new APIs before they're popular, share what you learn.</div>
+      </div>
+      <div class="trait">
+        <span class="trait-icon">🤝</span>
+        <div class="trait-title">Multiplier Effect</div>
+        <div class="trait-desc">You make everyone around you better. Code reviews are learning moments, not gatekeeping.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Built for aspiring devs who go all the way &nbsp;·&nbsp; <span>Zero → Irreplaceable</span> &nbsp;·&nbsp; Stay consistent.
+  </div>
+
+</div>
+
+<script>
+  function toggle(header) {
+    const phase = header.parentElement;
+    phase.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Plan · W33–W92 · Sem 5 to Placement</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500;700&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#1a1410; --bg2:#211c16; --surface:#28211a; --card:#2e2620;
+  --border:#3d3228; --border2:#4e4035;
+  --text:#f0e8d8; --mid:#9a8878; --muted:#5c4e40;
+  --commute:#f59e0b; --night:#34d399; --android:#60a5fa; --extra:#c084fc;
+  --milestone:#fbbf24;
+  --commute-bg:rgba(245,158,11,.07); --night-bg:rgba(52,211,153,.07);
+  --android-bg:rgba(96,165,250,.07); --extra-bg:rgba(192,132,252,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Geist',sans-serif;min-height:100vh;display:flex;}
+
+/* ── SIDEBAR ── */
+.sb{width:230px;min-width:230px;background:var(--bg2);border-right:1px solid var(--border);
+  position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sb-head{padding:22px 18px 16px;border-bottom:1px solid var(--border);}
+.sb-title{font-family:'Instrument Serif',serif;font-size:18px;color:var(--text);line-height:1.2;margin-bottom:4px;}
+.sb-sub{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.sb-nav{padding:10px 0;flex:1;}
+.sb-slbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 18px 4px;}
+.sb-btn{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;border:none;background:none;
+  color:var(--mid);font-family:'Geist',sans-serif;font-size:12px;font-weight:500;text-align:left;width:100%;transition:background .15s,color .15s;}
+.sb-btn:hover{background:var(--surface);color:var(--text);}
+.sb-btn.active{background:var(--card);color:var(--text);}
+.sb-dot{width:7px;height:7px;border-radius:50%;border:2px solid;flex-shrink:0;}
+.wk-links{display:none;flex-direction:column;padding:0 0 6px 38px;}
+.sb-btn.active+.wk-links{display:flex;}
+.wk-lnk{font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted);padding:3px 6px;
+  text-decoration:none;transition:color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wk-lnk:hover{color:var(--text);}
+.sb-legend{padding:14px 18px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
+.leg{display:flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.ldot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* ── MAIN ── */
+.main{margin-left:230px;flex:1;min-height:100vh;}
+.sp{display:none;} .sp.active{display:block;}
+
+/* SEM HERO */
+.sh{padding:40px 44px 32px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.sg{position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;pointer-events:none;opacity:.35;}
+.se{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.st{font-family:'Instrument Serif',serif;font-size:clamp(28px,4vw,46px);line-height:1.05;margin-bottom:10px;}
+.sd{font-size:14px;color:var(--mid);line-height:1.7;max-width:580px;font-weight:300;}
+.ss{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap;}
+.ssn{font-family:'Geist Mono',monospace;font-size:20px;font-weight:700;line-height:1;}
+.ssl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px;}
+
+/* SLOT KEY */
+.sk-row{display:flex;flex-wrap:wrap;gap:8px;padding:16px 44px;border-bottom:1px solid var(--border);background:var(--bg2);}
+.sk{display:flex;align-items:center;gap:7px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--muted);padding:5px 12px;border-radius:3px;border:1px solid var(--border);background:var(--surface);}
+.skd{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* CONTINUITY BANNER */
+.cont-banner{margin:20px 44px 0;background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.25);
+  border-left:3px solid var(--android);padding:14px 18px;font-size:13px;color:#93c5fd;line-height:1.6;}
+.cont-banner b{font-weight:600;display:block;margin-bottom:3px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+
+/* WEEKS */
+.weeks{padding:24px 44px 60px;display:flex;flex-direction:column;gap:14px;}
+
+/* WEEK CARD */
+.wc{background:var(--card);border:1px solid var(--border);border-radius:5px;overflow:hidden;transition:border-color .2s;}
+.wc:hover{border-color:var(--border2);}
+.wc.ms{border-color:rgba(251,191,36,.3);}
+.wch{display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;user-select:none;
+  border-bottom:1px solid transparent;transition:border-color .2s;}
+.wc.open .wch{border-bottom-color:var(--border);}
+.wnum{font-family:'Geist Mono',monospace;font-size:10px;font-weight:700;padding:4px 8px;border-radius:3px;flex-shrink:0;letter-spacing:1px;}
+.wtitle{flex:1;font-size:13px;font-weight:600;line-height:1.3;}
+.msbadge{font-family:'Geist Mono',monospace;font-size:9px;padding:3px 8px;border-radius:2px;flex-shrink:0;
+  background:rgba(251,191,36,.1);color:var(--milestone);border:1px solid rgba(251,191,36,.3);letter-spacing:1px;}
+.warr{font-family:'Geist Mono',monospace;font-size:13px;color:var(--muted);transition:transform .25s;flex-shrink:0;}
+.wc.open .warr{transform:rotate(180deg);}
+
+/* WEEK BODY */
+.wcb{display:none;padding:16px 18px;grid-template-columns:1fr 1fr;gap:10px;}
+.wc.open .wcb{display:grid;}
+
+/* SLOT */
+.slot{border-radius:4px;border:1px solid;padding:13px 15px;display:flex;flex-direction:column;gap:8px;}
+.slot.full{grid-column:1/-1;}
+.slbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:700;display:flex;align-items:center;gap:6px;}
+.slbl::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.stime{font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:-4px;}
+.stasks{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.stasks li{font-size:12px;color:var(--mid);padding-left:14px;position:relative;line-height:1.5;}
+.stasks li::before{content:'→';position:absolute;left:0;font-family:'Geist Mono',monospace;font-size:10px;color:var(--muted);}
+.stasks li b{color:var(--text);font-weight:600;}
+
+.sl-c{background:var(--commute-bg);border-color:rgba(245,158,11,.2);}
+.sl-c .slbl{color:var(--commute);} .sl-c .slbl::before{background:var(--commute);}
+.sl-n{background:var(--night-bg);border-color:rgba(52,211,153,.2);}
+.sl-n .slbl{color:var(--night);} .sl-n .slbl::before{background:var(--night);}
+.sl-a{background:var(--android-bg);border-color:rgba(96,165,250,.2);}
+.sl-a .slbl{color:var(--android);} .sl-a .slbl::before{background:var(--android);}
+.sl-e{background:var(--extra-bg);border-color:rgba(192,132,252,.2);}
+.sl-e .slbl{color:var(--extra);} .sl-e .slbl::before{background:var(--extra);}
+.sl-m{background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.3);grid-column:1/-1;}
+.sl-m .slbl{color:var(--milestone);} .sl-m .slbl::before{background:var(--milestone);}
+
+/* SECTION DIVIDER */
+.sdiv{display:flex;align-items:center;gap:14px;padding:4px 0;}
+.sdiv-txt{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.sdiv-line{flex:1;height:1px;background:var(--border);}
+
+@media(max-width:768px){
+  .sb{display:none;} .main{margin-left:0;}
+  .wcb{grid-template-columns:1fr;}
+  .weeks{padding:20px 16px 40px;} .sh{padding:24px 16px 20px;}
+  .sk-row,.cont-banner{margin-left:16px;margin-right:16px;}
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div class="sb">
+  <div class="sb-head">
+    <div class="sb-title">W33 → W92<br><em>Continuation</em></div>
+    <div class="sb-sub">Sem 5 · 6 · 7 · 8</div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-slbl">Semesters</div>
+    <div>
+      <button class="sb-btn active" onclick="show('s5',this)">
+        <span class="sb-dot" style="border-color:#60a5fa"></span>Sem 5 · Build (W33–48)
+      </button>
+      <div class="wk-links" id="wl-s5"></div>
+    </div>
+    <div>
+      <button class="sb-btn" onclick="show('s6',this)">
+        <span class="sb-dot" style="border-color:#fb923c"></span>Sem 6 · Polish (W49–64)
+      </button>
+      <div class="wk-links" id="wl-s6"></div>
+    </div>
+    <div>
+      <button class="sb-btn" onclick="show('s7',this)">
+        <span class="sb-dot" style="border-color:#c084fc"></span>Sem 7 · Interviews (W65–80)
+      </button>
+      <div class="wk-links" id="wl-s7"></div>
+    </div>
+    <div>
+      <button class="sb-btn" onclick="show('s8',this)">
+        <span class="sb-dot" style="border-color:#f87171"></span>Sem 8 · Placement (W81–92)
+      </button>
+      <div class="wk-links" id="wl-s8"></div>
+    </div>
+  </div>
+  <div class="sb-legend">
+    <div style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:3px">Slots</div>
+    <div class="leg"><span class="ldot" style="background:var(--commute)"></span>Commute 6 AM · DSA</div>
+    <div class="leg"><span class="ldot" style="background:var(--night)"></span>Night Block 10 PM</div>
+    <div class="leg"><span class="ldot" style="background:var(--android)"></span>Android 3:30 PM (Weekend)</div>
+    <div class="leg"><span class="ldot" style="background:var(--extra)"></span>Weekend Study Block</div>
+    <div class="leg"><span class="ldot" style="background:var(--milestone)"></span>Milestone</div>
+  </div>
+</div>
+
+<div class="main" id="mc"></div>
+
+<script>
+const D = [
+{
+  id:'s5', color:'#60a5fa',
+  eye:'Semester 5 · W33–W48',
+  title:'Build & Apply',
+  desc:'Clean Architecture, Hilt DI, the flagship Movie Browser project, and your internship applications become serious this semester. Your Night Block is now fully yours for coding every weeknight.',
+  stats:[{n:'16',l:'Weeks'},{n:'W33–48',l:'Range'},{n:'150+',l:'LeetCode target'},{n:'1',l:'Flagship project live'}],
+  banner:'You completed W01–W32. Kotlin is solid, Compose works, Room + Coroutines + Flow are in your hands. From this week: Night Block (10 PM) is Android coding every weeknight. The 3:30 PM weekend Android block stays. Commute = 2 LeetCode problems every single day.',
+  weeks:[
+    {
+      n:'W33', t:'MVVM + Repository Pattern — The Architecture Shift',
+      c:['LeetCode: <b>Climbing Stairs</b> (#70) + <b>House Robber</b> (#198) — intro to DP in Kotlin. Study the recurrence relation, not just the code.',
+         'Read on phone: "Guide to App Architecture" on developer.android.com — the first 2 sections',
+         'Think about your Weather App: where does business logic live? Where should it live?'],
+      ni:['Refactor your Weather App from Sem 3–4 into proper MVVM — create a WeatherRepository class',
+          'ViewModel calls Repository. Repository decides: network or cache? ViewModel never calls Retrofit directly.',
+          'StateFlow<UiState> exposed from ViewModel. Compose collects it. Zero logic in composables.'],
+      a:['Draw MVVM arrow diagram on paper first. Boxes: Compose → ViewModel → Repository → Network/DB',
+         'Implement it from the diagram. Build the discipline of designing before coding.',
+         'Push refactored Weather App to GitHub. README: "Refactored to MVVM — see the diff."'],
+      e:'Weekend Study Block: watch Philipp Lackner "MVVM Best Practices" on YouTube. Take notes. Implement any pattern you see that you haven\'t used yet.',
+      ms:false
+    },
+    {
+      n:'W34', t:'Clean Architecture: Separation into 3 Layers',
+      c:['LeetCode: <b>Coin Change</b> (#322) + <b>Unique Paths</b> (#62) — DP in Kotlin. Understand the subproblem breakdown.',
+         'Read: "Clean Architecture" summary — the dependency rule: outer layers depend inward, never outward',
+         'Think: in your current projects, which class knows too much?'],
+      ni:['Create Movie Browser project skeleton — 3 packages: presentation, domain, data',
+          'Domain: Movie.kt entity (pure Kotlin, zero Android imports), MovieRepository.kt interface',
+          'Data: MovieRepositoryImpl.kt (empty for now). Presentation: MovieViewModel.kt (empty for now)'],
+      a:['Android Block: implement Data layer — TmdbApiService (Retrofit interface), MovieDto, mapper function MovieDto → Movie',
+         'Get your free TMDB API key at themoviedb.org/settings/api',
+         'Test: one raw API call works and prints to Logcat. Foundation confirmed.'],
+      e:'Weekend: watch "Clean Architecture on Android" by Philipp Lackner. Pause and implement along with it.',
+      ms:false
+    },
+    {
+      n:'W35', t:'Use Cases: The Domain Layer in Full',
+      c:['LeetCode: <b>Longest Increasing Subsequence</b> (#300) + <b>Partition Equal Subset Sum</b> (#416) — DP',
+         'Read: UseCase pattern — single public operator fun invoke(). The "why" matters more than the "how"',
+         'Think: when does a UseCase make sense vs calling Repository directly? Rule: >1 caller = UseCase'],
+      ni:['Implement all Movie Browser Use Cases: GetPopularMoviesUseCase, SearchMoviesUseCase, GetMovieDetailUseCase, ToggleFavoriteUseCase',
+          'Each one: class GetPopularMoviesUseCase @Inject constructor(private val repo: MovieRepository)',
+          'Return type: Flow<Result<List<Movie>>>. Result is your sealed class from before.'],
+      a:['Wire Use Cases into MovieViewModel — UiState sealed class: Loading, Success(movies), Error(message)',
+         'StateFlow<UiState> starts as Loading, transitions correctly on collect',
+         'Test ViewModel logic in isolation — no UI yet. Call the use case, observe state changes in a test.'],
+      e:'Weekend: post on LinkedIn — "Learning Clean Architecture — drew the layer diagram, here\'s what each layer does in plain English." Attach the diagram photo.',
+      ms:false
+    },
+    {
+      n:'W36', t:'Manual DI First — Then Hilt Will Make Sense',
+      c:['LeetCode: <b>Word Break</b> (#139) + <b>Decode Ways</b> (#91) — DP string problems in Kotlin',
+         'Read: what dependency injection actually is — passing dependencies through constructors, not creating them inside',
+         'Think: in your Weather App, who creates the Retrofit instance? Who should?'],
+      ni:['Build a ServiceLocator from scratch for Movie Browser — manually wire: Retrofit → ApiService → Repository → UseCase → ViewModel',
+          'Feel the pain of manual wiring. Notice circular dependencies. This is WHY Hilt exists.',
+          'Then add Hilt: @HiltAndroidApp on Application class, @AndroidEntryPoint on MainActivity'],
+      a:['Add @Inject constructor to MovieRepositoryImpl, GetPopularMoviesUseCase, MovieViewModel',
+         '@Module + @InstallIn(SingletonComponent::class) + @Provides for Retrofit and ApiService',
+         '@Binds to bind MovieRepositoryImpl to MovieRepository interface — cleaner than @Provides'],
+      e:'Weekend: complete the Hilt codelab at developer.android.com/codelabs/android-hilt end to end.',
+      ms:false
+    },
+    {
+      n:'W37', t:'Hilt: ViewModel Injection + Scoping',
+      c:['LeetCode: <b>Number of Islands</b> (#200) + <b>Course Schedule</b> (#207) — Graph BFS/DFS in Kotlin',
+         'Read: Hilt scoping — @Singleton vs @ActivityScoped vs @ViewModelScoped. What "scope" actually means.',
+         'Think: if you have 2 screens both needing MovieRepository, should it be 1 instance or 2?'],
+      ni:['@HiltViewModel annotation on MovieViewModel — hiltViewModel() in Compose composable',
+          'Inject FavoritesRepository via Hilt into FavoritesUseCase into FavoritesViewModel',
+          'Test: the full injection chain — Retrofit → Repository → UseCase → ViewModel → UI'],
+      a:['Add Favorites feature to Movie Browser — favorite button on Detail screen, Favorites tab',
+         'FavoriteEntity in Room, FavoriteDao, FavoritesRepository — all injected via Hilt',
+         'Push. Your first fully Hilt-wired feature with Clean Architecture. This is production-level.'],
+      e:'Weekend Study Block: apply to 10 internships on Internshala + Wellfound. Track each in your spreadsheet.',
+      ms:false
+    },
+    {
+      n:'W38', t:'Retrofit Advanced: Interceptors + Result Wrapper',
+      c:['LeetCode: <b>Pacific Atlantic Water Flow</b> (#417) + <b>Clone Graph</b> (#133) — Graph problems in Kotlin',
+         'Read: OkHttp interceptors — how they work, what you can do in them (logging, auth, retry)',
+         'Read: HttpLoggingInterceptor — add BODY level logging, see full request/response in Logcat'],
+      ni:['Add HttpLoggingInterceptor to Movie Browser OkHttp client — observe every API call in Logcat',
+          'Add auth interceptor — automatically appends TMDB API key to every request as query param',
+          'Build proper sealed Result<T>: wrap every repository call, handle HttpException, IOException, generic Exception separately'],
+      a:['Test: disable network → see IOException handled, Error state shown with retry button',
+         'Test: pass a wrong API key → see HttpException(401) handled with specific error message',
+         'Polish: every error state shows a user-friendly message, not a raw exception class name'],
+      e:'Weekend: add timeout config to OkHttp client (connectTimeout, readTimeout, writeTimeout). Test with a throttled connection.',
+      ms:false
+    },
+    {
+      n:'W39', t:'Movie Browser: Room Offline-First Architecture',
+      c:['LeetCode: <b>Merge Intervals</b> (#56) + <b>Non-overlapping Intervals</b> (#435) — Greedy in Kotlin',
+         'Read: offline-first pattern — Room as the single source of truth. API populates Room, UI reads only from Room.',
+         'Think: what is the user experience if they open the app with no internet? Good apps show cached data.'],
+      ni:['Add Room to Movie Browser: MovieEntity, FavoriteEntity, MovieDao (getAll() returns Flow<List<MovieEntity>>)',
+          'MovieRepositoryImpl: fetch from TMDB → save to Room → emit from Room as Flow. Network refreshes cache, UI always reads Room.',
+          'Test offline mode: load movies, turn off WiFi, kill and reopen app. Cached movies show instantly.'],
+      a:['Mapper: MovieEntity ↔ Movie domain model. DTO ↔ MovieEntity. Clean separation.',
+         'Handle: what if Room is empty AND network fails? Show a meaningful empty+error state.',
+         'Push. Offline-first architecture is something most tutorial projects skip. This makes you different.'],
+      e:'Weekend Study Block: read the Paging 3 + Room RemoteMediator documentation. You will implement this next week.',
+      ms:false
+    },
+    {
+      n:'W40', t:'Movie Browser: Compose UI — Home + Search Screens',
+      c:['LeetCode: <b>Top K Frequent Elements</b> (#347) + <b>Kth Largest Element</b> (#215) — Heap in Kotlin',
+         'Read: LazyVerticalGrid in Compose — columns parameter, contentPadding, item sizing',
+         'Look at 5 real movie apps on Play Store. Screenshot UI patterns you like. Build with intention.'],
+      ni:['Build Home screen: LazyVerticalGrid of movie posters loaded with Coil AsyncImage',
+          'Shimmer loading placeholder while posters load (use Accompanist Placeholder or custom shimmer with Canvas)',
+          'Build Search screen: SearchBar composable, results in LazyColumn, debounce(300ms) on input Flow'],
+      a:['Build Detail screen: movie backdrop image, title, rating (custom star row), overview text, cast horizontal scroll',
+         'Navigation: Home → Detail (pass movieId), Search → Detail. Back navigation works correctly.',
+         'Dark mode: test every screen. Fix any contrast issues tonight.'],
+      e:'Weekend: record a 30-second screen recording of Movie Browser UI. Post on LinkedIn with a caption about the tech stack.',
+      ms:false
+    },
+    {
+      n:'W41', t:'Movie Browser: Paging 3 — Infinite Scroll',
+      c:['LeetCode: <b>Burst Balloons</b> (#312) + <b>Strange Printer</b> (#664) — Hard DP, study solutions',
+         'Read: Paging 3 architecture — PagingSource, Pager, PagingData, collectAsLazyPagingItems()',
+         'Think: without Paging, what happens if TMDB has 10,000 movies and you load them all?'],
+      ni:['Replace List<Movie> in HomeViewModel with Pager<Int, Movie>{ MoviePagingSource() }',
+          'MoviePagingSource: implements PagingSource<Int, Movie>, load() fetches page from TMDB',
+          'Compose: LazyVerticalGrid uses collectAsLazyPagingItems(). Scroll to bottom → new movies load automatically.'],
+      a:['Add loading footer item at bottom of grid while next page loads',
+         'Add error footer with retry button when a page fails to load',
+         'Test: scroll through 200+ movies without a crash, without duplicates, without jank'],
+      e:'Weekend: add RemoteMediator — loads from TMDB, caches to Room, serves from Room. True offline-first paging.',
+      ms:false
+    },
+    {
+      n:'W42', t:'Movie Browser: Unit Tests with MockK',
+      c:['LeetCode: <b>Edit Distance</b> (#72) + <b>Longest Common Subsequence</b> (#1143) — DP string problems',
+         'Read: MockK docs — mockk<T>(), every{}.returns{}, verify{}, coEvery for suspend functions',
+         'Read: Turbine library — for testing Flow emissions in unit tests'],
+      ni:['Add MockK and Turbine dependencies. Write unit tests for all 4 Use Cases.',
+          'Mock the Repository. Assert correct Result<T> is returned for each scenario.',
+          'Test GetPopularMoviesUseCase: mock returns success list → assert UseCase emits Success. Mock throws IOException → assert Error.'],
+      a:['Test MovieViewModel: runTest{}, fake StateFlow, assert Loading then Success transition',
+         'Test SearchViewModel: input a query → assert debounce fires → assert search results emit',
+         'Target: every Use Case has ≥3 tests (success, error, empty). Every ViewModel has ≥3 tests.'],
+      e:'Weekend: set up GitHub Actions workflow — ./gradlew test runs on every push to main. Add passing badge to README.',
+      ms:false
+    },
+    {
+      n:'W43', t:'Movie Browser: Animations + Material3 Polish',
+      c:['LeetCode: <b>Largest Rectangle in Histogram</b> (#84) + <b>Trapping Rain Water</b> (#42) — classic Hard stack problems',
+         'Read: animate*AsState, AnimatedVisibility, AnimatedContent in Compose docs',
+         'Browse Material Design 3 component gallery — m3.material.io'],
+      ni:['Add AnimatedVisibility to movie cards — fade+slide in on first composition',
+          'Favorite button: animateColorAsState for color change + scale animation on tap',
+          'Screen transition animations in Navigation: slideIn/slideOut between Home and Detail'],
+      a:['Custom Material3 colorScheme — pick a distinctive palette, not the default purple',
+         'Add Splash Screen API implementation — no white flash on cold start',
+         'Test entire app in dark mode. Every single screen. Fix anything that looks wrong.'],
+      e:'Weekend Study Block: final QA pass — rotate every screen, test every navigation path, test offline mode, test with slow network using Android Emulator network throttle.',
+      ms:false
+    },
+    {
+      n:'W44', t:'Movie Browser: Launch + Documentation',
+      c:['LeetCode: Weekly Contest — participate. All 4 problems attempted even if not solved.',
+         'Read: how to write a good technical README — what sections matter to recruiters',
+         'Think: if a senior engineer saw your GitHub repo cold, what would they want to know?'],
+      ni:['Write Movie Browser README: Architecture diagram (Excalidraw export as image), Screenshots of all screens, Tech stack with links, Setup instructions (API key setup), Feature list, Architecture Decision Records (why Clean Arch, why Hilt, why offline-first)',
+          'Generate a signed debug APK and add download link to README'],
+      a:['Push final Movie Browser to GitHub. Pin it on your profile — this is now repo #1.',
+         'Update LinkedIn Featured section with Movie Browser GitHub link',
+         'Update portfolio website with Movie Browser as the main project'],
+      e:'Weekend: write and publish an article on dev.to — "How I built an offline-first Movie Browser with Clean Architecture, Hilt, and Paging 3." Good articles get you LinkedIn profile visits.',
+      ms:true,
+      mt:'FLAGSHIP PROJECT LIVE. Movie Browser is on GitHub with full README, architecture diagram, unit tests, CI/CD, and offline support. When a recruiter looks at your profile they now see exactly what level you are at. This project carries your application through shortlisting.'
+    },
+    {
+      n:'W45', t:'Internship Blitz Week — 25 Applications',
+      c:['LeetCode: <b>Word Search II</b> (#212) + <b>Implement Trie</b> (#208) — Trie data structure in Kotlin',
+         'Research on commute: 5 startups in Bangalore/Hyderabad/Remote that have Android roles. Note the contact name.',
+         'Read: how to write a cold email to a startup CTO that actually gets read (short, specific, link to GitHub)'],
+      ni:['Write and refine cold email template — 3 versions: startup, mid-size product company, large company',
+          'Send 5 cold emails tonight to Android teams. Subject: "Android Developer (Final Year, Published Apps)"',
+          'Follow up on any internship applications from 2+ weeks ago with no response — one polite follow-up'],
+      a:['Apply to 20 internships this weekend — Internshala + LinkedIn Easy Apply + Wellfound',
+         'Track every application in your spreadsheet. You need data to improve your approach.',
+         'Update resume: add Movie Browser project with tech stack, GitHub link, and one metric (e.g., "Unit tested with 85% domain layer coverage")'],
+      e:'Weekend Study Block: research Google Summer of Code — find 3 Android-related orgs. Note what languages/skills they want. GSoC on your resume = doors open at any company.',
+      ms:false
+    },
+    {
+      n:'W46', t:'GDG Kolkata + Community Building',
+      c:['LeetCode: <b>Minimum Window Substring</b> (#76) + <b>Sliding Window Maximum</b> (#239) — Hard sliding window',
+         'Find GDG Kolkata on meetup.com. Register for next event. Put it in your calendar.',
+         'Read: how to network at tech meetups without it feeling awkward — be curious, ask questions, listen'],
+      ni:['Connect with 10 Android developers at your 5 target companies on LinkedIn',
+          'Each connection request has a note: "Hi [name], I saw your work on [specific thing at their company]. I\'m a final year CSE student building Android apps — [GitHub link]. Would love to connect."',
+          'Follow up any applications that got positive signals — recruiter viewed your profile?'],
+      a:['Start Meta Android Developer Certificate on Coursera — Module 1 this weekend',
+         'Add "Currently building with: Kotlin · Jetpack Compose · Clean Architecture · Hilt" to LinkedIn About section',
+         'Post on LinkedIn: "Week 46 update — Movie Browser is live, here is the architecture diagram." Tag #androiddev #kotlin'],
+      e:'Weekend: if GDG event is this weekend — attend. Talk to at least 3 developers. Follow them on LinkedIn before leaving.',
+      ms:false
+    },
+    {
+      n:'W47', t:'Kotlin Multiplatform — First Look',
+      c:['LeetCode: <b>Pacific Atlantic Water Flow</b> (#417) + 1 more Graph Medium — keep graphs sharp',
+         'Read: KMP (Kotlin Multiplatform) intro — what shared, expect/actual mean',
+         'Watch: JetBrains KMP introduction video on YouTube (20 min) at 1.5x on commute'],
+      ni:['Create a new KMP project in Android Studio — androidMain, commonMain, iosMain targets',
+          'Write a shared greetUser(name: String): String function in commonMain',
+          'expect/actual: Platform class in commonMain, actual implementations return "Android" / "iOS"'],
+      a:['Build tiny KMP app: shared business logic (a temperature converter) + Android Compose UI on top',
+         'You are NOT building KMP for your portfolio yet. You are learning the mental model.',
+         'Goal: understand where shared code lives and why. This becomes Semester 7 content.'],
+      e:'Weekend Study Block: write Semester 6 goals in a document — target internship date, Finance Tracker completion date, Play Store publish date, Google AAD exam date.',
+      ms:false
+    },
+    {
+      n:'W48', t:'Semester 5 Final Review',
+      c:['LeetCode: count total problems solved. Target: 150+ by end of Semester 5. If short — 2 extra problems tonight.',
+         'LeetCode: Weekly Contest — all 4 problems attempted',
+         'Commute reflection: what topics feel weakest? DP? Graphs? Plan extra focus next semester.'],
+      ni:['Can you explain Clean Architecture out loud with no notes? Do it right now. Into the room.',
+          'Can you explain the Hilt injection chain from @HiltAndroidApp to @HiltViewModel? Draw it on paper.',
+          'If you stumble on either — that\'s tonight\'s study target. One more focused review session.'],
+      a:['Full audit: GitHub profile, LinkedIn, portfolio website, resume. All up to date?',
+         'Count internship applications this semester. What was response rate? What will you change in Semester 6?',
+         'Identify the 3 skills from Semester 5 you want to go deeper on in Semester 6.'],
+      e:'Weekend: rest properly. Write a short journal entry — what clicked in Semester 5, what was hard, what you\'re proud of. You\'ll want to read this in Semester 8.',
+      ms:true,
+      mt:'Semester 5 COMPLETE. Movie Browser is live on GitHub. 150+ LeetCode problems solved. Internship applications in flight. Clean Architecture, Hilt, Paging 3, and unit testing are in your hands. Semester 6 is where you publish to the world.'
+    }
+  ]
+},
+{
+  id:'s6', color:'#fb923c',
+  eye:'Semester 6 · W49–W64',
+  title:'Internship + Polish',
+  desc:'Testing, performance profiling, the Finance Tracker app, publishing your first app to the Play Store, and the Google AAD certification. By end of this semester you are a verified, published Android developer.',
+  stats:[{n:'16',l:'Weeks'},{n:'W49–64',l:'Range'},{n:'1',l:'App on Play Store'},{n:'AAD',l:'Google Cert target'}],
+  banner:'Night Block is now fully coding. Weekend blocks are now longer as exam schedule stabilises. Finance Tracker will be your most polished project. You will publish it. That moment changes how every recruiter reads your resume.',
+  weeks:[
+    {
+      n:'W49', t:'Unit Testing Foundations — JUnit + MockK',
+      c:['LeetCode: <b>Rotting Oranges</b> (#994) + <b>Walls and Gates</b> (#286) — BFS Graph in Kotlin',
+         'Read: JUnit 4 annotations — @Test, @Before, @After, @BeforeClass, assertEquals, assertThrows',
+         'Read: AAA pattern — Arrange (set up state), Act (run code under test), Assert (verify result)'],
+      ni:['Add JUnit 4 + MockK dependencies to Movie Browser',
+          'Write 15 unit tests for Movie Browser domain layer — all 4 Use Cases fully tested',
+          'Naming convention: fun `should return error when network is unavailable`() — reads like documentation'],
+      a:['Test GetPopularMoviesUseCase: 3 tests (success, IOException, HttpException)',
+         'Test ToggleFavoriteUseCase: 2 tests (add to favorites, remove from favorites)',
+         'Test SearchMoviesUseCase: 3 tests (results found, empty results, error)'],
+      e:'Weekend Study Block: set up Turbine for Flow testing. Test MovieViewModel state transitions — assert Loading emitted before Success.',
+      ms:false
+    },
+    {
+      n:'W50', t:'Testing ViewModels + GitHub Actions CI',
+      c:['LeetCode: <b>Network Delay Time</b> (#743) + <b>Cheapest Flights Within K Stops</b> (#787) — Dijkstra\'s in Kotlin',
+         'Read: GitHub Actions YAML basics — on: push, jobs:, steps:, run:',
+         'Read: TestCoroutineDispatcher, runTest{} for coroutine testing'],
+      ni:['Test MovieViewModel: mock UseCase, assert state transitions with runTest{} + Turbine',
+          'Test Loading → Success transition. Test Loading → Error transition.',
+          'Test SearchViewModel: input a query, assert debounce fires, assert correct search state emits'],
+      a:['Create .github/workflows/ci.yml — runs ./gradlew test + ./gradlew lint on every push to main',
+         'Add test result badge to Movie Browser README: build passing green badge',
+         'Fix any lint warnings CI catches. Every warning is a potential bug.'],
+      e:'Weekend: write integration test for MovieRepositoryImpl using in-memory Room database. Test the full fetch-cache-serve cycle.',
+      ms:false
+    },
+    {
+      n:'W51', t:'Compose UI Testing — Semantics + Actions',
+      c:['LeetCode: <b>Minimum Spanning Tree</b> — Prim\'s and Kruskal\'s theory + Connecting Cities (#1584)',
+         'Read: Compose testing docs — createComposeRule(), onNodeWithText, onNodeWithTag, performClick',
+         'Think: what makes a Compose test different from a unit test? It renders actual composables.'],
+      ni:['Write 5 Compose UI tests for Movie Browser home screen',
+          'Add testTag() modifier to: movie grid, search bar, favorite button, loading indicator',
+          'Test: on loading state → loading indicator is displayed. On success → movie cards are displayed.'],
+      a:['Write 3 UI tests for Search screen: type query → results update, clear query → full list returns',
+         'Write 2 UI tests for Detail screen: movie title displayed, favorite button toggles state',
+         'Run all tests: every single one passes before you move on. Red is not acceptable.'],
+      e:'Weekend Study Block: research Finance Tracker app design — what screens, what data, what charts. Sketch wireframes on paper before writing a single line of code.',
+      ms:false
+    },
+    {
+      n:'W52', t:'Android Profiler — Find and Fix Real Problems',
+      c:['LeetCode: <b>Burst Balloons</b> (#312) — Hard DP. Study the solution even if you can\'t solve it.',
+         'Read: Android Profiler overview — CPU, Memory, Network, Energy tabs',
+         'Read: what causes frame drops (jank)? 16ms per frame budget. What breaks it?'],
+      ni:['Open Android Profiler on Movie Browser. Record a CPU trace while scrolling the movie grid.',
+          'Find: any method taking >16ms? Any unnecessary recompositions? Any blocking main thread calls?',
+          'Network Inspector: examine every API call. What is the response time? Payload size?'],
+      a:['Memory Profiler: take heap dump after scrolling 200 movies. Any MovieEntity objects not GC\'d?',
+         'Add LeakCanary to Movie Browser. Run the app normally. Fix EVERY leak it detects.',
+         'Document: what you found and what you fixed. This becomes a talking point in interviews.'],
+      e:'Weekend: add Baseline Profile to Movie Browser — generates startup trace for faster cold start. Follow developer.android.com/topic/performance/baselineprofiles guide.',
+      ms:false
+    },
+    {
+      n:'W53', t:'Finance Tracker: Project Setup + Architecture',
+      c:['LeetCode: <b>Partition Equal Subset Sum</b> (#416) + <b>Target Sum</b> (#494) — 0/1 Knapsack in Kotlin',
+         'Read: EncryptedSharedPreferences — Android Jetpack Security library',
+         'Think: what data does Finance Tracker need? Transactions, categories, budget limits, monthly summaries.'],
+      ni:['Create Finance Tracker project with full Clean Architecture from day one — no refactoring later',
+          'Domain: Transaction entity, Category entity, Budget entity. All pure Kotlin.',
+          'Room: TransactionEntity, CategoryEntity, TransactionDao with Flow<List<TransactionEntity>> getAll()'],
+      a:['Hilt: set up all modules — RoomModule, RepositoryModule, UseCaseModule',
+         'Use Cases: AddTransactionUseCase, DeleteTransactionUseCase, GetTransactionsByMonthUseCase, GetMonthlySummaryUseCase',
+         'Test all DAOs with in-memory Room database. All CRUD operations work before any UI.'],
+      e:'Weekend Study Block: implement Finance Tracker ViewModels — one per screen. All expose StateFlow<UiState>.',
+      ms:false
+    },
+    {
+      n:'W54', t:'Finance Tracker: Compose Screens',
+      c:['LeetCode: <b>Longest Valid Parentheses</b> (#32) — Hard stack problem worth knowing for interviews',
+         'LeetCode: 2 Medium problems from random topics — simulate interview randomness',
+         'Read: BottomSheetScaffold in Compose — you\'ll use this for the "Add Transaction" modal'],
+      ni:['Build Home screen: income/expense summary cards at top, transaction list (LazyColumn) below',
+          'Build Add Transaction bottom sheet: category picker, amount field, date picker, note field',
+          'Navigation: BottomNavigation with Home, Charts, Budget, Profile tabs'],
+      a:['Build Categories screen: grid of category chips, add custom category, assign colour + icon',
+         'All screens connected to ViewModels. Data flows from Room → UseCase → ViewModel → Compose.',
+         'Test: add a transaction → it appears in the list immediately (Flow reactive update).'],
+      e:'Weekend: integrate real Room data in all screens. Every screen shows live data. No hardcoded values.',
+      ms:false
+    },
+    {
+      n:'W55', t:'Finance Tracker: Canvas Charts',
+      c:['LeetCode: <b>Matrix Chain Multiplication</b> — Partition DP. Study the approach.',
+         'Read: Canvas DrawScope in Compose — drawArc(), drawRect(), drawPath(), coordinate system',
+         'Study: how a pie chart is calculated — percentages to sweep angles (percentage × 360°)'],
+      ni:['Build Pie Chart in Compose Canvas: spending by category, each slice a different colour',
+          'Animate: chart draws from 0 to full sweep angle using animateFloatAsState on first composition',
+          'Legend below chart: coloured dot + category name + percentage for each slice'],
+      a:['Build Bar Chart: monthly income vs expense. Each month = 2 bars (green income, red expense).',
+         'Animate bars growing from 0 to full height on composition',
+         'Both charts use real data from Room via StateFlow. Tap a chart bar → show that month\'s transactions.'],
+      e:'Weekend Study Block: test charts with 6 months of varied dummy data. Edge cases: what if one category has 100% of spending? What if a month has no transactions?',
+      ms:false
+    },
+    {
+      n:'W56', t:'Finance Tracker: Biometric Lock + Security',
+      c:['LeetCode: Mock OA simulation — 3 problems, 90 minutes, timed, no hints. Grade yourself honestly.',
+         'Read: BiometricPrompt API — Class1 (swipe), Class2 (face), Class3 (fingerprint). Use Class3 only.',
+         'Read: EncryptedSharedPreferences — how AES256 encryption works under the hood'],
+      ni:['Add BiometricPrompt to Finance Tracker: show fingerprint dialog when app returns from background',
+          'Handle all 3 BiometricPrompt outcomes: onAuthenticationSucceeded, onAuthenticationFailed, onAuthenticationError',
+          'Test: background app → foreground → biometric prompt shows. Cancel → app goes back to background.'],
+      a:['EncryptedSharedPreferences for: user preferences, budget limits, any sensitive settings',
+         'ProGuard/R8 rules: add rules to protect your class names. Test that the release build runs correctly.',
+         'WorkManager: add periodic budget exceeded notification — check every day if any category is over budget'],
+      e:'Weekend: add monthly summary notification via WorkManager — fires on the 1st of each month showing last month\'s summary.',
+      ms:false
+    },
+    {
+      n:'W57', t:'Finance Tracker: Testing + CI Pipeline',
+      c:['LeetCode: <b>Trapping Rain Water</b> (#42) — classic Hard. Must know this for interviews.',
+         'LeetCode: <b>Largest Rectangle in Histogram</b> (#84) — another classic Hard',
+         'Count total LeetCode problems. How close to 200? Plan final push.'],
+      ni:['Unit tests: all 4 Finance Tracker Use Cases with MockK. Target: 80% domain layer coverage.',
+          'ViewModel tests: all state transitions tested with runTest{} + Turbine',
+          'Integration tests: TransactionDao with in-memory Room. Every query tested.'],
+      a:['GitHub Actions CI for Finance Tracker — same as Movie Browser: tests + lint on every push',
+         'Write 5 Compose UI tests for Finance Tracker home screen and chart screen',
+         'Fix every failing test before the weekend. Green CI is non-negotiable.'],
+      e:'Weekend Study Block: read the Google Play Console requirements thoroughly — what\'s needed for the listing, what policies to know, how the review process works.',
+      ms:false
+    },
+    {
+      n:'W58', t:'Finance Tracker: Play Store Preparation',
+      c:['LeetCode: 2 Hard problems — attempt, then study solutions. Pattern recognition is compounding.',
+         'Read: App signing with Android App Bundle (AAB) — why AAB instead of APK for Play Store',
+         'Think: what will your app\'s Play Store description say? Write a draft in your head on the commute.'],
+      ni:['Generate signed AAB: Build → Generate Signed Bundle/APK → Android App Bundle',
+          'Keep the keystore file safe — if you lose it you cannot update the app ever',
+          'Write store listing: title (≤30 chars), short description (≤80 chars), full description (≤4000 chars)'],
+      a:['Design feature graphic (1024×500px) in Canva — required by Play Store. Keep it clean.',
+         'Take screenshots on multiple emulators: Pixel 6 (small), Pixel Tablet (large). Upload both.',
+         'Privacy policy: generate at privacypolicygenerator.info, host on GitHub Pages, link in Play Console.'],
+      e:'Weekend: pay Google Play developer one-time fee (₹1,650). Create developer account. Submit Finance Tracker to review.',
+      ms:false
+    },
+    {
+      n:'W59', t:'FINANCE TRACKER IS LIVE ON PLAY STORE',
+      c:['LeetCode: 2 per commute — maintain the streak through this exciting week',
+         'Read Play Console reviews (once it\'s live). Every review is a user telling you what to improve.',
+         'Think: what would Finance Tracker v1.1 look like? Note feature ideas during commute.'],
+      ni:['Once approved — screenshot the "Published" status in Play Console',
+          'Update LinkedIn and resume IMMEDIATELY: "Published Finance Tracker on Google Play"',
+          'Update portfolio website with Play Store badge and download link'],
+      a:['LinkedIn post: "My first app is live on the Google Play Store." Attach screenshots. Tag #androiddev',
+         'Resume update: "Finance Tracker — Published on Google Play. Built with Kotlin, Jetpack Compose, Clean Architecture, Room, Canvas Charts, Biometric Auth."',
+         'GitHub README: add Play Store badge with the actual download link'],
+      e:'Weekend Study Block: download your own app on a real device. Use it for a week. Note every friction point.',
+      ms:true,
+      mt:'FIRST APP ON THE PLAY STORE. You are now a published Android developer. This single fact — a real app, a real listing, real users — changes how every recruiter reads your resume from this day forward. Most developers never publish. You did.'
+    },
+    {
+      n:'W60', t:'Google AAD Exam: Deep Preparation',
+      c:['LeetCode: 2 per commute — non-negotiable',
+         'Read the full AAD exam guide: developers.google.com/certification/associate-android-developer',
+         'Note the 5 exam domains: UI (Compose+XML), Data (Room+APIs), Debugging, Core (lifecycle+perms), Kotlin'],
+      ni:['Study AAD domain 1 tonight: Working with data — Room migrations, API error handling, DataStore',
+          'Study AAD domain 2: User interface — Compose state, XML layouts, RecyclerView, Material Design',
+          'Build a timed feature: implement Room CRUD with all migrations in 40 minutes. Repeat until fast.'],
+      a:['Study AAD domain 3: Debugging — how to read ANR reports, how to use Logcat effectively, how to debug with breakpoints',
+         'Study AAD domain 4: Core — Activity/Fragment lifecycle, permissions, intents, broadcast receivers',
+         'Build the AAD sample app from the exam guide. Work through it completely.',],
+      e:'Weekend: full mock AAD assessment. Work through the practice assessment end-to-end. Time yourself. Fix gaps.',
+      ms:false
+    },
+    {
+      n:'W61', t:'TAKE THE GOOGLE AAD EXAM',
+      c:['LeetCode: 2 light problems — fresh brain for exam, do not exhaust yourself',
+         'Mental review on commute: Compose state, Room setup, Activity lifecycle — from pure memory',
+         'Confidence check: you have built 5+ real apps. You know this material.'],
+      ni:['Schedule and take Google AAD exam (online proctored, ~₹12,000, about 3 hours)',
+          'Pass → Google-certified Android Developer digital badge',
+          'Add badge to LinkedIn IMMEDIATELY after passing. Update resume.'],
+      a:['Post on LinkedIn: "Passed the Google Associate Android Developer certification." Attach the badge.',
+         'Update portfolio website with the badge image and certification link',
+         'Email the certificate link to any internship you\'ve applied to that hasn\'t responded — proof of skill'],
+      e:'Weekend: rest. You earned it. Plan Semester 7 goals.',
+      ms:true,
+      mt:'GOOGLE AAD CERTIFIED. This badge says: Google verified my Android skills. From a BPPIMT background, this is a credential that stands on its own. Companies that would filter you by college name now have to look twice.'
+    },
+    {
+      n:'W62', t:'Firebase: Firestore + Authentication',
+      c:['LeetCode: <b>All Paths from Source to Target</b> (#797) + <b>Find Eventual Safe States</b> (#802)',
+         'Read: Firestore data model — collections, documents, subcollections, when to use each',
+         'Read: Firebase Auth with Credential Manager API (the modern approach, not the deprecated one)'],
+      ni:['Firebase project setup. Add google-services.json to Android app.',
+          'Firestore: write a simple CRUD — create, read, update, delete a document with coroutines (await())',
+          'Auth: implement email+password login. Then add Google Sign-In with Credential Manager API.'],
+      a:['Build a mini real-time shared list — 2 emulators, both connected, one adds an item, the other sees it instantly',
+         'Auth state as a Flow: callbackFlow { addAuthStateListener { trySend(user) } }',
+         'Handle: what if Firebase is offline? What does the user see?'],
+      e:'Weekend: add Firebase Crashlytics to Finance Tracker. Force a crash. See the report in Firebase console.',
+      ms:false
+    },
+    {
+      n:'W63', t:'Firebase Storage + FCM Push Notifications',
+      c:['LeetCode: <b>Rotting Oranges</b> (+revisit) + <b>Surrounded Regions</b> (#130) — BFS/DFS',
+         'Read: Firebase Cloud Storage — upload, download, progress tracking',
+         'Read: FCM (Firebase Cloud Messaging) — FCM token, send to device, foreground vs background handling'],
+      ni:['Firebase Storage: upload a photo (ByteArray from camera), get the download URL, display with Coil',
+          'FCM: register for FCM token in app, log it. Send a test push notification from Firebase console.',
+          'Foreground FCM: show notification manually when app is open. Background: system shows it automatically.'],
+      a:['Profile picture upload flow: camera → compress → upload to Storage → save URL to Firestore → display',
+         'FCM notification click: opens the app to a specific screen using a deep link',
+         'Test on 2 devices: send notification to device 1 from device 2 via a Firestore trigger'],
+      e:'Weekend Study Block: plan Chat App architecture — Firestore structure for users, chats, messages. Draw collections on paper.',
+      ms:false
+    },
+    {
+      n:'W64', t:'Chat App Build + Semester 6 Close',
+      c:['LeetCode: count total. Target: 200+ by end of Semester 6. Fill gap tonight.',
+         'LeetCode: <b>Pacific Atlantic Water Flow</b> (revisit) — can you solve it faster than Week 35?',
+         'Reflection: what improved? Timing yourself on old problems shows real growth.'],
+      ni:['Chat App data layer: ChatRepository with sendMessage(), getMessages(chatId) as Flow<List<Message>>',
+          'Auth wired in: every message has a senderId, senderName, senderAvatarUrl',
+          'FCM: when a new message arrives and app is in background — show notification with sender name'],
+      a:['Chat App Compose UI: chat bubble component (sent = right/green, received = left/surface colour)',
+         'LazyColumn auto-scrolls to bottom on new message. Online presence dot on user avatar.',
+         'Demo: record 2-minute video of Chat App — 2 devices chatting in real time. Post on LinkedIn.'],
+      e:'Weekend: rest. Semester 6 review. Write goals for Semester 7.',
+      ms:true,
+      mt:'Semester 6 COMPLETE. Published app on Play Store ✓ Google AAD Certification ✓ Chat App with Firebase ✓ 200+ LeetCode ✓ Finance Tracker with tests and CI ✓. You are now ready for the interview gauntlet in Semester 7.'
+    }
+  ]
+},
+{
+  id:'s7', color:'#c084fc',
+  eye:'Semester 7 · W65–W80',
+  title:'Interview Ready',
+  desc:'Advanced Android topics, mock interviews, system design, and building your 30-company target list. By end of Semester 7 you should be confidently in active interview pipelines with competing offers on the horizon.',
+  stats:[{n:'16',l:'Weeks'},{n:'W65–80',l:'Range'},{n:'5+',l:'Mock interviews done'},{n:'250+',l:'LeetCode target'}],
+  banner:'Night Block every weeknight is coding or interview prep. The commute is 2 hard problems per day — no exceptions. This semester has no new framework goals. Everything is deepening, polishing, and preparing to win interviews.',
+  weeks:[
+    {
+      n:'W65', t:'Maps + Location Services',
+      c:['LeetCode: <b>Critical Connections in a Network</b> (#1192) — Tarjan\'s algorithm. Hard but important.',
+         'Read: Google Maps SDK for Android Compose — GoogleMap composable, Marker, Polyline',
+         'Read: FusedLocationProviderClient — why Fused instead of raw GPS (battery efficiency)'],
+      ni:['Google Maps SDK setup: add to Finance Tracker or as a standalone demo project',
+          'Show current location marker on map. Update every 10 seconds with requestLocationUpdates.',
+          'Tag transactions with location in Finance Tracker: on Add Transaction screen → "Add Location" button'],
+      a:['Map View screen in Finance Tracker: show all transactions as map markers, tap marker → see transaction details',
+         'Handle: location permission not granted → show rationale dialog → open settings',
+         'Geofencing intro: set a geofence around your college, trigger a log message when you enter/exit'],
+      e:'Weekend Study Block: deep read on Coroutine internals — CPS transformation, how structured concurrency actually works under the hood. Not for tutorials — for interview depth.',
+      ms:false
+    },
+    {
+      n:'W66', t:'Modularization: Multi-Module App',
+      c:['LeetCode: <b>Swim in Rising Water</b> (#778) + <b>Find the City with Fewest Reachable Neighbours</b> (#1334)',
+         'Read: multi-module Android app guide — feature modules vs library modules, dependency direction',
+         'Read: Gradle version catalog (libs.versions.toml) — the modern way to manage dependencies'],
+      ni:['Start converting Movie Browser to multi-module: :app, :core:data, :core:domain, :feature:movies',
+          ':core:domain has zero Android imports. :feature:movies has no access to :core:data directly.',
+          'Gradle convention plugin: extract shared build.gradle.kts config into a plugin. DRY principle.'],
+      a:['Complete :feature:movies module extraction — it compiles and works independently',
+         'Add :feature:favorites module. Note how this forces clean dependency management.',
+         'Run ./gradlew :feature:movies:test — modules can be tested in isolation. This is why we modularise.'],
+      e:'Weekend: study "Now in Android" sample app on GitHub (google/nowinandroid). This is Google\'s reference multi-module project. Read the architecture docs in the repo.',
+      ms:false
+    },
+    {
+      n:'W67', t:'ML Kit + On-Device AI',
+      c:['LeetCode: <b>Alien Dictionary</b> (LeetCode Premium / GFG) — Topological Sort from string rules',
+         'Read: ML Kit overview — what tasks it handles out of the box, no model training required',
+         'Read: TensorFlow Lite for Android — how to bundle a .tflite model in assets/'],
+      ni:['ML Kit barcode scanner: add to Finance Tracker — scan a receipt barcode → auto-fill amount field',
+          'ML Kit text recognition: take a photo of a handwritten expense note → extract text → parse amount',
+          'Test on real device if possible — ML Kit quality is much better on a real device than emulator'],
+      a:['TensorFlow Lite: download MobileNetV2 image classification model. Add to assets/. Run inference on a camera photo.',
+         'Display: top 3 predictions with confidence scores in a BottomSheet',
+         'Gemini Nano: read AICore API docs — on-device LLM. This is the future of Android. Know it exists.'],
+      e:'Weekend Study Block: write detailed answers to 30 Android interview questions. Actually write them out — not just read. Writing forces precision you don\'t get from passive reading.',
+      ms:false
+    },
+    {
+      n:'W68', t:'Android Interview Deep-Dive: Technical Questions',
+      c:['LeetCode: 20 random Medium problems this week — 2 per commute, every day. Simulate interview randomness.',
+         'Read: "Cracking the Coding Interview" — the "Before the Interview" chapter and the Kotlin/Java chapter',
+         'Think: what is the hardest Android question you could be asked? Prepare that answer first.'],
+      ni:['Write precise answers for: How does Coroutine structured concurrency work? What makes a Compose function unstable? How does ViewModel survive rotation?',
+          'Study Compose recomposition deeply: what triggers it, @Stable annotation, remember(key) usage, derivedStateOf',
+          'Study: difference between StateFlow and SharedFlow with exact use cases for each'],
+      a:['Record yourself answering 5 Android technical questions — 2 minutes each, no notes',
+         'Watch the recordings. Identify where you hesitated. Those are tonight\'s study targets.',
+         'Repeat for the 5 weakest answers until they sound fluent and confident'],
+      e:'Weekend Study Block: mock Android technical interview with a developer friend or classmate. 30 min Android deep-dive, 15 min behavioral.',
+      ms:false
+    },
+    {
+      n:'W69', t:'System Design for Mobile',
+      c:['LeetCode: <b>Regular Expression Matching</b> (#10) — Hard DP. Pattern matching is worth knowing.',
+         'Find and download "Mobile System Design" PDF by Alex Lementuev from GitHub',
+         'Read: Chapter 1 and 2 on commute — the framework for approaching mobile system design questions'],
+      ni:['Design "Instagram feed" on paper: data model, API design, caching strategy, pagination, real-time likes',
+          'Use the framework: requirements → API → data models → client architecture → trade-offs',
+          'Time it: 45 minutes on paper. This is the exact format of a system design interview round.'],
+      a:['Design "WhatsApp" on paper: message delivery receipts (single tick, double tick, blue tick), offline message queue, end-to-end encryption model',
+         'Design "Zomato" on paper: real-time delivery tracking, offline menu caching, push notifications for order status',
+         'For each design: write 3 trade-offs you made and why'],
+      e:'Weekend: Pramp.com — first mock interview. Full 45-minute session with a real person. Note every question asked and how you answered.',
+      ms:false
+    },
+    {
+      n:'W70', t:'Behavioral Interview Mastery',
+      c:['LeetCode: 2 per commute — every day without exception',
+         'Read: STAR method (Situation, Task, Action, Result) for behavioral answers',
+         'Think on commute: what is the most challenging technical problem you\'ve solved? Structure it as STAR.'],
+      ni:['Write full STAR stories for: biggest technical challenge, a time you failed and learned, disagreed with a decision, worked under pressure, handled ambiguity, a project you\'re most proud of',
+          'Write them out — at least 150 words each. Not bullet points. Full sentences.',
+          'Prepare: "Tell me about yourself" — exactly 90 seconds. Rehearse until natural.'],
+      a:['Prepare "Why Android?" answer — personal and specific, not generic',
+         'Prepare "Why [Company]?" for each of your top 5 companies — read their engineering blog first',
+         'Prepare: "Where do you see yourself in 3 years?" — show ambition + Android specialisation'],
+      e:'Weekend Study Block: Pramp.com mock interview #2. Compare to #1. Are the answers cleaner? Are you less nervous?',
+      ms:false
+    },
+    {
+      n:'W71', t:'Build Your 30-Company Target List',
+      c:['LeetCode: <b>Minimum Window Substring</b> (#76) revisit — can you solve faster than first time?',
+         'Research on commute: Android Developer salaries at your top 10 companies on AmbitionBox and Levels.fyi',
+         'Find the exact name of the Android team lead / hiring manager at 5 target companies on LinkedIn'],
+      ni:['Build 30-company spreadsheet: Company | Role URL | Salary (AmbitionBox) | Required Skills | Contact Name | Referral Status | Interview Process (from Glassdoor) | Application Status',
+          'For each company: read their most recent engineering blog post. Note anything Android-specific.',
+          'Identify 5 companies where you have a potential referral connection from your LinkedIn network'],
+      a:['Customise your resume for the top 5 companies — match keywords in their JD exactly',
+         'Identify 3 companies where your Play Store app and AAD certification are the strongest differentiators',
+         'Begin sending referral requests this weekend: "Hi [name], I applied to [role] at [company]. Would you be willing to refer me?"'],
+      e:'Weekend: apply to first 10 companies from the list. Track every application. This is the opening of Semester 8\'s campaign.',
+      ms:false
+    },
+    {
+      n:'W72', t:'Advanced Coroutines + Compose Performance',
+      c:['LeetCode: Hard problems — attempt 3 Hards. Study solutions. The pattern recognition compounds.',
+         'Read: Compose compiler report — how to generate it, what stability warnings mean',
+         'Read: derivedStateOf — when to use it vs remember{} — this is a common interview question'],
+      ni:['Generate Compose compiler report for Movie Browser: ./gradlew assembleRelease -PcomposeCompilerReports=true',
+          'Find: which composables are marked as unstable? Why? Fix them with @Stable or @Immutable.',
+          'Add derivedStateOf{} to a computed value in Finance Tracker — observe the recomposition reduction'],
+      a:['Kotlin Channel vs Flow vs SharedFlow — implement all 3, understand exactly when to use each one',
+         'Study: what is a cold flow vs hot flow at the bytecode level? Be able to explain this in one sentence.',
+         'Add @Composable function stability annotations to Movie Browser. Measure recomposition reduction.'],
+      e:'Weekend Study Block: connect with 10 Android developers at your top 5 target companies. Referral request messages.',
+      ms:false
+    },
+    {
+      n:'W73', t:'WorkManager Advanced + Foreground Services',
+      c:['LeetCode: <b>LeetCode Weekly Contest</b> — participate. All 4 problems attempted.',
+         'Read: Foreground Service — when required by Android OS, what the ongoing notification must contain',
+         'Read: WorkManager chain — how work sequences and conditionals work'],
+      ni:['Build a Foreground Service: simple audio player that continues when app is in background',
+          'Ongoing notification with play/pause/stop actions using PendingIntent',
+          'Test: start service, background the app, see notification persisting in notification drawer'],
+      a:['WorkManager advanced: add complex chain to Finance Tracker — fetch exchange rates → update amounts → send budget alert notification',
+         'Expedited WorkRequest: use for user-triggered immediate background work',
+         'Handle: what if work fails? Retry policy with BackoffPolicy.EXPONENTIAL'],
+      e:'Weekend: add background sync to Movie Browser — WorkManager syncs favorites list every 24 hours even when app is closed.',
+      ms:false
+    },
+    {
+      n:'W74', t:'Kotlin Multiplatform: Shared Business Logic',
+      c:['LeetCode: <b>Find Median from Data Stream</b> (#295) + <b>Sliding Window Median</b> (#480)',
+         'Read: KMP tutorial at kotlinlang.org/docs/multiplatform-mobile-getting-started.html',
+         'Think: in Finance Tracker, which code is truly platform-independent? Domain models, use cases, formatters — all of it.'],
+      ni:['Create KMP module in Finance Tracker project — shared domain layer',
+          'Move Transaction, Category entities and all Use Cases to commonMain',
+          'Ktor for shared networking in commonMain. SQLDelight for shared database schema.'],
+      a:['expect/actual: expect class DateFormatter in commonMain, actual implementation uses java.time on Android',
+         'Android app now consumes the shared module — Compose UI is Android-only, everything else is shared',
+         'Verify: ./gradlew :shared:build passes. The shared module compiles cleanly.'],
+      e:'Weekend Study Block: Pramp.com mock interview #3. Request an interviewer from a product company if option available.',
+      ms:false
+    },
+    {
+      n:'W75', t:'Mock Interview #4 + Salary Research',
+      c:['LeetCode: total count check — targeting 250+ by end of Semester 7. Plan final push if needed.',
+         'Research Levels.fyi: Android Developer salaries at your top 10 companies. Note base, bonus, ESOP separately.',
+         'Research AmbitionBox: same companies. Cross-reference both. Build a salary expectation range.'],
+      ni:['Pramp.com mock interview #4 — request hardest difficulty. Write down every question asked.',
+          'Compare to mock #1: how much faster are you? How much cleaner are the explanations?',
+          'Write debrief: 3 things I did well, 3 things to improve. Be honest.'],
+      a:['Craft salary negotiation responses out loud: "I\'m very excited about this role. Based on my research — published apps, Google AAD certification — I was hoping we could discuss [₹X]. Is there flexibility?"',
+         'Practice until it sounds confident, not rehearsed',
+         'Know your walk-away number. Know your ideal number. Know your market number. Three different figures.'],
+      e:'Weekend: read Patrick McKenzie\'s "Salary Negotiation" article in full (patio11.com). Internalize every principle.',
+      ms:false
+    },
+    {
+      n:'W76', t:'Deep Links + App Links + Accessibility',
+      c:['LeetCode: all remaining Blind 75 problems you have not yet solved — finish the list this week',
+         'Read: App Links vs Deep Links — the difference is verification. App Links open directly, no disambiguation dialog.',
+         'Read: Android Accessibility Service — what TalkBack actually is and how it reads your app'],
+      ni:['Add deep links to Finance Tracker and Chat App: specific transaction → link opens correct screen',
+          'App Links: set up assetlinks.json hosted on GitHub Pages. Verify with adb.',
+          'TalkBack test: enable TalkBack, close eyes, navigate Finance Tracker by sound only. Fix every broken path.'],
+      a:['Content descriptions: every ImageButton, Icon, AsyncImage in all 4 projects',
+         'Minimum touch target size: 48dp × 48dp. Find and fix any icon buttons that are smaller.',
+         'WindowSizeClass: add adaptive layout to Movie Browser for tablet — dual-pane on expanded screen'],
+      e:'Weekend Study Block: Accessibility Scanner app (download from Play Store). Run on Finance Tracker. Fix all warnings. Screenshot clean report.',
+      ms:false
+    },
+    {
+      n:'W77', t:'Mock Interview #5 + Resume Final',
+      c:['LeetCode: 2 per commute — the daily habit must not break even with interviews coming',
+         'LeetCode: Mock OA simulation — 3 problems, 90 minutes, no hints, timed. Grade yourself.',
+         'Read: how to write a post-interview thank-you email that stands out (not generic)'],
+      ni:['Pramp.com mock interview #5 — full 45-minute session. This is your last practice before real interviews.',
+          'Request feedback explicitly from your interviewer at end of session.',
+          'Write the most comprehensive debrief yet — this debrief guides your final prep.'],
+      a:['Resume final polish using Jobscan.co — check against 5 different Android Developer JDs. Fix gaps.',
+         'Add: Google AAD certification (with date and link), Finance Tracker Play Store link, GitHub CI badges',
+         'Share resume in Android developer communities (r/androiddev, Android Discord) — ask for feedback from 2 developers'],
+      e:'Weekend: share resume with 3 developers you\'ve connected with this semester. Ask: "Would you shortlist this resume for an Android Developer role?" Listen to the feedback.',
+      ms:false
+    },
+    {
+      n:'W78', t:'Final Technical Deepening',
+      c:['LeetCode: 5 Hard problems this week — push the ceiling. Study every solution.',
+         'Read: Android\'s rendering pipeline — Choreographer, VSYNC, how 60fps is actually achieved',
+         'Read: how Compose\'s snapshot state system works — State<T>, Snapshot, derived state'],
+      ni:['Study: what happens between an Activity\'s onCreate() and the first frame appearing on screen? Be able to answer in a 3-minute interview answer.',
+          'Study: how does Hilt\'s code generation work? What does @HiltAndroidApp actually generate?',
+          'Study: why is R8 better than ProGuard? What is code shrinking vs code obfuscation vs resource shrinking?'],
+      a:['Implement custom Compose modifier: a modifier that tracks element visibility on screen',
+         'Add custom lint rule to one of your projects — a simple rule that flags a bad pattern in your own codebase',
+         'Read Coil source code: how does the image cache work? What is the eviction policy?'],
+      e:'Weekend Study Block: connect with 5 more recruiters (not developers) at target companies on LinkedIn. Short note: "Final year Android developer, Play Store published, Google AAD certified, looking for roles from [month]."',
+      ms:false
+    },
+    {
+      n:'W79', t:'30-Company List Ready + Applications Begin',
+      c:['LeetCode: 2 per commute — the habit that carries you through Semester 8',
+         'Research: every company that replied to Semester 7 applications — what is their next step?',
+         'Read: Glassdoor interview experience for your top 5 companies. Know exact question types.'],
+      ni:['Confirm: all 30 companies in spreadsheet have — role URL, salary range, contact name, interview process notes, referral status',
+          'Send remaining referral requests tonight — anyone you haven\'t messaged yet from the list',
+          'Update LinkedIn "Open to Work" — turn on for recruiters only'],
+      a:['Apply to first 15 companies from the 30-company list this weekend',
+         'LinkedIn post: "Final year, actively seeking Android Developer roles from [month]. Here\'s what I\'ve built." Include portfolio highlights.',
+         'Portfolio website: final update — all 4 projects, Play Store links, demo videos, GitHub links, AAD cert badge'],
+      e:'Weekend: rest and plan. Write a 1-page "who I am as a developer now" — skills, projects, what kind of work excites you. This becomes your HR interview answer.',
+      ms:false
+    },
+    {
+      n:'W80', t:'Semester 7 Final Review',
+      c:['LeetCode: Mock OA — 3 problems, 90 minutes. Final benchmark before Semester 8 full application mode.',
+         'Count total problems solved. Target: 250+. Note exact number.',
+         'Commute reflection: of the 5 mock interviews, which round was hardest? That\'s your focus tonight.'],
+      ni:['Can you explain without notes: Coroutines structured concurrency, Compose recomposition triggers, Hilt scoping, offline-first with Room + Paging3, KMP shared module structure?',
+          'If any of those caused hesitation — spend 30 focused minutes on that exact topic right now',
+          'LinkedIn: confirm "Open to Work" is on. Message any recruiters who viewed your profile this week.'],
+      a:['All 4 projects: polished, documented, demo videos recorded, GitHub READMEs complete',
+         'Count: applications sent, responses, OAs, technical rounds. What is your conversion rate?',
+         'Identify: which 10 companies in your 30-list are most likely to move fast in Semester 8?'],
+      e:'Weekend: rest. Write goals for Semester 8. Simple list: 3+ offers by [date], target salary ₹X, start date [month]. Put the number on paper.',
+      ms:true,
+      mt:'Semester 7 COMPLETE. 4 polished projects (2 on Play Store) ✓ Google AAD Certified ✓ 250+ LeetCode ✓ 5 mock interviews done ✓ 30 companies mapped and ready ✓ Referrals in flight ✓. Semester 8 is not learning. It is execution.'
+    }
+  ]
+},
+{
+  id:'s8', color:'#f87171',
+  eye:'Semester 8 · W81–W92',
+  title:'Placement Mode',
+  desc:'Zero new learning targets. Pure application, interview performance, and negotiation. Commute is interview prep and company research. Night Block is company research, behavioral polish, and follow-ups. The goal: 3+ competing offers before you accept anything.',
+  stats:[{n:'12',l:'Weeks'},{n:'W81–92',l:'Range'},{n:'3+',l:'Competing offers target'},{n:'₹15–30L',l:'Target package'}],
+  banner:'The daily rhythm does not change. Gym stays. Violin stays. Sleep at 11 PM stays. What changes: every free mental slot — commute, night block, weekend study — is now pointed at one thing: getting hired at the right company for the right salary.',
+  weeks:[
+    {
+      n:'W81', t:'LAUNCH: Apply to All 30 Companies Today',
+      c:['LeetCode: 2 per commute — this habit does not stop until you sign an offer letter. Not one day.',
+         'Research every company you are applying to today — know their app, their team size, their recent engineering blog posts',
+         'Know: what Android-specific thing does each company care about? Maps? Payments? Real-time? Personalise each application.'],
+      ni:['Apply to all 30 companies: LinkedIn Easy Apply for those that have it, direct career pages for the rest',
+          'Referral request messages: send to every contact in your spreadsheet who can refer you',
+          'Set up application tracking: Company | Applied Date | Source | Status | Next Action | Deadline'],
+      a:['Send 10 cold LinkedIn DMs to Android developers at companies not on LinkedIn Easy Apply',
+         'Template: "Hi [name], I applied to the Android Developer role at [company] today. I noticed you work on the Android team — would you be open to a quick conversation?"',
+         'Post on LinkedIn: "Actively applying for Android Developer roles. 4 published/live projects, Google AAD cert, 250+ LeetCode. Open to referrals."'],
+      e:'Weekend: 10 more applications — companies from r/androiddev job postings, HackerNews "Who is hiring?" thread, YC job board.',
+      ms:false
+    },
+    {
+      n:'W82', t:'OAs: Complete Same Day, Every Time',
+      c:['LeetCode: 2 per commute — OAs can arrive any day. The habit keeps you sharp.',
+         'Research each company that sends you an OA: their engineering stack, their Android app reviews, their Glassdoor interview questions',
+         'Think: what data structures appear most in OAs? Arrays, strings, hashmaps, trees, graphs. Know them cold.'],
+      ni:['Complete any OA received the same day. Never delay more than 24 hours — companies track this.',
+          'After each OA: write down the 2–3 problems asked. Review the optimal solution. This builds pattern recognition.',
+          'Track OA results: which topics came up? Adjust LeetCode focus accordingly.'],
+      a:['15 more applications this week. Never stop applying while waiting for responses.',
+         'Follow up on Week 81 applications with no response: "Hi, I applied on [date] for the Android Developer role — I wanted to confirm my application was received and ask if there is any update."',
+         'Follow up is not desperate. It is professional. Companies respect initiative.'],
+      e:'Weekend: research interview experiences for companies that scheduled OAs — Glassdoor, LeetCode discuss, Reddit r/cscareerquestions.',
+      ms:false
+    },
+    {
+      n:'W83', t:'Technical Round 1: DSA Live Coding',
+      c:['LeetCode: 2 per commute — timed, no hints, simulate the interview pressure',
+         'Read: for each company that scheduled technical rounds — their Glassdoor reviews specifically on interview difficulty',
+         'Practice on commute: think aloud. Narrate your approach mentally before coding it. This is the skill that wins live rounds.'],
+      ni:['Practice live coding: open a problem, set a 25-minute timer, talk through your approach out loud before typing a single character',
+          'Key habit: state brute force first, then optimise. Never jump to optimal before explaining brute force.',
+          'If stuck: say "I\'m going to try a HashMap here because we need O(1) lookups" — thinking aloud unlocks hints from interviewers'],
+      a:['For each company with a scheduled interview: review their Android app. Download it. Use it. Note what you would improve.',
+         'Prepare: "Walk me through Movie Browser architecture" — 5 minutes, confident, no notes',
+         'Prepare: "What would you change about Finance Tracker if you had another month?" — shows ownership mindset'],
+      e:'Weekend: full mock interview with a developer — 25 min DSA (1 problem) + 20 min Android technical (5 deep questions).',
+      ms:false
+    },
+    {
+      n:'W84', t:'Technical Round 2: Android Deep Dive',
+      c:['LeetCode: 2 per commute — even with interviews happening, even with nerves. Especially then.',
+         'Night before any interview: light review, no cramming. Sleep at 11 PM strict. You perform better rested.',
+         'Commute morning of interview: mentally walk through your 4 projects. Know every line.'],
+      ni:['After each interview: within 1 hour, write down every question asked. All of them.',
+          'Review your answers honestly: which were strong? Which were vague? Study the vague ones tonight.',
+          'Send thank-you email within 24 hours: "Thank you for the interview. I particularly enjoyed discussing [specific topic from the conversation]. I look forward to next steps."'],
+      a:['Apply 10 more companies. Never slow the pipeline.',
+         'Fix every knowledge gap exposed by this week\'s interviews. Immediately.',
+         'Update application spreadsheet: which rounds passed, which failed, what the feedback was'],
+      e:'Weekend: 2 more applications. Review all technical questions from this week\'s interviews. Study the gaps.',
+      ms:false
+    },
+    {
+      n:'W85', t:'Multiple Active Pipelines',
+      c:['LeetCode: 2 per commute — non-negotiable. This habit runs until day 1 of the job.',
+         'Track your funnel on commute: applications → OA → Tech R1 → Tech R2 → HR → Offer. Know your conversion rate at each stage.',
+         'If Tech R1 conversion is low: more DSA practice. If Tech R2 conversion is low: more Android depth.'],
+      ni:['For every company in active pipeline: research the next round. What format? What topics? Glassdoor data.',
+          'Prepare specific answers for each company\'s known interview style',
+          'If a company has gone silent: follow up. "I wanted to check in on the status of my application — I remain very interested in this role."'],
+      a:['10 more applications. Total should be 40+ by now.',
+         'Connect with developers who recently joined your top 5 companies — ask about their first 90 days',
+         'LinkedIn: engage with posts from your target companies\' engineering teams. Be visible.'],
+      e:'Weekend: mock system design interview with a developer. Design "Swiggy Android app" — 45 minutes, all layers.',
+      ms:false
+    },
+    {
+      n:'W86', t:'System Design Rounds',
+      c:['LeetCode: 2 per commute — graph and DP are most likely in system design adjacent questions',
+         'Re-read Mobile System Design PDF — focus on the trade-offs sections',
+         'Think on commute: for Swiggy, what is the hardest technical problem? Real-time driver tracking. How would you implement it?'],
+      ni:['Design practice tonight: "Design YouTube for Android" — 45 minutes on paper',
+          'Cover: feed pagination, offline download, video caching, background playback (Foreground Service), push notifications',
+          'Write 3 explicit trade-offs you made: "I chose Room over raw SQLite because..."'],
+      a:['Design practice: "Design a Payment App like Google Pay" — security considerations, transaction history, UPI integration model',
+         'For each design: can you implement every layer you described? You should be able to. Integrity matters.',
+         'Practice presenting your design out loud — 10 minutes explaining it to yourself as if to an interviewer'],
+      e:'Weekend Study Block: re-read Mobile System Design once more. Note which patterns appear in multiple designs — those are the ones interviewers love.',
+      ms:false
+    },
+    {
+      n:'W87', t:'HR Rounds + First Offer Signals',
+      c:['LeetCode: 2 per commute. The day you stop is the day you get a DSA question you can\'t answer.',
+         'Read: Patrick McKenzie salary negotiation on commute (again). Every time you read it you find something new.',
+         'Research: for companies approaching offer stage — what are their annual appraisal cycles? ESOP vesting? Joining bonus policy?'],
+      ni:['If salary discussion starts: "I\'m very excited about this opportunity. To make sure we\'re aligned — could you share the budgeted range for this role?"',
+          'Never give your number first. This is the single most important negotiation rule.',
+          'Research tonight: exact salary at this company + role on Levels.fyi and AmbitionBox. Know the market rate before HR calls.'],
+      a:['Keep every other pipeline moving. An offer only matters when it\'s signed.',
+         'Message any company that has been quiet for 2+ weeks: "I have an offer with a deadline approaching. I wanted to check in on my application status."',
+         'This message accelerates 30% of stalled pipelines. Companies move faster when they know they might lose you.'],
+      e:'Weekend: talk to a developer who recently negotiated an offer. What worked? What was negotiable beyond base? Joining bonus? ESOP cliff?',
+      ms:false
+    },
+    {
+      n:'W88', t:'First Offer: Do Not Accept Immediately',
+      c:['LeetCode: 2 per commute. The habit runs through offer letters.',
+         'Rehearse on commute: "Thank you so much for the offer — I\'m very excited. Could I have until [date 1 week out] to review everything carefully?"',
+         'Every company gives 1–2 weeks. Use all of it.'],
+      ni:['Message every other active pipeline company the same evening: "I have received an offer with a deadline of [date]. I wanted to let you know as I am very interested in [company] and would love to discuss accelerating our process if possible."',
+          'This message is honest, professional, and creates genuine urgency. It works.',
+          'Compare first offer on Levels.fyi: is it at market, above, or below?'],
+      a:['Calculate total compensation: base + joining bonus + annual variable + ESOP (if any, note the vesting schedule)',
+         'Decide your counter number: market rate × 1.1 to 1.2. Know your floor (minimum acceptable) and your target.',
+         'Do NOT accept before you have at least 2 competing offers or have exhausted all active pipelines'],
+      e:'Weekend: decision framework — if this were the only offer ever, would you take it? If yes, it is a good offer. But still counter.',
+      ms:false
+    },
+    {
+      n:'W89', t:'Counter Every Offer — Every Single One',
+      c:['LeetCode: 2 per commute. Signing is not the end — next job hunt might be in 2 years.',
+         'Commute script practice: "Based on my published apps, Google certification, and the market rate I\'ve researched, I was hoping for ₹[X]. Is there flexibility?" Say it until it sounds natural.',
+         'Remember: the worst they say is "this is our best and final." That is fine. You tried.'],
+      ni:['Counter every offer tonight using the script. Do it even for offers you love.',
+          'Counter only once — if they come back with a better number, great. If not, decide based on the full picture.',
+          'Document: what was offered, what you countered, what they came back with. This data is useful for future negotiations.'],
+      a:['Keep interviewing at full intensity. Do not mentally coast because you have one offer.',
+         'A second offer while negotiating the first increases your leverage by 10x.',
+         'Update spreadsheet: current offers, amounts, deadlines, counter status'],
+      e:'Weekend: compare all active offers side by side — base, bonus, ESOP, joining bonus, total year 1 compensation.',
+      ms:false
+    },
+    {
+      n:'W90', t:'Multiple Offers: The Real Decision',
+      c:['LeetCode: 2 per commute. The habit is yours now. It never needs to stop.',
+         'Research: company stage for each offer (Series A vs Series D vs public). Earlier stage = more risk, more upside.',
+         'Research: Glassdoor reviews for each company — specifically what people say about learning opportunities and growth'],
+      ni:['Decision matrix tonight: score each offer 1–10 on — base salary, growth trajectory (company stage + team size), tech stack quality (will you learn?), culture (Glassdoor), location/remote policy, appraisal cycle, name brand value',
+          'Weight the criteria by what matters most to YOU at this stage of your career',
+          'The right choice is rarely obvious until you do this exercise.'],
+      a:['Read offer letters carefully: exact role title, notice period, non-compete scope (if any), joining date flexibility, probation period',
+         'Call the HR of your top choice: ask questions. Shows initiative. Gets you information.',
+         'Decide. Do not let perfect be the enemy of good. A great offer held too long can expire.'],
+      e:'Weekend: consult a mentor, senior developer, or someone you trust. Second opinion on the decision. Then decide.',
+      ms:false
+    },
+    {
+      n:'W91', t:'Accept + Decline Gracefully',
+      c:['LeetCode: 2 per commute. This is now a permanent professional habit, not just exam prep.',
+         'Read: how to resign from an internship gracefully (if applicable)',
+         'Think: what do you want to learn in your first 90 days at the new company?'],
+      ni:['Accept the chosen offer: written confirmation + signed letter within 24 hours',
+          'Decline all other offers within 24 hours of accepting: "Thank you for the offer. After careful consideration I have accepted another opportunity that is a better fit for my current goals. I have great respect for your team and hope our paths cross in the future."',
+          'Never ghost. The Android community in India is small. Relationships matter more than you think.'],
+      a:['Update LinkedIn: "Excited to announce I am joining [Company] as an Android Developer starting [Month]." Tag the company. Add the role to your LinkedIn experience.',
+         'Update GitHub profile and portfolio website',
+         'Thank every developer, recruiter, and contact who helped — a short genuine message goes a long way'],
+      e:'Weekend: connect with your future teammates on LinkedIn before Day 1. Follow the company tech blog.',
+      ms:false
+    },
+    {
+      n:'W92', t:'Before Day 1: Prepare to Make an Impression',
+      c:['LeetCode: 2 per commute. The habit is permanent. Future you will thank current you.',
+         'Read the company\'s engineering blog end to end. Know their stack, their architectural decisions, their open source contributions.',
+         'Download and deeply use the company\'s app. Note: what would you improve? What is great?'],
+      ni:['Write "My 90-day plan" document — what you want to learn, what you want to contribute, what questions you have',
+          'Share this with your manager on Day 1. It signals ownership mindset from the first hour.',
+          'Prepare your workspace: fresh Android Studio install, configure Git, set up any VPN or tools the company requires'],
+      a:['Connect with future teammates on LinkedIn. Send a short note: "Looking forward to meeting you next week."',
+         'Research: who are the senior Android developers on your team? What have they built? What can you learn from them?',
+         'Rest today. Eat well. Sleep at 11 PM. You start a new chapter in a few days.'],
+      e:'Weekend: rest. You earned it.',
+      ms:true,
+      mt:'YOU DID IT. From W01 — no Android knowledge, 47kg on a long daily commute — to W92 — hired Android Developer at a product company with a salary you negotiated. Every 6 AM LeetCode problem on that bus. Every 10 PM Night Block on the MacBook. Every weekend Android session. It compounded into this. Now build something great.'
+    }
+  ]
+}
+];
+
+// ───────── BUILD ─────────
+function build(){
+  const mc = document.getElementById('mc');
+  mc.innerHTML='';
+  D.forEach((sem,si)=>{
+    const panel=document.createElement('div');
+    panel.className='sp'+(si===0?' active':'');
+    panel.id=sem.id;
+
+    panel.innerHTML=`
+      <div class="sh">
+        <div class="sg" style="background:radial-gradient(circle,${sem.color}40 0%,transparent 70%)"></div>
+        <div class="se" style="color:${sem.color}">${sem.eye}</div>
+        <div class="st">${sem.title}</div>
+        <div class="sd">${sem.desc}</div>
+        <div class="ss">${sem.stats.map(s=>`<div><div class="ssn" style="color:${sem.color}">${s.n}</div><div class="ssl">${s.l}</div></div>`).join('')}</div>
+      </div>
+      <div class="sk-row">
+        <div class="sk"><span class="skd" style="background:var(--commute)"></span>Commute 6 AM · DSA on phone</div>
+        <div class="sk"><span class="skd" style="background:var(--night)"></span>Night Block 10 PM · MacBook · 1 hr</div>
+        <div class="sk"><span class="skd" style="background:var(--android)"></span>Android Block 3:30 PM (Weekend)</div>
+        <div class="sk"><span class="skd" style="background:var(--extra)"></span>Weekend Study Block</div>
+      </div>
+      <div class="cont-banner"><b>Continuing from W${si===0?'32':'previous semester'}</b>${sem.banner}</div>
+    `;
+
+    const wlC=document.getElementById(`wl-${sem.id}`);
+    const wks=document.createElement('div');
+    wks.className='weeks';
+
+    sem.weeks.forEach((wk,wi)=>{
+      const wl=document.createElement('a');
+      wl.className='wk-lnk';
+      wl.href=`#wc-${sem.id}-${wi}`;
+      wl.textContent=`${wk.n} · ${wk.t.slice(0,22)}${wk.t.length>22?'…':''}`;
+      if(wlC) wlC.appendChild(wl);
+
+      const card=document.createElement('div');
+      card.className=`wc${wk.ms?' ms':''}`;
+      card.id=`wc-${sem.id}-${wi}`;
+      card.innerHTML=`
+        <div class="wch" onclick="tw(this)">
+          <span class="wnum" style="background:${sem.color}18;color:${sem.color}">${wk.n}</span>
+          <span class="wtitle">${wk.t}</span>
+          ${wk.ms?'<span class="msbadge">★ Milestone</span>':''}
+          <span class="warr">▾</span>
+        </div>
+        <div class="wcb">
+          ${sl('sl-c','📱 Commute · 6 AM','Tue–Sat · 2 LeetCode + reading',wk.c)}
+          ${sl('sl-n','💻 Night Block · 10 PM','MacBook · 1 hr · Tue–Sat',wk.ni)}
+          ${sl('sl-a full','🖥️ Android Block · 3:30 PM','MacBook · 2 hrs · Sun & Mon',wk.a)}
+          ${wk.e?sl('sl-e full','🟣 Weekend Study Block','After exams — open block',[wk.e]):''}
+          ${wk.ms?`<div class="slot sl-m"><div class="slbl">★ Milestone</div><ul class="stasks"><li><b>${wk.mt}</b></li></ul></div>`:''}
+        </div>
+      `;
+      wks.appendChild(card);
+    });
+    panel.appendChild(wks);
+    mc.appendChild(panel);
+  });
+}
+
+function sl(cls,lbl,time,tasks){
+  if(!tasks||!tasks.length) return '';
+  return `<div class="slot ${cls}"><div class="slbl">${lbl}</div><div class="stime">${time}</div><ul class="stasks">${tasks.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
+}
+function tw(h){h.parentElement.classList.toggle('open');}
+function show(id,btn){
+  document.querySelectorAll('.sp').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+build();
+</script>
+</body>
+</html>

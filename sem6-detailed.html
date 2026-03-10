@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester 6 — Detailed Plan · W49–W64</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:    #0f0d0a;
+  --paper:  #faf6ef;
+  --cream:  #f2ead8;
+  --warm:   #e8dcc8;
+  --rule:   #d4c4a8;
+  --mid:    #8a7560;
+  --muted:  #b8a890;
+
+  --orange: #e8621a;
+  --amber:  #d4880a;
+  --green:  #2a7a4a;
+  --blue:   #1a5fa8;
+  --purple: #6b35a8;
+  --red:    #c0392b;
+  --teal:   #1a7a6e;
+
+  --o-bg:   rgba(232,98,26,.08);
+  --a-bg:   rgba(212,136,10,.08);
+  --g-bg:   rgba(42,122,74,.08);
+  --b-bg:   rgba(26,95,168,.08);
+  --p-bg:   rgba(107,53,168,.08);
+  --t-bg:   rgba(26,122,110,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+}
+
+/* ── HEADER ── */
+.hdr{
+  background:var(--ink);
+  padding:48px 60px 40px;
+  position:relative;
+  overflow:hidden;
+}
+.hdr::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    0deg, transparent, transparent 39px, rgba(255,255,255,.03) 39px, rgba(255,255,255,.03) 40px
+  );
+}
+.hdr-inner{position:relative;z-index:1;max-width:900px;}
+.hdr-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--orange);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.hdr-eyebrow::before{content:'';width:32px;height:1px;background:var(--orange);}
+.hdr-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,6vw,68px);
+  color:#faf6ef;
+  line-height:1.0;
+  margin-bottom:16px;
+}
+.hdr-title em{color:var(--orange);font-style:italic;}
+.hdr-sub{
+  font-size:15px;color:#a09080;line-height:1.7;
+  max-width:600px;font-weight:300;margin-bottom:32px;
+}
+.hdr-stats{display:flex;gap:40px;flex-wrap:wrap;}
+.hs{border-left:2px solid var(--orange);padding-left:14px;}
+.hs-n{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#faf6ef;line-height:1;}
+.hs-l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#6a5a48;margin-top:4px;}
+
+/* ── SLOT LEGEND ── */
+.legend{
+  background:var(--cream);
+  border-bottom:2px solid var(--rule);
+  padding:16px 60px;
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.leg-lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);margin-right:8px;
+}
+.leg-chip{
+  display:flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:1px;text-transform:uppercase;color:var(--mid);
+  padding:5px 12px;border-radius:2px;
+  border:1px solid var(--rule);background:var(--paper);
+}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* ── CONTEXT STRIP ── */
+.ctx{
+  background:var(--o-bg);
+  border-left:3px solid var(--orange);
+  margin:28px 60px 0;
+  padding:16px 20px;
+  font-size:13px;line-height:1.7;color:#4a3820;
+}
+.ctx strong{font-weight:600;display:block;margin-bottom:4px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);}
+
+/* ── PHASE HEADERS ── */
+.phase{
+  margin:40px 60px 0;
+  padding:20px 24px;
+  border:1px solid var(--rule);
+  border-left:4px solid;
+  background:var(--cream);
+  cursor:pointer;
+  user-select:none;
+  display:flex;align-items:center;gap:16px;
+}
+.ph-num{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  padding:5px 10px;border-radius:2px;flex-shrink:0;
+}
+.ph-title{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;flex:1;
+}
+.ph-weeks{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:1px;color:var(--muted);flex-shrink:0;
+}
+.ph-arr{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--muted);transition:transform .3s;}
+.phase.open .ph-arr{transform:rotate(180deg);}
+.phase-body{
+  display:none;
+  margin:0 60px;
+  border:1px solid var(--rule);border-top:none;
+  background:var(--paper);
+}
+.phase.open + .phase-body{display:block;}
+
+/* ── WEEK CARD ── */
+.wk{border-bottom:1px solid var(--rule);}
+.wk:last-child{border-bottom:none;}
+.wk-head{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 24px;cursor:pointer;user-select:none;
+  transition:background .15s;
+}
+.wk-head:hover{background:var(--cream);}
+.wk-num{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  padding:4px 9px;border-radius:2px;flex-shrink:0;
+  letter-spacing:1px;
+}
+.wk-title{flex:1;font-size:14px;font-weight:600;}
+.ms-tag{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  padding:3px 8px;border-radius:2px;flex-shrink:0;
+  background:rgba(212,136,10,.12);color:var(--amber);
+  border:1px solid rgba(212,136,10,.3);letter-spacing:1px;
+}
+.wk-arr{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);transition:transform .25s;flex-shrink:0;}
+.wk.open .wk-arr{transform:rotate(180deg);}
+.wk-body{display:none;padding:0 24px 24px;}
+.wk.open .wk-body{display:block;}
+
+/* ── SLOT BLOCKS ── */
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.slot{
+  border-radius:3px;border-left:3px solid;
+  padding:0;overflow:hidden;
+}
+.slot.wide{grid-column:1/-1;}
+.slot-head{
+  padding:10px 14px 8px;
+  display:flex;flex-direction:column;gap:2px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.slot-lbl{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;
+}
+.slot-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;}
+.slot-content{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+
+/* Task groups */
+.tg{display:flex;flex-direction:column;gap:6px;}
+.tg-lbl{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  font-weight:600;margin-bottom:2px;
+}
+.task{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:12.5px;line-height:1.55;color:#3a2e22;
+}
+.task-bullet{
+  width:5px;height:5px;border-radius:50%;flex-shrink:0;
+  margin-top:5px;background:var(--rule);
+}
+.task.primary .task-bullet{width:7px;height:7px;background:var(--orange);}
+.task.code-task{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--cream);
+  padding:6px 10px;border-radius:2px;gap:8px;line-height:1.5;}
+.task.code-task .task-bullet{background:var(--green);width:6px;height:6px;border-radius:1px;margin-top:4px;}
+.task b{font-weight:600;color:var(--ink);}
+.task .hl{color:var(--orange);font-weight:600;}
+.task .file{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--cream);padding:1px 5px;border-radius:2px;color:var(--blue);}
+.task .kw{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--purple);background:rgba(107,53,168,.08);padding:1px 5px;border-radius:2px;}
+.task .check{color:var(--green);font-weight:600;}
+
+/* Slot colour themes */
+.sl-commute{border-color:var(--blue);background:var(--b-bg);}
+.sl-commute .slot-head{background:rgba(26,95,168,.05);}
+.sl-commute .slot-lbl{color:var(--blue);}
+.sl-commute .tg-lbl{color:var(--blue);}
+
+.sl-night{border-color:var(--green);background:var(--g-bg);}
+.sl-night .slot-head{background:rgba(42,122,74,.05);}
+.sl-night .slot-lbl{color:var(--green);}
+.sl-night .tg-lbl{color:var(--green);}
+
+.sl-android{border-color:var(--orange);background:var(--o-bg);}
+.sl-android .slot-head{background:rgba(232,98,26,.05);}
+.sl-android .slot-lbl{color:var(--orange);}
+.sl-android .tg-lbl{color:var(--orange);}
+
+.sl-weekend{border-color:var(--purple);background:var(--p-bg);}
+.sl-weekend .slot-head{background:rgba(107,53,168,.05);}
+.sl-weekend .slot-lbl{color:var(--purple);}
+.sl-weekend .tg-lbl{color:var(--purple);}
+
+.sl-milestone{border-color:var(--amber);background:rgba(212,136,10,.06);grid-column:1/-1;}
+.sl-milestone .slot-head{background:rgba(212,136,10,.06);}
+.sl-milestone .slot-lbl{color:var(--amber);}
+
+/* OUTCOME BADGE */
+.outcome{
+  margin:16px 0 0;
+  padding:14px 16px;
+  background:var(--cream);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--teal);
+  font-size:12.5px;line-height:1.6;color:#2a3a2a;
+}
+.outcome-lbl{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--teal);
+  font-weight:700;margin-bottom:5px;
+}
+
+/* SIDEBAR NAV */
+.layout{display:flex;}
+.sidebar{
+  width:220px;min-width:220px;
+  position:sticky;top:0;height:100vh;
+  overflow-y:auto;
+  background:var(--ink);
+  border-right:1px solid #2a2218;
+  flex-shrink:0;
+}
+.sb-top{
+  padding:20px 16px 16px;
+  border-bottom:1px solid #2a2218;
+}
+.sb-title{
+  font-family:'Playfair Display',serif;
+  font-size:15px;color:#faf6ef;margin-bottom:2px;
+}
+.sb-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4a3a28;}
+.sb-nav{padding:8px 0;}
+.sb-phase-lbl{
+  font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:#3a2e20;padding:10px 16px 4px;
+}
+.sb-wk{
+  display:block;padding:7px 16px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;
+  text-decoration:none;color:#6a5a40;
+  transition:color .15s,background .15s;
+  border-left:2px solid transparent;
+}
+.sb-wk:hover{color:#d4b070;background:rgba(255,255,255,.03);}
+.sb-wk.ms-wk{color:#8a6a20;}
+.main-content{flex:1;min-width:0;}
+
+/* ── MILESTONE BOX ── */
+.ms-box{
+  margin:0 60px 32px;
+  padding:24px 28px;
+  background:var(--ink);
+  color:#faf6ef;
+  border-left:4px solid var(--amber);
+}
+.ms-box-lbl{
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;
+}
+.ms-box-text{font-size:14px;line-height:1.7;font-weight:300;color:#d4c4a8;}
+
+@media(max-width:800px){
+  .sidebar{display:none;}
+  .hdr,.legend,.ctx,.phase,.phase-body,.ms-box{margin-left:0;margin-right:0;padding-left:20px;padding-right:20px;}
+  .phase,.phase-body{margin-left:16px;margin-right:16px;}
+  .slots{grid-template-columns:1fr;}
+  .slot.wide{grid-column:1;}
+}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:#3a2e22;border-radius:2px;}
+</style>
+</head>
+<body>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-top">
+    <div class="sb-title">Semester 6</div>
+    <div class="sb-sub">W49–W64 · Detailed</div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-phase-lbl">Phase 1 — Testing</div>
+    <a class="sb-wk" href="#w49">W49 · Unit Test Foundations</a>
+    <a class="sb-wk" href="#w50">W50 · ViewModel Tests + CI</a>
+    <a class="sb-wk" href="#w51">W51 · Compose UI Tests</a>
+    <a class="sb-wk" href="#w52">W52 · Profiler + LeakCanary</a>
+    <div class="sb-phase-lbl">Phase 2 — Finance Tracker</div>
+    <a class="sb-wk" href="#w53">W53 · Architecture Setup</a>
+    <a class="sb-wk" href="#w54">W54 · Compose Screens</a>
+    <a class="sb-wk" href="#w55">W55 · Canvas Charts</a>
+    <a class="sb-wk" href="#w56">W56 · Biometric + Security</a>
+    <a class="sb-wk" href="#w57">W57 · Testing + CI</a>
+    <div class="sb-phase-lbl">Phase 3 — Publishing</div>
+    <a class="sb-wk" href="#w58">W58 · Play Store Prep</a>
+    <a class="sb-wk ms-wk" href="#w59">W59 · ★ APP IS LIVE</a>
+    <div class="sb-phase-lbl">Phase 4 — Certification</div>
+    <a class="sb-wk" href="#w60">W60 · AAD Deep Prep</a>
+    <a class="sb-wk ms-wk" href="#w61">W61 · ★ TAKE THE EXAM</a>
+    <div class="sb-phase-lbl">Phase 5 — Firebase</div>
+    <a class="sb-wk" href="#w62">W62 · Firestore + Auth</a>
+    <a class="sb-wk" href="#w63">W63 · Storage + FCM</a>
+    <a class="sb-wk ms-wk" href="#w64">W64 · ★ Chat App + Close</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-eyebrow">Semester 6 · Elaborated</div>
+    <div class="hdr-title">Polish, <em>Publish,</em><br>Get Certified.</div>
+    <div class="hdr-sub">16 weeks. Exactly what to do in every slot — commute, night block, weekend. No ambiguity. By W64 you are a published, certified Android developer with a real app that real people can download.</div>
+    <div class="hdr-stats">
+      <div class="hs"><div class="hs-n">W49–64</div><div class="hs-l">This file covers</div></div>
+      <div class="hs"><div class="hs-n">5</div><div class="hs-l">Projects / Apps</div></div>
+      <div class="hs"><div class="hs-n">200+</div><div class="hs-l">LeetCode target</div></div>
+      <div class="hs"><div class="hs-n">3</div><div class="hs-l">Milestones</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="leg-lbl">Slots →</span>
+  <div class="leg-chip"><span class="leg-dot" style="background:var(--blue)"></span>📱 Commute 6 AM — LeetCode on phone</div>
+  <div class="leg-chip"><span class="leg-dot" style="background:var(--green)"></span>💻 Night Block 10–11 PM — MacBook</div>
+  <div class="leg-chip"><span class="leg-dot" style="background:var(--orange)"></span>🖥️ Android Block 3:30 PM (Weekend)</div>
+  <div class="leg-chip"><span class="leg-dot" style="background:var(--purple)"></span>🟣 Weekend Study Block</div>
+</div>
+
+<div class="ctx">
+  <strong>Where you are entering Semester 6</strong>
+  You finished Semester 5 with: Movie Browser live on GitHub (Clean Architecture + Hilt + Paging 3 + unit tests), 150+ LeetCode problems solved, internship applications in flight, and KMP first look done. Your Night Block is fully yours for coding every weeknight. The commute is 2 LeetCode problems every single day without exception.
+</div>
+
+<!-- ═══════════════════════════════════════════════ PHASE 1 -->
+<div class="phase open" style="border-color:var(--blue);margin-top:36px;" onclick="togglePhase(this)" id="ph1">
+  <div class="ph-num" style="background:rgba(26,95,168,.1);color:var(--blue)">Phase 1</div>
+  <div class="ph-title">Testing Foundations</div>
+  <div class="ph-weeks" style="color:var(--blue)">W49–W52</div>
+  <div class="ph-arr">▾</div>
+</div>
+<div class="phase-body" id="w49-w52">
+
+<!-- W49 -->
+<div class="wk open" id="w49">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(26,95,168,.1);color:var(--blue)">W49</span>
+    <span class="wk-title">Unit Testing Foundations — JUnit 4 + MockK</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM · Tue–Sat</div><div class="slot-time">LeetCode mobile + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode — Graph BFS</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Rotting Oranges (#994)</b> — BFS from all rotten cells simultaneously. The trick: add ALL starting rotten oranges to the queue before the BFS loop starts. Medium. Kotlin.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>01 Matrix (#542)</b> — same multi-source BFS pattern. Distance from each cell to nearest 0. Medium. If you see the pattern from above, this should click faster.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Reading on phone</div>
+            <div class="task"><span class="task-bullet"></span><span>Read: <span class="hl">JUnit 4 annotations</span> on Android docs — @Test, @Before, @After, @BeforeClass, @Ignore. Understand what each lifecycle hook does.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Read: <span class="hl">AAA pattern</span> — Arrange (set up state), Act (call the function), Assert (verify result). Every single test you ever write follows this.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Read: MockK docs intro — mockk&lt;T&gt;(), every{}.returns{}, verify{}. Understand the difference between mock and stub.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM · Tue–Sat</div><div class="slot-time">MacBook · 1 hour · Open Movie Browser project</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Day 1 (Tuesday) — Dependency Setup</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In <span class="file">app/build.gradle.kts</span> add: <span class="kw">testImplementation("io.mockk:mockk:1.13.8")</span>, <span class="kw">testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")</span>, <span class="kw">testImplementation("app.cash.turbine:turbine:1.0.0")</span></span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Sync Gradle. Run <span class="kw">./gradlew test</span> in Terminal. Should say BUILD SUCCESSFUL with 0 tests. That's the baseline.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Day 2 (Wednesday) — First Test Class</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">test/java/.../domain/usecase/GetPopularMoviesUseCaseTest.kt</span></span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write the test class skeleton: <span class="kw">@ExtendWith(MockKExtension::class)</span> annotation at top. <span class="kw">@MockK lateinit var repository: MovieRepository</span>. <span class="kw">private lateinit var useCase: GetPopularMoviesUseCase</span>. <span class="kw">@Before fun setUp() { useCase = GetPopularMoviesUseCase(repository) }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Day 3 (Thursday) — Success Test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write: <span class="kw">@Test fun `should emit success when repository returns movies`() = runTest { val fakeMovies = listOf(Movie(1, "Inception", ...)); coEvery { repository.getPopularMovies() } returns flowOf(Result.Success(fakeMovies)); useCase().test { val result = awaitItem(); assertTrue(result is Result.Success); assertEquals(fakeMovies, (result as Result.Success).data); awaitComplete() } }</span></span></div>
+            <div class="task"><span class="task-bullet"></span><span>Run this test. It should go green. That green indicator is the feedback loop you're building.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Day 4 (Friday) — Error Tests</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write error test: <span class="kw">coEvery { repository.getPopularMovies() } throws IOException("No connection")</span>. Assert that use case emits <span class="kw">Result.Error</span>.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write empty test: repository returns <span class="kw">flowOf(Result.Success(emptyList()))</span>. Assert list is empty but result is still Success, not Error.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Day 5 (Saturday) — Remaining Use Cases</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">SearchMoviesUseCaseTest.kt</span>: test with query string, test with empty query returns all, test repository error propagates.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">ToggleFavoriteUseCaseTest.kt</span>: test add (movie not in favorites → added), test remove (movie in favorites → removed). Use <span class="kw">coVerify { repository.addFavorite(movieId) }</span> to confirm the right method was called.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · 3:30 PM · Sun & Mon</div><div class="slot-time">MacBook · 2 hours · Movie Browser open</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Sunday — Write GetMovieDetailUseCase tests</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Create <span class="file">GetMovieDetailUseCaseTest.kt</span>. Test 4 scenarios: movie found (success), movie not found (404 HttpException → Error), network failure (IOException → Error), cached result when offline.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>For HttpException: <span class="kw">coEvery { repository.getMovieDetail(any()) } throws HttpException(Response.error&lt;Any&gt;(404, "".toResponseBody()))</span></span></div>
+            <div class="task"><span class="task-bullet"></span><span>Run all tests together: <span class="kw">./gradlew test</span>. Should see all green. Screenshot and save — this is your first test run.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Monday — Test naming + organisation</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Rename all your tests to follow: <span class="kw">`should return Error when network throws IOException`</span> — backtick syntax allows spaces. This makes test output readable like documentation.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Count: you should now have at least 12 tests across 4 test classes. Run them all. All green means your domain layer is verified.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Push to GitHub. Commit message: "test: add unit tests for all domain Use Cases with MockK — 12 tests passing"</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-weekend wide">
+        <div class="slot-head"><div class="slot-lbl">🟣 Weekend Study Block</div><div class="slot-time">After workout and violin — deep session</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Deep dive: Turbine library</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Read the full Turbine README on GitHub (cashapp/turbine). The key API: <span class="kw">.test{}</span> extension on Flow, <span class="kw">awaitItem()</span>, <span class="kw">awaitComplete()</span>, <span class="kw">awaitError()</span>, <span class="kw">cancelAndIgnoreRemainingEvents()</span>.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Write a standalone test to understand Turbine: create a simple <span class="kw">flow { emit(1); emit(2); emit(3) }</span>, use Turbine to assert each emission in order. Get comfortable with the API before using it on complex ViewModels.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W49 — what you have</div>
+      All 4 Use Cases in Movie Browser have unit tests. Every test is named to read like documentation. MockK is wired in. Turbine is understood. You know what AAA means and you follow it automatically. ./gradlew test outputs all green.
+    </div>
+  </div>
+</div><!-- /W49 -->
+
+<!-- W50 -->
+<div class="wk" id="w50">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(26,95,168,.1);color:var(--blue)">W50</span>
+    <span class="wk-title">ViewModel Tests + GitHub Actions CI Pipeline</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode — Graph (Dijkstra)</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Network Delay Time (#743)</b> — Dijkstra's single-source shortest path. Use a min-heap (PriorityQueue in Kotlin). Medium.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Path with Maximum Probability (#1514)</b> — Modified Dijkstra, maximise product of probabilities. Medium. Same pattern, different direction.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Reading</div>
+            <div class="task"><span class="task-bullet"></span><span>Read: GitHub Actions YAML basics — <span class="kw">on: push</span>, <span class="kw">jobs:</span>, <span class="kw">steps:</span>, <span class="kw">uses: actions/checkout@v3</span>, <span class="kw">run:</span>. Understand how a workflow file triggers.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Read: <span class="kw">runTest{}</span> documentation — it's from kotlinx-coroutines-test. It runs coroutines synchronously, controls virtual time. Essential for ViewModel tests.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour · Movie Browser</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — MovieViewModel test setup</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">test/.../presentation/MovieViewModelTest.kt</span>. Add annotation: <span class="kw">@get:Rule val mainDispatcherRule = MainDispatcherRule()</span>. This swaps Dispatchers.Main for a test dispatcher so coroutines run synchronously.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">MainDispatcherRule.kt</span>: <span class="kw">class MainDispatcherRule(val dispatcher: TestDispatcher = UnconfinedTestDispatcher()) : TestWatcher() { override fun starting(desc: Description) { Dispatchers.setMain(dispatcher) } override fun finished(desc: Description) { Dispatchers.resetMain() } }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Loading → Success test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Mock the UseCase: <span class="kw">@MockK lateinit var getPopularMovies: GetPopularMoviesUseCase</span>. In setup: <span class="kw">coEvery { getPopularMovies() } returns flowOf(Result.Success(fakeMovies))</span></span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test: <span class="kw">viewModel.uiState.test { val loading = awaitItem(); assertTrue(loading is UiState.Loading); val success = awaitItem(); assertTrue(success is UiState.Success) }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Loading → Error test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Mock the UseCase to throw: <span class="kw">coEvery { getPopularMovies() } returns flowOf(Result.Error("Network error"))</span>. Assert: Loading emitted first, then Error(message) emitted second.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — SearchViewModel test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test: enter a search query → assert debounce fires after 300ms virtual time advance → assert search use case is called with the query string → assert results state updates.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Use <span class="kw">advanceTimeBy(300)</span> from runTest to simulate the debounce time passing.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — All tests green</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Run: <span class="kw">./gradlew test</span>. Count: you should now have 18+ tests. All passing. If any fail, fix them tonight before sleeping.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · 3:30 PM · Weekend</div><div class="slot-time">2 hours · GitHub Actions setup</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Sunday — Create the CI workflow file</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">.github/workflows/ci.yml</span> in Movie Browser repo with this content:<br><br>
+<span class="kw">name: CI<br>on:<br>&nbsp;&nbsp;push:<br>&nbsp;&nbsp;&nbsp;&nbsp;branches: [main]<br>&nbsp;&nbsp;pull_request:<br>jobs:<br>&nbsp;&nbsp;test:<br>&nbsp;&nbsp;&nbsp;&nbsp;runs-on: ubuntu-latest<br>&nbsp;&nbsp;&nbsp;&nbsp;steps:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- uses: actions/checkout@v3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- uses: actions/setup-java@v3<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with: {java-version: '17', distribution: 'temurin'}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: Run Tests<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: ./gradlew test<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: Run Lint<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: ./gradlew lint</span></span></div>
+            <div class="task"><span class="task-bullet"></span><span>Push to GitHub. Go to the Actions tab. Watch your workflow run. You should see: ✓ Run Tests, ✓ Run Lint. Green checks on every future push.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Monday — Badge + lint fixes</div>
+            <div class="task"><span class="task-bullet"></span><span>Copy the workflow badge URL from GitHub Actions and paste it at the top of your README: <span class="kw">![CI](https://github.com/YOUR_NAME/movie-browser/workflows/CI/badge.svg)</span>. Now every visitor sees passing tests.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Read through every lint warning CI surfaces. Fix them all — unused imports, missing null checks, deprecated API calls. Every warning is a potential real bug.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-weekend wide">
+        <div class="slot-head"><div class="slot-lbl">🟣 Weekend Study Block</div><div class="slot-time">Extended session</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Integration test — MovieRepository with real Room (in-memory)</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Create an integration test in <span class="file">androidTest/.../data/MovieRepositoryTest.kt</span>. Use <span class="kw">Room.inMemoryDatabaseBuilder()</span> — real Room, but data is wiped after each test. This is faster than a real DB file and requires no cleanup.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test: insert 5 movies into Room → call <span class="kw">movieDao.getAll().first()</span> → assert 5 movies returned in correct order.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test: delete a movie → assert only 4 remain. Test: update a movie title → assert the title changed in the Flow.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W50 — what you have</div>
+      ViewModel tests exist with proper MainDispatcherRule setup. GitHub Actions CI runs on every push. Lint is clean. Integration test for Room repository. This is a production-grade test setup that most junior portfolios don't have.
+    </div>
+  </div>
+</div><!-- /W50 -->
+
+<!-- W51 -->
+<div class="wk" id="w51">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(26,95,168,.1);color:var(--blue)">W51</span>
+    <span class="wk-title">Compose UI Testing — Semantics, Finders, Actions</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Minimum Spanning Tree</b> — Connecting Cities With Minimum Cost (#1584). Kruskal's with Union-Find in Kotlin. Medium.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Min Cost to Connect All Points (#1584)</b> — same problem rephrased. Practice recognising identical patterns in different clothing.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Reading on phone</div>
+            <div class="task"><span class="task-bullet"></span><span>Read: Compose testing docs — createComposeRule(), onNodeWithText(), onNodeWithTag(), onNodeWithContentDescription(). Understand Semantics tree: it's how tests find your composables.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Key insight: <span class="hl">tests don't find composables by name</span>, they find them by semantic properties. If you don't add semantics, you can't test. So testing forces better accessibility too.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour · MacBook</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Add testTags to Movie Browser composables</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In <span class="file">HomeScreen.kt</span>: add <span class="kw">Modifier.testTag("movie_grid")</span> to the LazyVerticalGrid. Add <span class="kw">Modifier.testTag("loading_indicator")</span> to the CircularProgressIndicator. Add <span class="kw">Modifier.testTag("error_message")</span> to the error Text.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Rule: every interactive or state-driven element gets a testTag. Make it a habit from this week forward.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — First Compose test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">androidTest/.../HomeScreenTest.kt</span>. Dependency: <span class="kw">androidTestImplementation("androidx.compose.ui:ui-test-junit4")</span>. Annotation: <span class="kw">@get:Rule val composeTestRule = createComposeRule()</span>.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test: <span class="kw">composeTestRule.setContent { HomeScreen(uiState = UiState.Loading) }; composeTestRule.onNodeWithTag("loading_indicator").assertIsDisplayed()</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Success state test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test: <span class="kw">setContent { HomeScreen(uiState = UiState.Success(fakeMovies)) }; onNodeWithTag("movie_grid").assertIsDisplayed(); onNodeWithText("Inception").assertExists()</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Click + navigation test</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test navigation: <span class="kw">var navigatedTo: Int? = null; setContent { HomeScreen(uiState = ..., onMovieClick = { id -> navigatedTo = id }) }; onNodeWithText("Inception").performClick(); assertEquals(1, navigatedTo)</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Search screen tests</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add testTag to SearchTextField. Test: <span class="kw">onNodeWithTag("search_field").performTextInput("Batman"); onNodeWithText("The Dark Knight").assertIsDisplayed()</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Write Detail screen + Favorites screen tests</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Detail screen test</b>: set content with a fake Movie object, assert title text is displayed, assert rating text contains the correct value, assert overview text is displayed.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Favorite button toggle test: <span class="kw">onNodeWithContentDescription("Add to favorites").performClick(); onNodeWithContentDescription("Remove from favorites").assertIsDisplayed()</span>. This only works if you set the contentDescription dynamically based on favorite state.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Add all Compose tests to the CI workflow: they run on Android emulator on GitHub Actions. Add <span class="kw">- name: Run Instrumented Tests; run: ./gradlew connectedAndroidTest</span> to your CI yaml.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W51 — what you have</div>
+      Compose UI tests covering: Loading state, Success state, Error state, click navigation, search input, detail screen display, favorites toggle. All composables have testTags. CI runs both unit tests and UI tests. Total test count: 25+.
+    </div>
+  </div>
+</div><!-- /W51 -->
+
+<!-- W52 -->
+<div class="wk" id="w52">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(26,95,168,.1);color:var(--blue)">W52</span>
+    <span class="wk-title">Android Profiler + LeakCanary — Find Real Problems</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Find the City With the Smallest Number of Neighbors (#1334)</b> — Floyd-Warshall all-pairs shortest path. Medium.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Count of Smaller Numbers After Self (#315)</b> — merge sort approach. Hard. Study the solution even if you can't solve it cold.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Reading</div>
+            <div class="task"><span class="task-bullet"></span><span>Read: Android Profiler overview on developer.android.com. Understand what each tab measures: CPU (method traces, system traces), Memory (heap dumps, allocations), Network (request inspector), Energy (battery drain).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Key insight: <span class="hl">16ms per frame budget</span>. At 60fps, every frame must complete in 16ms. Any method running on the main thread longer than this = visible jank to the user.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — CPU Profiler on Movie Browser</div>
+            <div class="task"><span class="task-bullet"></span><span>Run Movie Browser on emulator. Open Profiler (View → Tool Windows → Profiler). Click on the CPU row. Select "Java/Kotlin Method Trace". Scroll through the movie grid. Stop recording.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Look for: any method taking >8ms on the main thread. Click on it to see what it's doing. Common culprits: image decoding happening on main thread, unnecessary object creation in <span class="kw">LazyColumn</span> items.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Memory Profiler + heap dump</div>
+            <div class="task"><span class="task-bullet"></span><span>In Profiler → Memory tab. Scroll through 200+ movies in the grid. After scrolling, click "Capture heap dump". Wait for it to process.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>In the heap dump: search for "MovieEntity". How many instances exist? Should GC have collected old ones? If you see hundreds of instances when only 20 are visible, something is retaining references.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Add LeakCanary</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add to <span class="file">build.gradle.kts</span>: <span class="kw">debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")</span>. Only in debugImplementation — never ships to users.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Rebuild and run. LeakCanary installs itself automatically — no code changes needed. Use the app normally for 10 minutes: open movies, navigate, search, go back. LeakCanary monitors silently.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Fix LeakCanary findings</div>
+            <div class="task"><span class="task-bullet"></span><span>If LeakCanary shows a leak (notification appears), tap it to see the leak trace. Read it from top to bottom: the top is the GC root (something still holding a reference), the bottom is the leaked object.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Most common Android leak: a listener or callback registered with a lifecycle-unaware component that holds a reference to the Activity/Fragment/Composable. Fix by unregistering in the appropriate lifecycle callback.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Network Inspector</div>
+            <div class="task"><span class="task-bullet"></span><span>Profiler → Network tab. Open Movie Browser and watch the first API call. Click on it: see the full request headers, response headers, response body in JSON. This replaces Logcat for network debugging. Note: response size and response time.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Add Baseline Profile to Movie Browser</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Follow: developer.android.com/topic/performance/baselineprofiles. Add the Baseline Profile Gradle plugin. Create <span class="file">baselineprofile/src/main/kotlin/BaselineProfileGenerator.kt</span>. Run the generator — it produces a <span class="file">baseline-prof.txt</span> file that tells ART which code to pre-compile.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Result: your app's cold start time will be measurably faster on real devices. Measure before and after with <span class="kw">adb shell am start -W -n your.package/.MainActivity</span>. Document the before/after in your README.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Document findings</div>
+            <div class="task"><span class="task-bullet"></span><span>Write a section in Movie Browser README: "Performance" — what you found with Profiler, what LeakCanary detected, what you fixed, baseline profile improvement percentage. This is a rare portfolio detail that signals senior-level awareness.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W52 — what you have</div>
+      You've used Android Profiler to investigate real performance. You know how to read a heap dump. LeakCanary is integrated and you've fixed every detected leak. Baseline Profile is added. Movie Browser README now has a Performance section. You can talk about this in interviews with specific numbers.
+    </div>
+  </div>
+</div><!-- /W52 -->
+
+</div><!-- /phase-body 1 -->
+
+<!-- ═══════════════════════════════════════════════ PHASE 2 -->
+<div class="phase" style="border-color:var(--orange);margin-top:8px;" onclick="togglePhase(this)">
+  <div class="ph-num" style="background:rgba(232,98,26,.1);color:var(--orange)">Phase 2</div>
+  <div class="ph-title">Finance Tracker — Build to Ship</div>
+  <div class="ph-weeks" style="color:var(--orange)">W53–W57</div>
+  <div class="ph-arr">▾</div>
+</div>
+<div class="phase-body">
+
+<!-- W53 -->
+<div class="wk" id="w53">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(232,98,26,.1);color:var(--orange)">W53</span>
+    <span class="wk-title">Finance Tracker: Architecture + Clean Data Layer</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + thinking</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode — DP (Knapsack pattern)</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Partition Equal Subset Sum (#416)</b> — 0/1 Knapsack. Target sum = totalSum/2. Boolean DP array. Medium.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Target Sum (#494)</b> — assign + or − to each number. DFS with memoization OR DP. Medium.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Design thinking on commute</div>
+            <div class="task"><span class="task-bullet"></span><span><span class="hl">Plan the domain model mentally</span>: What is a Transaction? (id, amount, type: INCOME/EXPENSE, category, note, date, locationLat?, locationLng?). What is a Category? (id, name, iconRes, colorHex, isCustom). What is a Budget? (id, categoryId, limitAmount, month, year).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Plan the Use Cases: AddTransaction, DeleteTransaction, UpdateTransaction, GetTransactionsByMonth (returns Flow), GetMonthlySummary (income total, expense total, per-category breakdown), AddBudget, CheckBudgetExceeded.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour · New project</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Create project + domain layer</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>New Android project: "FinanceTracker", minimum SDK 26, Kotlin + Compose. Package: <span class="kw">com.yourname.financetracker</span>.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create 3 packages: <span class="kw">domain/</span> (pure Kotlin, zero Android imports), <span class="kw">data/</span>, <span class="kw">presentation/</span>. Domain first.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write domain models: <span class="kw">data class Transaction(val id: Long = 0, val amount: Double, val type: TransactionType, val categoryId: Long, val note: String, val date: LocalDate)</span>. <span class="kw">enum class TransactionType { INCOME, EXPENSE }</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Repository interface + Use Cases</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write: <span class="kw">interface TransactionRepository { suspend fun addTransaction(transaction: Transaction): Long; suspend fun deleteTransaction(id: Long); fun getTransactionsByMonth(month: Int, year: Int): Flow&lt;List&lt;Transaction&gt;&gt;; fun getAllTransactions(): Flow&lt;List&lt;Transaction&gt;&gt; }</span></span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write all Use Case classes (they just delegate for now): <span class="kw">class AddTransactionUseCase @Inject constructor(private val repo: TransactionRepository) { suspend operator fun invoke(transaction: Transaction) = repo.addTransaction(transaction) }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu/Fri — Room entities + DAOs</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">TransactionEntity.kt</span>: <span class="kw">@Entity(tableName = "transactions") data class TransactionEntity(@PrimaryKey(autoGenerate=true) val id: Long = 0, val amount: Double, val type: String, val categoryId: Long, val note: String, val date: String)</span>.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">TransactionDao.kt</span>: <span class="kw">@Insert suspend fun insert(entity: TransactionEntity): Long; @Delete suspend fun delete(entity: TransactionEntity); @Query("SELECT * FROM transactions WHERE strftime('%m', date) = :month AND strftime('%Y', date) = :year") fun getByMonth(month: String, year: String): Flow&lt;List&lt;TransactionEntity&gt;&gt;</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — TransactionRepositoryImpl</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">TransactionRepositoryImpl.kt</span>: implements TransactionRepository, uses TransactionDao, maps between domain Transaction ↔ TransactionEntity with mapper functions. Inject via Hilt.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Hilt modules + DAO tests</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Write <span class="file">DatabaseModule.kt</span>: @Module + @InstallIn(SingletonComponent) + @Provides for Room database and all DAOs. Write <span class="file">RepositoryModule.kt</span>: @Binds TransactionRepositoryImpl to TransactionRepository.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">TransactionDaoTest.kt</span> using in-memory Room: insert 3 transactions → getAll() returns 3 → delete one → getAll() returns 2 → getByMonth() returns only correct month. All green.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Push to GitHub. Commit: "feat: Finance Tracker data layer — Room + Repository + Hilt modules + DAO tests"</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W53 — what you have</div>
+      Finance Tracker project created. Domain layer is complete and pure (no Android imports). Room entities and DAOs are written and tested. Hilt modules wire everything together. The data layer compiles and all DAO tests pass.
+    </div>
+  </div>
+</div>
+
+<!-- W54 -->
+<div class="wk" id="w54">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(232,98,26,.1);color:var(--orange)">W54</span>
+    <span class="wk-title">Finance Tracker: All Compose Screens Connected to Real Data</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + UI planning</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Longest Valid Parentheses (#32)</b> — Hard. Stack or DP. Know both approaches. This appears in real interviews.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Decode String (#394)</b> — Stack. Medium. 3[a2[b]] → "abbabbabb". Classic recursion/stack problem.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">UI Planning on commute</div>
+            <div class="task"><span class="task-bullet"></span><span>Mentally plan the Home screen: top section = summary card (total income, total expense, net balance for this month). Middle = filter chips (All / Income / Expense). Bottom = LazyColumn of transaction items each showing: category icon, title, date, amount (red or green).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Plan Add Transaction screen: a ModalBottomSheet with: amount field (numeric keyboard), type toggle (Income/Expense), category picker (horizontal LazyRow of chips), date picker (DatePickerDialog), note field, Save button.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — HomeViewModel + UiState</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">HomeViewModel.kt</span>: <span class="kw">@HiltViewModel class HomeViewModel @Inject constructor(private val getByMonth: GetTransactionsByMonthUseCase, private val getSummary: GetMonthlySummaryUseCase) : ViewModel()</span>. Expose <span class="kw">val uiState: StateFlow&lt;HomeUiState&gt;</span> combining both use case flows.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write sealed class: <span class="kw">sealed class HomeUiState { data object Loading : HomeUiState(); data class Success(val transactions: List&lt;Transaction&gt;, val summary: MonthlySummary) : HomeUiState(); data class Error(val message: String) : HomeUiState() }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Home Screen composable</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">HomeScreen.kt</span>: collect uiState with <span class="kw">val state by viewModel.uiState.collectAsStateWithLifecycle()</span>. Switch on state: Loading → CircularProgressIndicator centred. Success → actual content. Error → error + retry button.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">SummaryCard.kt</span>: Card with 3 sections. Income: green text. Expense: red text. Net Balance: bold large text, green if positive, red if negative.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Transaction list item</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">TransactionItem.kt</span>: Row with category icon (colored circle), Column (title + date text), Spacer(weight=1), amount text (green "₹+500" or red "₹-250"). Add Modifier.clickable for future detail view.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Add Transaction bottom sheet</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">AddTransactionSheet.kt</span>: ModalBottomSheet. OutlinedTextField for amount. SegmentedButton (Income/Expense). LazyRow of category chips. DatePickerDialog trigger. TextField for note. ElevatedButton "Save" that calls <span class="kw">viewModel.addTransaction()</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Wire it together</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add FAB (+) to HomeScreen that opens AddTransactionSheet. After save: sheet dismisses, Flow updates, LazyColumn shows new transaction immediately. Test: add 5 transactions → summary card updates in real time.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Build remaining screens: Categories + Budget + BottomNav</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Categories Screen</b>: LazyVerticalGrid of CategoryCard composables. Each card: coloured circle icon + name. Long press → delete option. FAB to add custom category (name + colour picker + icon picker).</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Budget Screen</b>: list of budgets per category. Progress bar showing % spent. Red when exceeded. "Add Budget" button → sets monthly limit for a category.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add BottomNavigation: Home, Categories, Budget, Charts (placeholder). Navigation graph: Scaffold with BottomBar. All tab navigation works, back stack is managed correctly (saveState = true, restoreState = true).</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W54 — what you have</div>
+      Finance Tracker has 4 working screens connected to live Room data. Add Transaction sheet works. Summary card updates reactively. Navigation is correct. Every screen compiles and shows real data. Push to GitHub.
+    </div>
+  </div>
+</div>
+
+<!-- W55 -->
+<div class="wk" id="w55">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(232,98,26,.1);color:var(--orange)">W55</span>
+    <span class="wk-title">Finance Tracker: Canvas Charts — Pie + Bar, Fully Animated</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + math</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>LeetCode Mock OA</b> — 3 problems, 90 min timer. Simulate real OA pressure. No hints. Grade yourself: how many did you solve? How fast? Track this weekly.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Pie chart math on commute</div>
+            <div class="task"><span class="task-bullet"></span><span>Think through pie chart calculation: if Food = ₹3000 out of ₹10,000 total → 30% → sweepAngle = 30% × 360° = 108°. Each slice startAngle = sum of all previous sweep angles. Verify in your head with 3 categories that the angles add to 360°.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Think: how to make it animate? Start all sweepAngles at 0, animate them to their target value on first composition using <span class="kw">animateFloatAsState</span>.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Pie Chart composable</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">PieChart.kt</span>. Function signature: <span class="kw">@Composable fun PieChart(slices: List&lt;PieSlice&gt;, modifier: Modifier = Modifier)</span> where <span class="kw">data class PieSlice(val label: String, val value: Float, val color: Color)</span>.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Inside: calculate each slice's sweepAngle: <span class="kw">val total = slices.sumOf { it.value.toDouble() }.toFloat(); val sweepAngles = slices.map { it.value / total * 360f }</span></span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Canvas block: <span class="kw">Canvas(modifier.size(200.dp)) { var startAngle = -90f; slices.forEachIndexed { i, slice -> drawArc(color = slice.color, startAngle = startAngle, sweepAngle = sweepAngles[i], useCenter = true); startAngle += sweepAngles[i] } }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Pie Chart animation</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Animate each slice: <span class="kw">var animated by remember { mutableStateOf(false) }; LaunchedEffect(Unit) { animated = true }; val animatedSweepAngles = sweepAngles.map { target -> animateFloatAsState(if (animated) target else 0f, animationSpec = tween(800, easing = EaseOutCubic)).value }</span></span></div>
+            <div class="task"><span class="task-bullet"></span><span>Test: run the app. Navigate to Charts screen. Watch the pie chart draw itself in 800ms. It should feel satisfying and smooth.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Legend below pie chart</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Below the Canvas: a LazyColumn (or Column if few categories) showing each slice's colour dot + label + percentage. Example: "🟠 Food · 30% · ₹3,000"</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Bar Chart composable</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">BarChart.kt</span>. Data: <span class="kw">data class MonthBar(val month: String, val income: Float, val expense: Float)</span>. For each month: draw 2 rectangles side by side. Income bar = green, expense bar = red. Height proportional to value.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Normalize heights: <span class="kw">val maxValue = data.flatMap { listOf(it.income, it.expense) }.max(); val barHeight = (value / maxValue) * maxBarHeight</span>. This scales bars relative to the maximum value.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Bar chart animation + labels</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Animate bars growing from bottom: start height at 0, animate to target height. Add month labels below each bar group. Add ₹ value labels above each bar.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Charts screen + real data + edge cases</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Wire Charts screen to ChartViewModel which calls GetMonthlySummaryUseCase for the last 6 months. Both charts show real Room data.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span>Handle edge cases: what if only 1 category? → pie chart is a full circle (360°). What if a month has zero transactions? → bar shows zero-height bars (don't crash). What if all income, no expense? → expense bar is zero.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Add tap interaction to bar chart: tap a month bar → LazyColumn below the chart filters to show only that month's transactions. This is a power-user feature that makes your app feel polished.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W55 — what you have</div>
+      Finance Tracker Charts screen has a fully animated Pie Chart and Bar Chart drawn in Compose Canvas. Both use real Room data. Edge cases are handled. Tap interaction on bar chart filters transactions. No third-party chart library used — you built these from scratch. This is what differentiates you.
+    </div>
+  </div>
+</div>
+
+<!-- W56 -->
+<div class="wk" id="w56">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(232,98,26,.1);color:var(--orange)">W56</span>
+    <span class="wk-title">Finance Tracker: Biometric Auth + Encrypted Storage + WorkManager Alerts</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Course Schedule II (#210)</b> — Topological sort returning the actual order. Medium. Output the course order, not just whether it's possible.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Alien Dictionary (GFG/LeetCode Premium)</b> — build character graph from word ordering rules, topological sort. Hard. Very common in interviews.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Reading on phone</div>
+            <div class="task"><span class="task-bullet"></span><span>Read: BiometricPrompt API. Key classes: <span class="kw">BiometricManager</span> (check if biometric is available), <span class="kw">BiometricPrompt</span> (shows the dialog), <span class="kw">BiometricPrompt.PromptInfo</span> (title, subtitle, negative button text).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Read: EncryptedSharedPreferences — uses AES256 encryption. The key is stored in Android Keystore (hardware-backed on most devices). Data is unusable if key is compromised.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — BiometricHelper class</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add dependency: <span class="kw">implementation("androidx.biometric:biometric:1.2.0-alpha05")</span>. Create <span class="file">BiometricHelper.kt</span>: a class that takes FragmentActivity as constructor param and exposes <span class="kw">fun authenticate(onSuccess: () -> Unit, onFailed: () -> Unit, onError: (String) -> Unit)</span>.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Inside authenticate(): <span class="kw">BiometricManager.from(context).canAuthenticate(BIOMETRIC_STRONG)</span> — check if hardware exists and biometric is enrolled. If not: call onError("Biometrics not available").</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Build the prompt: <span class="kw">BiometricPrompt.PromptInfo.Builder().setTitle("Unlock Finance Tracker").setSubtitle("Verify your identity").setNegativeButtonText("Cancel").build()</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Trigger biometric on app foreground</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In MainActivity: use <span class="kw">ProcessLifecycleOwner.get().lifecycle.addObserver</span> to detect app going to background and returning. When returning from background: call <span class="kw">biometricHelper.authenticate(...)</span>.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Test: open the app → runs fine. Press Home → app backgrounds. Open app again → fingerprint dialog appears. Cancel → app returns to background. Authenticate → app is visible.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — EncryptedSharedPreferences</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add: <span class="kw">implementation("androidx.security:security-crypto:1.1.0-alpha06")</span>. Create <span class="file">SecurePreferences.kt</span>: <span class="kw">val sharedPreferences = EncryptedSharedPreferences.create(context, "secure_prefs", MasterKey.Builder(context).setKeyScheme(AES256_GCM).build(), AES256_SIV, AES256_GCM)</span></span></div>
+            <div class="task"><span class="task-bullet"></span><span>Store budget limits and user preferences in EncryptedSharedPreferences instead of regular SharedPreferences. Use it exactly like regular SharedPreferences — same API, just encrypted at rest.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — WorkManager budget alert</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">BudgetCheckWorker.kt</span>: <span class="kw">class BudgetCheckWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params)</span>. In doWork(): query Room for current month totals per category, compare against saved budgets, if any exceed the limit → show a notification.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Schedule in Application class: <span class="kw">WorkManager.getInstance(this).enqueueUniquePeriodicWork("budget_check", ExistingPeriodicWorkPolicy.KEEP, PeriodicWorkRequestBuilder&lt;BudgetCheckWorker&gt;(24, HOURS).setConstraints(Constraints.Builder().setRequiredNetworkType(NOT_REQUIRED).build()).build())</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — ProGuard rules + test release build</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In <span class="file">proguard-rules.pro</span>: add rules to keep your Room entities, Kotlin data classes used in serialisation, and Hilt generated code. Build a release APK. Test it on emulator. If it crashes: find the missing ProGuard rule. Fix.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Monthly summary WorkManager + notification channel</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Create <span class="file">MonthlyReportWorker.kt</span>: fires on the 1st of each month. Queries last month's transactions. Builds notification: "Last month: Income ₹15,000 | Expense ₹12,000 | Saved ₹3,000". Tapping notification opens Finance Tracker to the Charts screen.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Register notification channel in Application onCreate(): <span class="kw">NotificationChannel("finance_alerts", "Finance Alerts", IMPORTANCE_DEFAULT)</span>. Without a channel, notifications don't show on Android 8+.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W56 — what you have</div>
+      Finance Tracker locks with biometric when returning from background. Sensitive preferences are AES256-encrypted. WorkManager fires daily budget check notifications. Monthly summary notification fires on the 1st. Release build compiles and runs correctly with ProGuard enabled.
+    </div>
+  </div>
+</div>
+
+<!-- W57 -->
+<div class="wk" id="w57">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(232,98,26,.1);color:var(--orange)">W57</span>
+    <span class="wk-title">Finance Tracker: Tests, CI, and Play Store Prep Begins</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode — Hard push</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode — Hard problems this week</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Trapping Rain Water (#42)</b> — two pointer approach. Classic Hard. Must know this one. Appears in 30%+ of FAANG-level OAs.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Largest Rectangle in Histogram (#84)</b> — monotonic stack. Hard. Understand why we use a stack and what invariant it maintains.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">LeetCode count check</div>
+            <div class="task"><span class="task-bullet"></span><span>Count total solved problems. Target: approaching 200 by end of W64. If you're at 170+, you're on track. If below 160, add an extra LeetCode session on the weekend study block this week.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Use Case unit tests</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">AddTransactionUseCaseTest.kt</span>: mock TransactionRepository. Test success: valid transaction → repository.addTransaction() is called once with correct data. Test validation error: amount ≤ 0 → use case throws IllegalArgumentException before calling repository.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — ViewModel tests</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">HomeViewModelTest.kt</span>: mock both GetTransactionsByMonthUseCase and GetMonthlySummaryUseCase. Test: Loading emitted first, then Success with correct data. Test: when both use cases return data, summary is correct.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Chart data tests</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write <span class="file">GetMonthlySummaryUseCaseTest.kt</span>: given a list of 10 transactions, assert total income, total expense, and per-category breakdown are calculated correctly. Pure maths test — no Room, no Hilt, just data classes and arithmetic.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — GitHub Actions CI for Finance Tracker</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">.github/workflows/ci.yml</span> for Finance Tracker — same structure as Movie Browser. Add test + lint steps. Push. Watch it go green.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Compose UI tests for Finance Tracker</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Write 5 Compose UI tests: (1) Home loads with empty state message. (2) Home shows transaction list when data exists. (3) Summary card shows correct income/expense values. (4) FAB click opens Add Transaction sheet. (5) Adding a transaction updates the list.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Play Store prep — assets and description</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Write the Play Store description draft today — don't wait until W58. Title (≤30 chars): "Finance Tracker — Budget App". Short description (≤80 chars): "Track income and expenses. Visual charts. Biometric security. Works offline." Full description (write 400+ words covering: features, how to use, privacy, security).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Take screenshots on 3 emulator sizes: Pixel 6 (phone), Pixel Fold (foldable), Pixel Tablet. Each screenshot shows a different feature: home, charts, add transaction, budget screen. You need at least 2 screenshots to publish.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Privacy policy: go to privacypolicygenerator.info. Fill in app name, company name (use your name), contact email. Download as HTML. Upload to a GitHub Pages repo at <span class="kw">yourname.github.io/finance-tracker-privacy</span>. Copy the URL — you'll need it for Play Console.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W57 — what you have</div>
+      Finance Tracker has 20+ tests covering Use Cases, ViewModels, and Compose UI. CI runs on every push. Play Store assets (screenshots, description draft, privacy policy URL) are ready. The technical work is complete. W58 is publishing day.
+    </div>
+  </div>
+</div>
+
+</div><!-- /phase-body 2 -->
+
+<!-- ═══════════════════════════════════════════════ PHASE 3 -->
+<div class="phase" style="border-color:var(--amber);margin-top:8px;" onclick="togglePhase(this)">
+  <div class="ph-num" style="background:rgba(212,136,10,.1);color:var(--amber)">Phase 3</div>
+  <div class="ph-title">Publish to the World</div>
+  <div class="ph-weeks" style="color:var(--amber)">W58–W59</div>
+  <div class="ph-arr">▾</div>
+</div>
+<div class="phase-body">
+
+<!-- W58 -->
+<div class="wk" id="w58">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(212,136,10,.1);color:var(--amber)">W58</span>
+    <span class="wk-title">Play Store: Sign, Build, Submit</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading Play Console docs</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Burst Balloons (#312)</b> — Interval DP. Hard. Classic. Study the pattern: think of which balloon to pop LAST, not first.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Remove Boxes (#546)</b> — similar interval DP with extra state. Hard. If you can solve Burst Balloons first, this is the next step.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Read on phone — Play Console</div>
+            <div class="task"><span class="task-bullet"></span><span>Read: Play Console Help → "Publish your app" section. Understand: what is a release track (internal testing → closed testing → open testing → production)? Start with internal testing track — faster review (hours, not days).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Understand: once your app is published under a package name (<span class="kw">com.yourname.financetracker</span>), that package name is permanent. You can never change it. Choose carefully.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">This week — Play Store work</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Generate signed release AAB</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In Android Studio: Build → Generate Signed Bundle / APK → Android App Bundle. Create a new keystore: key alias, password, your name, country code. Save the <span class="kw">.jks</span> file somewhere safe that is NOT in the GitHub repository — if you commit it, delete it and rotate. Back it up to Google Drive immediately.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In <span class="file">build.gradle.kts</span> add signing config (read from local.properties or environment variables, never hardcoded). Build the release AAB. It will be in <span class="kw">app/build/outputs/bundle/release/app-release.aab</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Create Play Console account</div>
+            <div class="task"><span class="task-bullet"></span><span>Go to play.google.com/console. Sign in with your Google account. Pay the one-time ₹1,650 developer registration fee. Complete developer profile: name, email, phone number. Accept the Developer Distribution Agreement.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Create a new app: select "App", "Android", enter app name "Finance Tracker", select language "English (United Kingdom)" (covers Indian English), confirm it is not primarily for children.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Fill the store listing</div>
+            <div class="task"><span class="task-bullet"></span><span>Go to Store presence → Main store listing. Paste your title, short description, full description. Upload screenshots (at least 2 required). Upload the feature graphic (1024×500px, create in Canva — your app's banner image with logo and tagline).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>App category: Finance. Content rating: complete the content rating questionnaire (takes 5 minutes). Add privacy policy URL from your GitHub Pages. These are all required before you can submit.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Upload AAB and submit</div>
+            <div class="task"><span class="task-bullet"></span><span>Go to Release → Testing → Internal testing. Click "Create new release". Upload your <span class="kw">app-release.aab</span> file. Add release notes: "Initial release — track income and expenses with visual charts and biometric security."</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Review the release. Fix any warnings Play Console shows (missing icons, permissions declarations). Click "Start rollout to Internal testing". <span class="hl">Done. Your app is submitted.</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Promote to Production</div>
+            <div class="task"><span class="task-bullet"></span><span>Internal testing review is usually instant (minutes to hours). Once approved, go to Testing → Promote release → Production. This is the 1–3 day Google review. You'll get an email when it's live.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours — while waiting for review</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">While review is pending — polish README</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Finance Tracker README: Architecture diagram in Excalidraw (draw the 3 layers with arrows, export as PNG). Screenshots of all 4 screens. Tech stack table. Feature list. How to build locally (just clone + add no-setup needed steps). Privacy policy link.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Add a "Play Store" badge at the top once it's live: <span class="kw">&lt;a href="your_play_store_link"&gt;&lt;img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60"/&gt;&lt;/a&gt;</span></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- W59 MILESTONE -->
+<div class="wk" id="w59">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(212,136,10,.1);color:var(--amber)">W59</span>
+    <span class="wk-title">Finance Tracker is Live on Play Store</span>
+    <span class="ms-tag">★ Milestone</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-night wide">
+        <div class="slot-head"><div class="slot-lbl">💻 When the email arrives — do these immediately</div><div class="slot-time">In any order</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">The instant it goes live</div>
+            <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Screenshot Play Console showing "Published" status.</span> Screenshot the app listing on the Play Store. Save both. These are proof.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Update your resume</span> — add under Finance Tracker: "Published on Google Play Store · [link]". Move Finance Tracker to the top of your projects list. It is now your #1 talking point.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Update LinkedIn Featured section</span> — replace or add: "My first Android app, Finance Tracker, is now live on Google Play." Link to the Play Store listing directly.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Add Play Store badge to GitHub README</span> — the actual download link works now. Anyone who visits your repo can install your app on their phone.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Post on LinkedIn — write this tonight</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Draft: "After [X] weeks of learning Android development, my first app is live on the Google Play Store. Finance Tracker lets you track income and expenses with visual charts, biometric security, and full offline support. Built with Kotlin, Jetpack Compose, Clean Architecture, Hilt, Room, and Canvas Charts. Everything from scratch — no third-party chart libraries. [Play Store link] | [GitHub link] #androiddev #kotlin #compose #buildinpublic"</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-milestone">
+        <div class="slot-head"><div class="slot-lbl">★ What this moment means</div></div>
+        <div class="slot-content">
+          <div class="task primary"><span class="task-bullet"></span><span>Most Android developers who start learning never publish. They build tutorial apps and stop. You just crossed a line that most people don't cross. From this day, every recruiter who sees your resume reads "Published on Google Play" and mentally upgrades your profile. The 3–4 weeks spent on Finance Tracker compound into every application you send from now on.</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W59 — what you have</div>
+      Finance Tracker is live on Google Play. Resume updated. LinkedIn updated. GitHub README updated. LinkedIn post published. You are now a published Android developer. This credential never expires.
+    </div>
+  </div>
+</div>
+
+</div><!-- /phase-body 3 -->
+
+<!-- ═══════════════════════════════════════════════ PHASE 4 -->
+<div class="phase" style="border-color:var(--teal);margin-top:8px;" onclick="togglePhase(this)">
+  <div class="ph-num" style="background:rgba(26,122,110,.1);color:var(--teal)">Phase 4</div>
+  <div class="ph-title">Google AAD Certification</div>
+  <div class="ph-weeks" style="color:var(--teal)">W60–W61</div>
+  <div class="ph-arr">▾</div>
+</div>
+<div class="phase-body">
+
+<!-- W60 -->
+<div class="wk" id="w60">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(26,122,110,.1);color:var(--teal)">W60</span>
+    <span class="wk-title">AAD Deep Preparation — Know Every Domain Cold</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + AAD reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>2 per commute</b> — maintain the daily habit. Do NOT reduce LeetCode frequency during AAD prep. The exam does not test DSA, but your interview in 2 months does.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Read AAD exam guide daily on commute</div>
+            <div class="task"><span class="task-bullet"></span><span>Official guide: developers.google.com/certification/associate-android-developer. The 5 exam domains and their weights: Android Core (26%), UI + Navigation (20%), Data + Files (17%), Debugging (17%), Performance + Accessibility (11%), Publishing (9%).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Key insight: the exam is a <span class="hl">practical coding exam</span>, not multiple choice. You receive a broken Android project and must fix specific bugs and implement specific features. You have 8 hours to complete it.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">AAD domain study</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Domain: Android Core (26% of exam)</div>
+            <div class="task"><span class="task-bullet"></span><span>Study: Activity/Fragment lifecycle in detail. When exactly is onStop vs onPause called? What happens to the activity when you press Home vs Back vs rotate the screen? Draw the state diagram from memory.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Practice: create a new project, implement <span class="kw">onSaveInstanceState</span> + <span class="kw">onRestoreInstanceState</span> to save a counter that survives rotation AND process death. Test it with <span class="kw">adb shell am kill your.package.name</span>.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Study: Intents, BroadcastReceivers, Services. When do you need a Foreground Service vs a background coroutine? What are the background execution limits in Android 12+?</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Domain: UI + Navigation (20%)</div>
+            <div class="task"><span class="task-bullet"></span><span>Study: Compose state management. What is state hoisting? When does a composable recompose? What is the difference between <span class="kw">remember{}</span> and <span class="kw">rememberSaveable{}</span>? (rememberSaveable survives configuration changes and process death, remember does not.)</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Timed challenge: build a 3-screen app with Navigation Component in 30 minutes. Include: passing arguments between screens, deep link to the middle screen, pop back stack correctly.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Domain: Data + Files (17%)</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Timed challenge: implement Room database from scratch (Entity + DAO + Database class + Repository) in 20 minutes. Add a migration from version 1 to version 2 (adding a new column). Test the migration doesn't crash.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Study: DataStore vs SharedPreferences. When to use Preferences DataStore vs Proto DataStore. How to read/write DataStore with a coroutine.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Domain: Debugging (17%)</div>
+            <div class="task"><span class="task-bullet"></span><span>Practice: read a stack trace from top to bottom. The top line is the immediate cause, the "Caused by:" line is the root cause. Practice on a real crash: introduce a bug intentionally in Finance Tracker, read the Logcat trace, fix it.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Set a breakpoint in Movie Browser on a ViewModel method. Use the debugger: step over, step into, evaluate expression. Watch variable values change in real time. This is the skill that separates good debuggers from people who add print statements everywhere.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Full mock build</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Build the AAD sample project from Google's exam guide end to end. Time yourself. You should be able to complete it comfortably in 4 hours, giving you 4 hours buffer in the real exam.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Full AAD mock assessment — full 8 hours</div>
+            <div class="task primary"><span class="task-bullet"></span><span>The AAD sample assessment is available publicly. Sit down on the weekend (set aside a full Sunday), download the broken project, set an 8-hour timer, and complete the assessment as if it were the real exam. No Stack Overflow, no AI, no hints.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>After: review everything you didn't finish or got wrong. Write a study target list: these are your focus areas for W61's Night Block before exam day.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- W61 MILESTONE -->
+<div class="wk" id="w61">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(26,122,110,.1);color:var(--teal)">W61</span>
+    <span class="wk-title">Take the Google AAD Exam</span>
+    <span class="ms-tag">★ Milestone</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-night wide">
+        <div class="slot-head"><div class="slot-lbl">💻 Schedule and Take the Exam</div><div class="slot-time">Online proctored · ~3 hours · ~₹12,000</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Before exam day</div>
+            <div class="task"><span class="task-bullet"></span><span>Schedule via: developers.google.com/certification/associate-android-developer → "Take the exam". You'll be taken to Trueability for scheduling. Pick a slot with no college and no workout scheduled — you want a clear 4-hour window (3 hours exam + buffer).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Day before: charge your MacBook fully. Check your room is quiet and well-lit (proctored exam requires a webcam). Close all tabs except Android Studio and the exam portal.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Night before: light review only — Activity lifecycle, Room setup, Compose state. No cramming. Sleep at 11 PM strictly. Your brain consolidates learning during sleep.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Exam day morning</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Commute: mental review only. Activity lifecycle: <span class="kw">onCreate → onStart → onResume → onPause → onStop → onDestroy</span>. Room setup: <span class="kw">@Entity → @Dao → @Database → Repository</span>. Compose state: <span class="kw">remember{} vs rememberSaveable{} vs ViewModel StateFlow</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">After you pass</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Results within 5 business days. When badge arrives: add to LinkedIn certifications immediately. Add to resume under "Certifications": "Google Associate Android Developer · Issued [Month Year] · credentials.google.com/verify/[ID]"</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span>Post on LinkedIn: "Passed the Google Associate Android Developer certification. Alongside my published Finance Tracker app on Play Store, this is validation from Google that I can build real Android applications." Attach the digital badge.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-milestone">
+        <div class="slot-head"><div class="slot-lbl">★ What this credential does</div></div>
+        <div class="slot-content">
+          <div class="task primary"><span class="task-bullet"></span><span>When a recruiter at Swiggy, Razorpay, or CRED sees a resume from BPPIMT with "Google Associate Android Developer — Verified" and "Finance Tracker — Published on Google Play", the college name becomes less important. You have proof from the world's largest Android company that your skills meet a professional bar. This is the purpose of the certification: to signal skill independently of where you studied.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /phase-body 4 -->
+
+<!-- ═══════════════════════════════════════════════ PHASE 5 -->
+<div class="phase" style="border-color:var(--red);margin-top:8px;" onclick="togglePhase(this)">
+  <div class="ph-num" style="background:rgba(192,57,43,.1);color:var(--red)">Phase 5</div>
+  <div class="ph-title">Firebase + Chat App</div>
+  <div class="ph-weeks" style="color:var(--red)">W62–W64</div>
+  <div class="ph-arr">▾</div>
+</div>
+<div class="phase-body">
+
+<!-- W62 -->
+<div class="wk" id="w62">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(192,57,43,.1);color:var(--red)">W62</span>
+    <span class="wk-title">Firebase: Firestore Real-Time + Authentication</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + Firestore design</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>All Paths From Source to Target (#797)</b> — DFS with path tracking. Medium.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Find Eventual Safe States (#802)</b> — reverse graph DFS. Medium.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Firestore data model design on commute</div>
+            <div class="task"><span class="task-bullet"></span><span>Plan the Chat App Firestore structure: <span class="kw">users/{userId}</span> — user profile document (displayName, avatarUrl, onlineStatus, lastSeen). <span class="kw">chats/{chatId}</span> — chat metadata (participants[], lastMessage, lastMessageTime). <span class="kw">chats/{chatId}/messages/{messageId}</span> — subcollection (senderId, text, timestamp, isRead).</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Understand: in Firestore, you pay per read. Subcollections let you read chat metadata without loading all messages. This is a real cost and performance consideration — interviewers appreciate when you can explain it.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Firebase project setup</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Go to console.firebase.google.com → Add project → "ChatApp". Enable Google Analytics. Add Android app: enter package name. Download <span class="kw">google-services.json</span> → place in <span class="kw">app/</span> folder.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add to <span class="file">build.gradle.kts</span> (project): <span class="kw">classpath("com.google.gms:google-services:4.4.0")</span>. In app build.gradle.kts: <span class="kw">id("com.google.gms.google-services")</span> plugin + <span class="kw">implementation(platform("com.google.firebase:firebase-bom:32.7.0"))</span> + <span class="kw">implementation("com.google.firebase:firebase-firestore-ktx")</span> + <span class="kw">implementation("com.google.firebase:firebase-auth-ktx")</span>. Sync.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — First Firestore read/write</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Test Firestore connection: in a ViewModel, write: <span class="kw">Firebase.firestore.collection("test").add(mapOf("message" to "Hello Firebase", "timestamp" to FieldValue.serverTimestamp())).await()</span>. Go to Firebase Console → Firestore → verify the document appeared.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Read it back: <span class="kw">Firebase.firestore.collection("test").addSnapshotListener { snapshot, error -> snapshot?.documents?.forEach { Log.d("FB", it.data.toString()) } }</span>. Watch Logcat as you add documents in the Firebase Console.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Firebase Auth: email/password</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Enable Email/Password provider in Firebase Console → Authentication → Sign-in methods. Implement: <span class="kw">Firebase.auth.createUserWithEmailAndPassword(email, password).await()</span> for registration. <span class="kw">Firebase.auth.signInWithEmailAndPassword(email, password).await()</span> for login.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Auth state as a Flow: <span class="kw">callbackFlow { val listener = FirebaseAuth.AuthStateListener { auth -> trySend(auth.currentUser) }; Firebase.auth.addAuthStateListener(listener); awaitClose { Firebase.auth.removeAuthStateListener(listener) } }.stateIn(scope, SharingStarted.Eagerly, Firebase.auth.currentUser)</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Google Sign-In with Credential Manager</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add: <span class="kw">implementation("androidx.credentials:credentials:1.3.0")</span> + <span class="kw">implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")</span>. In Firebase Console: enable Google sign-in provider, copy the web client ID.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Implement: <span class="kw">val request = GetGoogleIdOption.Builder().setServerClientId(WEB_CLIENT_ID).setFilterByAuthorizedAccounts(false).build(); val result = credentialManager.getCredential(context, GetCredentialRequest.Builder().addCredentialOption(request).build())</span>. Exchange credential for Firebase token.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Auth + user profile in Firestore</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>After successful sign-in: write/update user profile to Firestore: <span class="kw">Firebase.firestore.collection("users").document(userId).set(mapOf("displayName" to displayName, "avatarUrl" to photoUrl, "onlineStatus" to true), SetOptions.merge())</span>. Use <span class="kw">merge()</span> so you don't overwrite existing data.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Build Auth UI + test real-time sync with 2 emulators</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Build Login screen in Compose: email field, password field, Login button, Google Sign-In button, Register link. Wire to AuthViewModel which uses the auth flows you built this week.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span>Real-time sync test: open 2 Android emulators (AVD Manager → start a second one). Log in on both with different accounts. In Firestore Console, manually create a document in "test" collection. Verify both emulators update via addSnapshotListener. This is the magic of Firestore.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome">
+      <div class="outcome-lbl">✓ End of W62 — what you have</div>
+      Firebase integrated. Firestore reads and writes work. Email/password auth works. Google Sign-In with Credential Manager works. Auth state exposed as StateFlow. User profile saved to Firestore on sign-in. Login screen complete. 2-emulator real-time sync verified.
+    </div>
+  </div>
+</div>
+
+<!-- W63 -->
+<div class="wk" id="w63">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(192,57,43,.1);color:var(--red)">W63</span>
+    <span class="wk-title">Firebase Storage + FCM Push Notifications</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-commute">
+        <div class="slot-head"><div class="slot-lbl">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + FCM design thinking</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">LeetCode</div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Rotting Oranges (#994)</b> revisit — how fast compared to Week 49? Time yourself. Improvement shows real growth.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span><b>Surrounded Regions (#130)</b> — BFS from borders, mark reachable 'O's, flip the rest. Medium.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Think through FCM flow</div>
+            <div class="task"><span class="task-bullet"></span><span>FCM flow: (1) User B sends a message. (2) Your server (or a Cloud Function) notices the new message. (3) Server sends FCM notification to User A's device token. (4) FCM delivers it to User A's device. For Semester 6, skip Cloud Functions — use a Firebase trigger or just send from the client when the app is in foreground.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block · 10 PM</div><div class="slot-time">1 hour</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue — Firebase Storage setup</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In Firebase Console → Storage → Get started. Set rules to allow authenticated reads/writes: <span class="kw">match /{allPaths=**} { allow read, write: if request.auth != null; }</span>. Add SDK: <span class="kw">implementation("com.google.firebase:firebase-storage-ktx")</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Wed — Profile photo upload</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Photo upload flow: (1) Pick image from gallery with <span class="kw">rememberLauncherForActivityResult(PickVisualMedia())</span>. (2) Compress to JPEG ByteArray (max 200KB). (3) Upload: <span class="kw">val ref = Firebase.storage.reference.child("avatars/${userId}.jpg"); ref.putBytes(compressedBytes).await()</span>. (4) Get download URL: <span class="kw">ref.downloadUrl.await().toString()</span>. (5) Save URL to Firestore user profile.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Show upload progress: <span class="kw">ref.putBytes(bytes).addOnProgressListener { progress -> val pct = (100.0 * progress.bytesTransferred / progress.totalByteCount).toInt(); /* update UI */ }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — FCM token registration</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Add: <span class="kw">implementation("com.google.firebase:firebase-messaging-ktx")</span>. Get the FCM token on app start: <span class="kw">Firebase.messaging.token.await()</span>. Save this token to <span class="kw">Firestore users/{userId}/fcmToken</span> field. This is how you send push notifications to a specific user.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">MyFirebaseMessagingService.kt</span>: extends <span class="kw">FirebaseMessagingService()</span>. Override <span class="kw">onNewToken(token: String)</span> to update Firestore when token changes. Override <span class="kw">onMessageReceived(message: RemoteMessage)</span> to show notification when app is in foreground.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Register in AndroidManifest: <span class="kw">&lt;service android:name=".MyFirebaseMessagingService" android:exported="false"&gt; &lt;intent-filter&gt;&lt;action android:name="com.google.firebase.MESSAGING_EVENT"/&gt;&lt;/intent-filter&gt; &lt;/service&gt;</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Send test notification</div>
+            <div class="task"><span class="task-bullet"></span><span>In Firebase Console → Messaging → New campaign. Target: "Single device". Paste your FCM token from Logcat. Set title "Test" and body "Hello from Firebase". Send. Within 30 seconds, you should see the notification on your emulator.</span></div>
+            <div class="task"><span class="task-bullet"></span><span>Test foreground: app is open → notification comes → your <span class="kw">onMessageReceived</span> fires → you show a local notification manually. Test background: app is in background → system shows it automatically.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Notification tap → deep link</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>In <span class="kw">onMessageReceived</span>: build a notification with a PendingIntent that opens the app to a specific chat. Use Intent extras to pass the chatId. In MainActivity: read the intent extras and navigate to the correct chat screen.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-android wide">
+        <div class="slot-head"><div class="slot-lbl">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Chat App data layer complete</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Build <span class="file">ChatRepository.kt</span>: <span class="kw">fun getMessages(chatId: String): Flow&lt;List&lt;Message&gt;&gt;</span> using Firestore addSnapshotListener converted to Flow with <span class="kw">callbackFlow{}</span>. <span class="kw">suspend fun sendMessage(chatId: String, message: Message)</span> — writes to Firestore subcollection.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>sendMessage also updates the parent chat document's lastMessage and lastMessageTime so the chat list always shows the latest preview: <span class="kw">batch.update(chatRef, mapOf("lastMessage" to message.text, "lastMessageTime" to message.timestamp))</span></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- W64 MILESTONE -->
+<div class="wk" id="w64">
+  <div class="wk-head" onclick="toggleWk(this)">
+    <span class="wk-num" style="background:rgba(192,57,43,.1);color:var(--red)">W64</span>
+    <span class="wk-title">Chat App UI + Semester 6 Close</span>
+    <span class="ms-tag">★ Milestone</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-night">
+        <div class="slot-head"><div class="slot-lbl">💻 Night Block + Android Block · Final week</div><div class="slot-time">Build Chat App UI this week</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-lbl">Tue/Wed — Chat detail screen</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Create <span class="file">ChatDetailScreen.kt</span>. Structure: Scaffold with TopAppBar (user name + online dot), LazyColumn of messages (reversed: newest at bottom), Row at bottom (TextField + Send button).</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>MessageBubble composable: <span class="kw">if (message.senderId == currentUserId)</span> → right-aligned green/blue bubble. Else → left-aligned grey bubble. Each bubble: text + timestamp in small text below.</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Auto-scroll to bottom: <span class="kw">val listState = rememberLazyListState(); LaunchedEffect(messages.size) { listState.animateScrollToItem(messages.size - 1) }</span>. This fires every time a new message arrives.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Thu — Chat list screen + online presence</div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Chat list: LazyColumn where each item shows: avatar (AsyncImage from Storage URL), display name, last message preview, last message time, unread count badge. Tap → navigate to ChatDetailScreen(chatId).</span></div>
+            <div class="task code-task"><span class="task-bullet"></span><span>Online presence: in user's Firestore document, set <span class="kw">onlineStatus = true</span> on app foreground, <span class="kw">onlineStatus = false</span> on app background using ProcessLifecycleOwner. Show a green dot on avatar when <span class="kw">onlineStatus == true</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Fri — Push notification on new message</div>
+            <div class="task"><span class="task-bullet"></span><span>When User A sends a message to User B: read User B's FCM token from Firestore, trigger a notification. Since you don't have a server in Semester 6, trigger it from the Android client (not ideal for production, but works for demo). In Semester 7 you can move this to a Cloud Function.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-lbl">Sat — Demo recording + LinkedIn + GitHub</div>
+            <div class="task primary"><span class="task-bullet"></span><span>Record a 2-minute screen recording using Android Studio's built-in screen recorder (or Quicktime). Show: login → chat list → open a chat → send a message → it appears in real time on the second emulator → FCM notification pops up on the receiving device.</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span>Push Chat App to GitHub with full README: Firebase setup instructions (with screenshots), architecture diagram, features list, demo video link (upload to YouTube as Unlisted).</span></div>
+            <div class="task primary"><span class="task-bullet"></span><span>Post LinkedIn: "Built a real-time chat app with Firebase Firestore, Auth, Storage, and FCM. Here's the 2-minute demo." Attach the video. This post performs 3–4× better than text-only posts in developer communities.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-milestone">
+        <div class="slot-head"><div class="slot-lbl">★ Semester 6 Complete — What You Have Built</div></div>
+        <div class="slot-content">
+          <div class="task primary"><span class="task-bullet"></span><span><span class="hl">25+ unit tests</span> covering Use Cases and ViewModels in Movie Browser, with MockK and Turbine. GitHub Actions CI runs on every push.</span></div>
+          <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Finance Tracker</span> — Clean Architecture, Hilt, Room, Compose Canvas Charts (built from scratch), Biometric Auth, EncryptedSharedPreferences, WorkManager notifications, 20+ tests, CI pipeline.</span></div>
+          <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Published on Google Play Store</span> — Finance Tracker is a real app that real people can download. Your resume has a live Play Store link.</span></div>
+          <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Google Associate Android Developer certified</span> — Google has verified your skills. The badge appears on LinkedIn and your resume.</span></div>
+          <div class="task primary"><span class="task-bullet"></span><span><span class="hl">Chat App</span> — Firebase Firestore real-time messaging, Auth with Google Sign-In, Firebase Storage for profile photos, FCM push notifications, online presence. Live on GitHub with demo video.</span></div>
+          <div class="task primary"><span class="task-bullet"></span><span><span class="hl">200+ LeetCode problems</span> — the daily commute habit is deeply embedded and compounding into interview readiness.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /phase-body 5 -->
+
+<!-- SEMESTER 7 CTA -->
+<div class="ms-box">
+  <div class="ms-box-lbl">→ What comes next · Semester 7</div>
+  <div class="ms-box-text">Semester 7 is not about learning frameworks. It is about deepening everything you have and preparing to win interviews. Maps, modularisation, ML Kit, mock interviews with real developers on Pramp.com, mobile system design, Kotlin Multiplatform, and building a 30-company hit list. By W80 you will have 5 mock interviews done, 250+ LeetCode solved, and 30 companies ready to apply to simultaneously in Semester 8. Semester 8 is pure execution. This is what you are building toward.</div>
+</div>
+
+</div><!-- /main-content -->
+</div><!-- /layout -->
+
+<script>
+function togglePhase(ph){
+  ph.classList.toggle('open');
+}
+function toggleWk(head){
+  head.parentElement.classList.toggle('open');
+}
+// open first wk in each phase by default
+document.querySelectorAll('.wk:first-child').forEach(w=>w.classList.add('open'));
+</script>
+</body>
+</html>

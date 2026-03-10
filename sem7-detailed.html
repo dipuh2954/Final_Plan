@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semester 7 — Interview Ready · W65–W80</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a08;
+  --bg2:#0f0f0c;
+  --card:#141410;
+  --card2:#1a1a15;
+  --border:#242420;
+  --border2:#2e2e28;
+  --text:#e8e8e0;
+  --mid:#7a7a68;
+  --muted:#3a3a30;
+
+  --red:   #e8341a;
+  --amber: #e8a81a;
+  --green: #4aad5a;
+  --blue:  #1a78e8;
+  --teal:  #1aada8;
+  --violet:#8a3ae8;
+  --pink:  #e83a8a;
+  --orange:#e86a1a;
+
+  --r-bg: rgba(232,52,26,.08);
+  --a-bg: rgba(232,168,26,.08);
+  --g-bg: rgba(74,173,90,.08);
+  --b-bg: rgba(26,120,232,.08);
+  --t-bg: rgba(26,173,168,.08);
+  --v-bg: rgba(138,58,232,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;min-height:100vh;}
+
+/* ── HEADER ── */
+.hdr{
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:0;
+  position:relative;overflow:hidden;
+}
+.hdr-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hdr-inner{padding:52px 56px 44px;position:relative;z-index:1;}
+.hdr-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--red);margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;
+}
+.hdr-kicker span{color:var(--muted);}
+.hdr-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,8vw,96px);
+  line-height:.95;letter-spacing:1px;
+  color:var(--text);margin-bottom:4px;
+}
+.hdr-h1 em{color:var(--red);font-style:normal;}
+.hdr-rule{height:2px;background:var(--red);width:80px;margin:18px 0;}
+.hdr-sub{
+  font-size:13px;color:var(--mid);
+  max-width:580px;line-height:1.75;
+  font-weight:300;margin-bottom:32px;
+}
+.hdr-stats{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--border);}
+.hs{
+  padding:16px 24px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;gap:4px;
+}
+.hs:last-child{border-right:none;}
+.hs-n{
+  font-family:'Bebas Neue',sans-serif;font-size:32px;
+  color:var(--text);line-height:1;
+}
+.hs-l{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+}
+.hdr-warn{
+  background:rgba(232,52,26,.08);border:1px solid rgba(232,52,26,.2);
+  border-left:3px solid var(--red);
+  padding:14px 20px;font-size:12.5px;
+  line-height:1.65;color:#c8604a;
+  margin-top:20px;max-width:700px;
+  font-family:'IBM Plex Mono',monospace;
+}
+.hdr-warn strong{color:var(--red);display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px;}
+
+/* ── LEGEND ── */
+.legend{
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:12px 56px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+}
+.leg-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-right:8px;}
+.leg{
+  display:flex;align-items:center;gap:6px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;
+  color:var(--mid);padding:4px 10px;
+  border:1px solid var(--border2);background:var(--bg2);
+}
+.leg-dot{width:6px;height:6px;border-radius:50%;}
+
+/* ── LAYOUT ── */
+.layout{display:flex;}
+.sidebar{
+  width:216px;min-width:216px;position:sticky;top:0;
+  height:100vh;overflow-y:auto;
+  background:var(--bg2);border-right:1px solid var(--border);
+  flex-shrink:0;
+}
+.sb-head{
+  padding:18px 16px 14px;
+  border-bottom:1px solid var(--border);
+}
+.sb-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20px;color:var(--text);letter-spacing:1px;
+}
+.sb-sub{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.sb-section{
+  font-family:'IBM Plex Mono',monospace;font-size:8px;
+  letter-spacing:4px;text-transform:uppercase;color:var(--muted);
+  padding:12px 16px 4px;
+}
+.sb-wk{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 16px;text-decoration:none;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.5px;
+  color:var(--mid);transition:color .15s,background .15s;
+  border-left:2px solid transparent;
+}
+.sb-wk:hover{color:var(--text);background:rgba(255,255,255,.03);}
+.sb-wk.ms{color:#7a5a20;border-left-color:var(--amber);}
+.sb-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.main{flex:1;min-width:0;}
+
+/* ── PHASE HEADER ── */
+.phase{
+  margin:0;padding:0;
+  border-bottom:1px solid var(--border);
+}
+.phase-toggle{
+  display:flex;align-items:center;gap:14px;
+  padding:20px 40px;cursor:pointer;
+  background:var(--card);border-bottom:1px solid var(--border);
+  user-select:none;
+  transition:background .15s;
+}
+.phase-toggle:hover{background:var(--card2);}
+.ph-num{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;
+  padding:4px 10px;border-radius:0;letter-spacing:2px;flex-shrink:0;
+}
+.ph-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:1px;flex:1;
+}
+.ph-weeks{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:2px;color:var(--muted);flex-shrink:0;
+}
+.ph-arr{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted);transition:transform .25s;}
+.phase.open .ph-arr{transform:rotate(180deg);}
+.phase-body{display:none;}
+.phase.open .phase-body{display:block;}
+
+/* ── WEEK ── */
+.wk{border-bottom:1px solid var(--border);}
+.wk-toggle{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 40px;cursor:pointer;user-select:none;
+  transition:background .15s;
+}
+.wk-toggle:hover{background:var(--card2);}
+.wk-num{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;
+  padding:3px 8px;letter-spacing:2px;flex-shrink:0;
+}
+.wk-title{flex:1;font-size:13.5px;font-weight:500;}
+.ms-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;
+  padding:3px 8px;flex-shrink:0;
+  background:rgba(232,168,26,.1);color:var(--amber);
+  border:1px solid rgba(232,168,26,.25);
+}
+.wk-arr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);flex-shrink:0;transition:transform .2s;}
+.wk.open .wk-arr{transform:rotate(180deg);}
+.wk-body{display:none;padding:0 40px 28px;}
+.wk.open .wk-body{display:block;}
+
+/* ── SLOTS ── */
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.slot{border-left:3px solid;overflow:hidden;}
+.slot.wide{grid-column:1/-1;}
+.slot-head{
+  padding:9px 14px 8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:column;gap:2px;
+}
+.slot-label{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;
+}
+.slot-time{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;}
+.slot-content{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+
+/* Task group */
+.tg{display:flex;flex-direction:column;gap:5px;}
+.tg-label{
+  font-family:'IBM Plex Mono',monospace;font-size:8px;
+  letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:3px;
+}
+.task{display:flex;gap:9px;align-items:flex-start;font-size:12px;line-height:1.6;color:#b8b8a8;}
+.task-dot{width:4px;height:4px;border-radius:50%;background:var(--muted);flex-shrink:0;margin-top:6px;}
+.task.hi .task-dot{width:6px;height:6px;background:var(--red);margin-top:5px;}
+.task b{font-weight:600;color:var(--text);}
+.task .ac{color:var(--red);font-weight:600;}
+.task .kw{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  background:rgba(255,255,255,.05);color:#9a9aaa;
+  padding:1px 5px;border-radius:1px;
+}
+.task .file{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--blue);background:rgba(26,120,232,.08);padding:1px 5px;border-radius:1px;}
+.task .ok{color:var(--green);font-weight:700;}
+.code-task{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  line-height:1.55;background:var(--bg2);
+  padding:8px 10px;border-radius:0;gap:8px;color:#9a9a88;
+  border-left:2px solid var(--muted);
+}
+.code-task .task-dot{background:var(--green);border-radius:1px;margin-top:4px;}
+
+/* Slot colour themes */
+.sl-com{border-color:var(--blue);background:var(--b-bg);}
+.sl-com .slot-head{background:rgba(26,120,232,.04);}
+.sl-com .slot-label{color:var(--blue);}
+.sl-com .tg-label{color:var(--blue);}
+
+.sl-ngt{border-color:var(--green);background:var(--g-bg);}
+.sl-ngt .slot-head{background:rgba(74,173,90,.04);}
+.sl-ngt .slot-label{color:var(--green);}
+.sl-ngt .tg-label{color:var(--green);}
+
+.sl-and{border-color:var(--orange);background:var(--a-bg);}
+.sl-and .slot-head{background:rgba(232,106,26,.04);}
+.sl-and .slot-label{color:var(--orange);}
+.sl-and .tg-label{color:var(--orange);}
+
+.sl-wkd{border-color:var(--violet);background:var(--v-bg);}
+.sl-wkd .slot-head{background:rgba(138,58,232,.04);}
+.sl-wkd .slot-label{color:var(--violet);}
+.sl-wkd .tg-label{color:var(--violet);}
+
+.sl-ms{border-color:var(--amber);background:var(--a-bg);grid-column:1/-1;}
+.sl-ms .slot-head{background:rgba(232,168,26,.04);}
+.sl-ms .slot-label{color:var(--amber);}
+
+/* Outcome */
+.outcome{
+  margin-top:14px;padding:12px 16px;
+  background:var(--card);
+  border:1px solid var(--border2);border-left:3px solid var(--teal);
+  font-size:12px;line-height:1.65;color:var(--mid);
+}
+.outcome-lbl{
+  font-family:'IBM Plex Mono',monospace;font-size:8px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--teal);
+  font-weight:600;margin-bottom:5px;
+}
+
+/* Interview prep callout */
+.prep-box{
+  background:var(--r-bg);border:1px solid rgba(232,52,26,.2);
+  border-left:3px solid var(--red);
+  padding:14px 18px;font-size:12px;line-height:1.65;color:#b04030;
+  margin:14px 0 0;font-family:'IBM Plex Mono',monospace;
+}
+.prep-box strong{color:var(--red);display:block;font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px;}
+
+/* Q&A table */
+.qa{margin:10px 0;display:flex;flex-direction:column;gap:6px;}
+.qa-item{background:var(--card2);padding:10px 12px;border-left:2px solid var(--muted);}
+.qa-q{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--red);letter-spacing:.5px;margin-bottom:4px;}
+.qa-a{font-size:11.5px;color:var(--mid);line-height:1.55;}
+.qa-a .kw{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#9a8060;background:rgba(200,150,80,.06);padding:1px 4px;}
+
+/* company table */
+.co-table{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:10px;}
+.co-table th{
+  font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+  text-align:left;padding:6px 10px;border-bottom:1px solid var(--border2);
+}
+.co-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--mid);}
+.co-table tr:last-child td{border-bottom:none;}
+.co-table tr:hover td{background:var(--card2);}
+.co-name{font-weight:600;color:var(--text);}
+.tier{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 6px;}
+.t1{background:rgba(74,173,90,.1);color:var(--green);}
+.t2{background:rgba(26,120,232,.1);color:var(--blue);}
+.t3{background:rgba(138,58,232,.1);color:var(--violet);}
+
+/* priority tag */
+.ptag{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 9px;margin-bottom:12px;}
+.ptag.must{background:rgba(232,52,26,.08);color:var(--red);border:1px solid rgba(232,52,26,.2);}
+.ptag.good{background:rgba(232,168,26,.08);color:var(--amber);border:1px solid rgba(232,168,26,.2);}
+
+/* milestone box */
+.ms-close{
+  margin:0;padding:40px 56px;
+  background:var(--card);border-top:2px solid var(--red);
+}
+.ms-close-title{
+  font-family:'Bebas Neue',sans-serif;font-size:36px;
+  color:var(--text);letter-spacing:1px;margin-bottom:14px;
+}
+.ms-close .check{
+  display:flex;align-items:flex-start;gap:12px;
+  font-size:13px;line-height:1.6;color:var(--mid);
+  margin-bottom:8px;
+}
+.ms-close .check::before{
+  content:'✓';color:var(--green);font-weight:700;font-family:'IBM Plex Mono',monospace;
+  font-size:12px;flex-shrink:0;margin-top:2px;
+}
+
+/* sem 8 bridge */
+.bridge{
+  padding:36px 56px;background:var(--bg2);border-top:1px solid var(--border);
+}
+.bridge-lbl{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.bridge-text{font-size:13px;line-height:1.75;color:var(--mid);font-weight:300;max-width:700px;}
+.bridge-text strong{color:var(--text);font-weight:600;}
+
+@media(max-width:800px){
+  .sidebar{display:none;}
+  .hdr-inner,.legend,.phase-toggle,.wk-toggle,.wk-body,.ms-close,.bridge{padding-left:20px;padding-right:20px;}
+  .slots{grid-template-columns:1fr;}
+  .slot.wide{grid-column:1;}
+}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-noise"></div>
+  <div class="hdr-inner">
+    <div class="hdr-kicker"><span>//</span> Semester 7 · W65–W80 · Elaborated</div>
+    <div class="hdr-h1">INTERVIEW<br><em>READY.</em></div>
+    <div class="hdr-rule"></div>
+    <div class="hdr-sub">16 weeks. No more learning for learning's sake — everything from here is in direct service of getting an offer. Advanced Android internals, mobile system design, mock interviews, and the simultaneous 30-company application launch. Every slot has a purpose.</div>
+    <div class="hdr-stats">
+      <div class="hs"><div class="hs-n">W65–80</div><div class="hs-l">This File</div></div>
+      <div class="hs"><div class="hs-n">5</div><div class="hs-l">Mock Interviews</div></div>
+      <div class="hs"><div class="hs-n">250+</div><div class="hs-l">LeetCode Target</div></div>
+      <div class="hs"><div class="hs-n">30</div><div class="hs-l">Companies Listed</div></div>
+      <div class="hs"><div class="hs-n">★ W80</div><div class="hs-l">Launch Ready</div></div>
+    </div>
+    <div class="hdr-warn">
+      <strong>// Entering Semester 7</strong>
+      You have: Finance Tracker live on Play Store · Google AAD certified · Chat App on GitHub · Movie Browser with 25+ tests and CI · 200+ LeetCode solved. Semester 7 is not about adding more projects. It is about depth, interview preparation, and one coordinated attack on the job market in Semester 8.
+    </div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="leg-label">Slots →</span>
+  <div class="leg"><span class="leg-dot" style="background:var(--blue)"></span>📱 Commute 6 AM</div>
+  <div class="leg"><span class="leg-dot" style="background:var(--green)"></span>💻 Night Block 10–11 PM</div>
+  <div class="leg"><span class="leg-dot" style="background:var(--orange)"></span>🖥️ Android Block 3:30 PM Weekend</div>
+  <div class="leg"><span class="leg-dot" style="background:var(--violet)"></span>🟣 Weekend Study Block</div>
+</div>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-head"><div class="sb-title">Semester 7</div><div class="sb-sub">W65–W80 · Detailed</div></div>
+  <div class="sb-section">Phase 1 — Advanced Features</div>
+  <a class="sb-wk" href="#w65"><span class="sb-dot" style="background:var(--orange)"></span>W65 · Maps + Location</a>
+  <a class="sb-wk" href="#w66"><span class="sb-dot" style="background:var(--orange)"></span>W66 · Multi-Module App</a>
+  <a class="sb-wk" href="#w67"><span class="sb-dot" style="background:var(--orange)"></span>W67 · ML Kit + Vision</a>
+  <div class="sb-section">Phase 2 — Interview Deep Dive</div>
+  <a class="sb-wk" href="#w68"><span class="sb-dot" style="background:var(--red)"></span>W68 · Android Internals Q&A</a>
+  <a class="sb-wk" href="#w69"><span class="sb-dot" style="background:var(--red)"></span>W69 · System Design Mobile</a>
+  <a class="sb-wk" href="#w70"><span class="sb-dot" style="background:var(--red)"></span>W70 · Mock Interview #1 #2</a>
+  <a class="sb-wk" href="#w71"><span class="sb-dot" style="background:var(--red)"></span>W71 · Behavioral + STAR</a>
+  <div class="sb-section">Phase 3 — Senior-Level Skills</div>
+  <a class="sb-wk" href="#w72"><span class="sb-dot" style="background:var(--violet)"></span>W72 · Compose Performance</a>
+  <a class="sb-wk" href="#w73"><span class="sb-dot" style="background:var(--violet)"></span>W73 · WorkManager + Services</a>
+  <a class="sb-wk" href="#w74"><span class="sb-dot" style="background:var(--violet)"></span>W74 · KMP Shared Logic</a>
+  <a class="sb-wk" href="#w75"><span class="sb-dot" style="background:var(--violet)"></span>W75 · Mock Interview #3 #4</a>
+  <div class="sb-section">Phase 4 — Launch Preparation</div>
+  <a class="sb-wk" href="#w76"><span class="sb-dot" style="background:var(--teal)"></span>W76 · Deep Links + App Links</a>
+  <a class="sb-wk" href="#w77"><span class="sb-dot" style="background:var(--teal)"></span>W77 · Accessibility + Adaptive UI</a>
+  <a class="sb-wk" href="#w78"><span class="sb-dot" style="background:var(--teal)"></span>W78 · Resume + 30 Companies</a>
+  <a class="sb-wk" href="#w79"><span class="sb-dot" style="background:var(--teal)"></span>W79 · Mock Interview #5 + Applications</a>
+  <div class="sb-section">Milestone</div>
+  <a class="sb-wk ms" href="#w80">W80 · ★ LAUNCH READY</a>
+</div>
+
+<div class="main">
+
+<!-- ═══════════ PHASE 1 ═══════════ -->
+<div class="phase open" id="ph1">
+  <div class="phase-toggle" style="border-left:3px solid var(--orange)" onclick="this.parentElement.classList.toggle('open')">
+    <span class="ph-num" style="background:rgba(232,106,26,.1);color:var(--orange)">Phase 1</span>
+    <span class="ph-title" style="color:var(--text)">Advanced Android Features</span>
+    <span class="ph-weeks">W65–W67</span>
+    <span class="ph-arr">▾</span>
+  </div>
+  <div class="phase-body">
+
+<!-- W65 -->
+<div class="wk open" id="w65">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,106,26,.1);color:var(--orange)">W65</span>
+    <span class="wk-title">Maps, Location, and Geofencing</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM · Tue–Sat</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — Intervals (very common in Indian OAs)</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Merge Intervals (#56)</b> — sort by start, merge overlapping. Medium. Classic. Appears in Swiggy, Razorpay, CRED OAs regularly.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Non-overlapping Intervals (#435)</b> — greedy: sort by end, count removals. Medium. Same family, different angle. Know both cold.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Reading on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Read: Android Location APIs overview. Understand the difference between <span class="kw">FusedLocationProviderClient</span> (Google Play Services, battery-optimised, uses GPS + WiFi + cell) vs <span class="kw">LocationManager</span> (raw Android, no Play Services dependency). Always use FusedLocationProvider in real apps.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Read: Geofencing API. A geofence is a virtual perimeter around a real-world location. You register up to 100 geofences per app. When the user enters or exits a geofence, your app receives a broadcast. Battery-efficient because the system handles the monitoring, not your app.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM · Tue–Sat</div><div class="slot-time">MacBook · 1 hour · New project: TrailTracker</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Project setup + permissions</div>
+            <div class="task code-task"><span class="task-dot"></span><span>New project "TrailTracker". Add to <span class="file">AndroidManifest.xml</span>: <span class="kw">&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/&gt;</span> and <span class="kw">ACCESS_COARSE_LOCATION</span> and <span class="kw">ACCESS_BACKGROUND_LOCATION</span> (for geofencing). Add Google Maps SDK: <span class="kw">implementation("com.google.android.gms:play-services-maps:18.2.0")</span> + <span class="kw">play-services-location:21.1.0</span>.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Runtime permission flow in Compose: <span class="kw">val locationPermission = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION); if (!locationPermission.status.isGranted) { Button(onClick = { locationPermission.launchPermissionRequest() }) { Text("Grant Location") } }</span>. Use <span class="kw">accompanist-permissions</span> library for this.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Display Google Map in Compose</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Add: <span class="kw">implementation("com.google.maps.android:maps-compose:4.3.0")</span>. Wrap in Compose: <span class="kw">val cameraPositionState = rememberCameraPositionState { position = CameraPosition.fromLatLngZoom(LatLng(22.5726, 88.3639), 12f) }; GoogleMap(modifier = Modifier.fillMaxSize(), cameraPositionState = cameraPositionState)</span>. Kolkata coordinates. Map should render on emulator.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Add a Marker at Kolkata centre: <span class="kw">Marker(state = MarkerState(LatLng(22.5726, 88.3639)), title = "BPPIMT Area")</span>. Tap it — info window appears.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Get current location + show on map</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Create <span class="file">LocationRepository.kt</span>: <span class="kw">fun getCurrentLocation(): Flow&lt;Location&gt; = callbackFlow { val client = LocationServices.getFusedLocationProviderClient(context); val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000L).build(); val callback = object : LocationCallback() { override fun onLocationResult(result: LocationResult) { result.lastLocation?.let { trySend(it) } } }; client.requestLocationUpdates(request, callback, Looper.getMainLooper()); awaitClose { client.removeLocationUpdates(callback) } }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Real-time location tracking</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In ViewModel: collect <span class="kw">locationRepository.getCurrentLocation()</span> into StateFlow. In Compose: when location updates, move camera: <span class="kw">LaunchedEffect(location) { cameraPositionState.animate(CameraUpdateFactory.newLatLng(LatLng(location.latitude, location.longitude))) }</span>. On emulator: use the location controls in the emulator sidebar to simulate movement.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Draw polyline for route</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Keep a list of visited locations in ViewModel: <span class="kw">private val _route = MutableStateFlow&lt;List&lt;LatLng&gt;&gt;(emptyList()); update by appending each new location. In GoogleMap composable: <span class="kw">Polyline(points = route, color = Color.Red, width = 8f)</span>. Simulate a 5-point route on the emulator. Watch the red line draw as you change the location.</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-and wide">
+        <div class="slot-head"><div class="slot-label">🖥️ Android Block · 3:30 PM · Weekend</div><div class="slot-time">2 hours · Geofencing</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Sunday — Add a Geofence</div>
+            <div class="task hi"><span class="task-dot"></span><span>Create <span class="file">GeofenceManager.kt</span>. Add a geofence around BPPIMT college: <span class="kw">val geofence = Geofence.Builder().setRequestId("college").setCircularRegion(22.6520, 88.4029, 200f).setExpirationDuration(Geofence.NEVER_EXPIRE).setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or GEOFENCE_TRANSITION_EXIT).build()</span>.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Register with geofencing client: <span class="kw">val request = GeofencingRequest.Builder().setInitialTrigger(INITIAL_TRIGGER_ENTER).addGeofence(geofence).build(); val pendingIntent = /* BroadcastReceiver PendingIntent */; geofencingClient.addGeofences(request, pendingIntent)</span>.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Create <span class="file">GeofenceBroadcastReceiver.kt</span>: <span class="kw">class GeofenceBroadcastReceiver : BroadcastReceiver() { override fun onReceive(context: Context, intent: Intent) { val event = GeofencingEvent.fromIntent(intent); if (event.geofenceTransition == GEOFENCE_TRANSITION_ENTER) { /* show notification: "You arrived at college" */ } } }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Monday — Draw geofence circle on map</div>
+            <div class="task hi"><span class="task-dot"></span><span>In GoogleMap composable: <span class="kw">Circle(center = LatLng(22.6520, 88.4029), radius = 200.0, strokeColor = Color.Blue, fillColor = Color(0x220000FF))</span>. Now users can see exactly where the geofence boundary is.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Let users add their own geofences by long-pressing the map: <span class="kw">GoogleMap(onMapLongClick = { latLng -> viewModel.addGeofence(latLng) })</span>. Show a dialog asking for a name and radius. Push to GitHub.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W65</div>TrailTracker shows real-time location on a Google Map, draws a polyline route, and fires notifications when entering/leaving a geofenced area. Location permission flow is correct (coarse → fine → background in sequence). Geofence circles are visible on the map. This is a complete feature set, not a tutorial clone.</div>
+  </div>
+</div><!-- W65 -->
+
+<!-- W66 -->
+<div class="wk" id="w66">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,106,26,.1);color:var(--orange)">W66</span>
+    <span class="wk-title">Multi-Module Architecture — Split Movie Browser into Modules</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + module theory</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Task Scheduler (#621)</b> — cooldown intervals between tasks. Medium. Greedy. Appears in scheduling system design questions too.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Jump Game II (#45)</b> — minimum jumps to reach the end. Medium. Greedy BFS-style thinking. Revisit your Sem 3 solution — has your speed improved?</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Reading on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Read: Android multi-module guide at developer.android.com. Understand the module types: <span class="kw">:app</span> (Android application, depends on everything), <span class="kw">:core:domain</span> (pure Kotlin, no Android, no network, just business logic), <span class="kw">:core:data</span> (network + Room, depends on domain), <span class="kw">:feature:movies</span> (UI for movies feature, depends on domain only — NOT on data).</span></div>
+            <div class="task"><span class="task-dot"></span><span>Key insight: <span class="ac">build time is the reason</span>. With 1 module, changing 1 line recompiles everything. With 5 modules, changing the movies UI only recompiles the :feature:movies module. This is a 3–5× build time improvement on large projects — which is why companies mandate it.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Movie Browser → modular</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Create module structure</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In Android Studio: File → New → New Module → Android Library → name it <span class="kw">core-domain</span>. Repeat for <span class="kw">core-data</span> and <span class="kw">feature-movies</span>. You now have 4 modules: app, core-domain, core-data, feature-movies.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>In each module's <span class="file">build.gradle.kts</span>, set the right dependencies. <span class="kw">core-domain</span>: only Kotlin + Coroutines. <span class="kw">core-data</span>: Kotlin + Retrofit + Room + Hilt + <span class="kw">implementation(project(":core-domain"))</span>. <span class="kw">feature-movies</span>: Compose + Hilt + <span class="kw">implementation(project(":core-domain"))</span> (not core-data — feature should not touch data layer).</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Move domain layer to :core-domain</div>
+            <div class="task hi"><span class="task-dot"></span><span>Cut (Ctrl+X) all files from the <span class="kw">domain/</span> package in <span class="file">:app</span>: Movie.kt, MovieRepository.kt, all UseCase classes, Result.kt. Paste into <span class="file">:core-domain/src/main/kotlin/</span>. Adjust package names. Sync. Fix the red import errors — they should all resolve by pointing to <span class="kw">:core-domain</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Move data layer to :core-data</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Move: MovieEntity, MovieDao, AppDatabase, MovieRepositoryImpl, MovieApiService, the Hilt DatabaseModule and NetworkModule, all Retrofit DTOs, and all mapper functions. These live in <span class="file">:core-data</span>. The <span class="file">:app</span> module now has no data or domain classes — only the Application class, MainActivity, and the Hilt component setup.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Move UI to :feature-movies</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Move all Compose screens, ViewModels, and navigation graph for movies into <span class="file">:feature-movies</span>. ViewModels only import from <span class="kw">:core-domain</span> (Use Cases + domain models). They do NOT import anything from <span class="kw">:core-data</span>. If you find yourself importing a Room Entity in a ViewModel, you've violated the architecture.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Compile and fix</div>
+            <div class="task hi"><span class="task-dot"></span><span>Run <span class="kw">./gradlew assembleDebug</span>. You will get compilation errors. Every error is an import that's pointing to the wrong module. Fix them one by one. Typical issues: Hilt module not found (move it to the right module), Room entity imported in feature module (remove it, use domain model). All errors must be zero before sleeping.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-and wide">
+        <div class="slot-head"><div class="slot-label">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours · Hilt in multi-module + update README</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Hilt cross-module setup</div>
+            <div class="task hi"><span class="task-dot"></span><span>Each module with Hilt needs the Hilt Gradle plugin applied: <span class="kw">id("com.google.dagger.hilt.android")</span> in every module's build.gradle.kts. In <span class="kw">:core-data</span>: annotate the DB + Repository modules with <span class="kw">@InstallIn(SingletonComponent::class)</span>. In <span class="kw">:feature-movies</span>: ViewModels use <span class="kw">@HiltViewModel</span>. The <span class="kw">:app</span> module holds <span class="kw">@HiltAndroidApp</span> only.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Run the full test suite: <span class="kw">./gradlew test</span>. All existing tests should still pass. Multi-module refactoring should not break any behaviour. If tests fail, track which module is missing a dependency.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Update README with module diagram</div>
+            <div class="task"><span class="task-dot"></span><span>Draw a module dependency diagram in Excalidraw: boxes for each module, arrows showing allowed dependencies. <span class="ac">:app → :feature-movies → :core-domain ← :core-data</span>. The key visual: both feature and data depend on domain, but feature does NOT depend on data. Export as PNG. Add to README under "Architecture". This is the most impressive portfolio README diagram you can show.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W66</div>Movie Browser is now a 4-module project: :app, :core-domain (pure Kotlin), :core-data (Retrofit + Room), :feature-movies (Compose + ViewModel). All tests still pass. Hilt works cross-module. Architecture diagram in README. Build compiles clean. This is exactly the architecture CRED, Razorpay, and Swiggy use internally.</div>
+  </div>
+</div><!-- W66 -->
+
+<!-- W67 -->
+<div class="wk" id="w67">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,106,26,.1);color:var(--orange)">W67</span>
+    <span class="wk-title">ML Kit — On-Device Vision (Barcode Scanner + Text Recognition)</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + ML Kit reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>LRU Cache (#146)</b> — LinkedHashMap in Kotlin or custom doubly-linked-list + HashMap. Medium. Very frequently asked in Android interviews because Android itself uses LRU cache for Bitmap caching. Know this one deeply.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Design Twitter (#355)</b> — design problem. Sketch: User → follows → Tweet → newsFeed. Use a heap to merge the top 10 tweets from all followees. Hard. Good system design + DSA hybrid problem.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Reading on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Read: ML Kit overview at developers.google.com/ml-kit. Key distinction: <span class="ac">on-device vs cloud</span>. On-device = free, works offline, lower latency, lower accuracy. Cloud = costs money, needs internet, higher accuracy. For your apps: always use on-device in portfolio projects.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Available on-device APIs: Barcode Scanning, Face Detection, Image Labelling, Object Detection, Text Recognition (OCR), Pose Detection, Selfie Segmentation. These run completely offline on the device CPU/GPU.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">New mini-project: ScanKit app</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — CameraX + ML Kit setup</div>
+            <div class="task code-task"><span class="task-dot"></span><span>New project "ScanKit". Dependencies: <span class="kw">implementation("com.google.mlkit:barcode-scanning:17.2.0")</span>, <span class="kw">implementation("com.google.mlkit:text-recognition:16.0.0")</span>, <span class="kw">implementation("androidx.camera:camera-camera2:1.3.0")</span>, <span class="kw">implementation("androidx.camera:camera-lifecycle:1.3.0")</span>, <span class="kw">implementation("androidx.camera:camera-view:1.3.0")</span>.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Set up CameraX preview in Compose: <span class="kw">@Composable fun CameraPreview(modifier: Modifier) { val context = LocalContext.current; val lifecycleOwner = LocalLifecycleOwner.current; val previewView = remember { PreviewView(context) }; LaunchedEffect(Unit) { val cameraProvider = ProcessCameraProvider.getInstance(context).await(); val preview = Preview.Builder().build().also { it.setSurfaceProvider(previewView.surfaceProvider) }; cameraProvider.bindToLifecycle(lifecycleOwner, CameraSelector.DEFAULT_BACK_CAMERA, preview) }; AndroidView({ previewView }, modifier) }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Barcode scanning in real time</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Add ImageAnalysis use case to CameraX: <span class="kw">val imageAnalysis = ImageAnalysis.Builder().setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST).build(); imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(context)) { imageProxy -> scanBarcode(imageProxy) }</span>.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>scanBarcode function: <span class="kw">val image = InputImage.fromMediaImage(imageProxy.image!!, imageProxy.imageInfo.rotationDegrees); BarcodeScanning.getClient().process(image).addOnSuccessListener { barcodes -> barcodes.firstOrNull()?.rawValue?.let { value -> trySend(value) } }.addOnCompleteListener { imageProxy.close() }</span>. Close imageProxy in addOnCompleteListener, not addOnSuccessListener — otherwise camera freezes.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Text recognition (OCR)</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Add a "Scan Text" mode toggle. When active, swap the analyzer: <span class="kw">TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS).process(image).addOnSuccessListener { result -> val text = result.text; /* update StateFlow */ }</span>. Display recognised text in a semi-transparent overlay Card at the bottom of the screen.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Test with your BPPIMT ID card or any printed text. The OCR should capture text within 500ms. Point at any book page — it should extract all readable text. This is the practical test.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Scanning overlay UI</div>
+            <div class="task hi"><span class="task-dot"></span><span>Draw a scanning bracket in Canvas (the four corner lines that appear in every scanner app): use <span class="kw">drawLine()</span> to draw 8 short lines at the four corners of a centred rectangle. Animate them pulsing slightly using <span class="kw">animateFloatAsState</span>. This UI detail makes your scanner feel polished rather than prototype-level.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Push to GitHub + demo</div>
+            <div class="task"><span class="task-dot"></span><span>Add ScanKit to GitHub with README: features (barcode, text recognition, CameraX), screenshot of the scanning UI, note that it runs completely offline. Record a 60-second screen recording showing both modes. Link from your LinkedIn profile as "recent project".</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-wkd wide">
+        <div class="slot-head"><div class="slot-label">🟣 Weekend Study Block</div><div class="slot-time">LeetCode count check + advanced DSA review</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode count audit (do this every 4 weeks)</div>
+            <div class="task hi"><span class="task-dot"></span><span>Open LeetCode profile. Count total solved. You should be at <span class="ac">~210–220</span> problems by W67. If below 200, this weekend adds an extra session: 3 problems from weakest category (check your stats page → which topic has the lowest solve rate? That's your gap).</span></div>
+            <div class="task"><span class="task-dot"></span><span>Tag your weak areas. Common at this stage: DP (interval DP, tree DP), advanced Graph (Dijkstra, Union-Find), Bit Manipulation. Pick the weakest and do 5 targeted problems this weekend. Don't grind randomly — targeted practice on weak spots has 3× the ROI.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W67</div>ScanKit app: CameraX live preview, real-time barcode scanning, real-time OCR text recognition, animated scanning bracket overlay. Works completely offline. On GitHub. Phase 1 complete: Maps, Multi-module, ML Kit. You now have 5 distinct apps in your portfolio covering a wide range of real Android capabilities.</div>
+  </div>
+</div><!-- W67 -->
+
+  </div><!-- /phase-body 1 -->
+</div><!-- /phase 1 -->
+
+<!-- ═══════════ PHASE 2 ═══════════ -->
+<div class="phase" id="ph2">
+  <div class="phase-toggle" style="border-left:3px solid var(--red)" onclick="this.parentElement.classList.toggle('open')">
+    <span class="ph-num" style="background:rgba(232,52,26,.1);color:var(--red)">Phase 2</span>
+    <span class="ph-title" style="color:var(--text)">Interview Deep Dive</span>
+    <span class="ph-weeks">W68–W71</span>
+    <span class="ph-arr">▾</span>
+  </div>
+  <div class="phase-body">
+
+<!-- W68 -->
+<div class="wk" id="w68">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,52,26,.1);color:var(--red)">W68</span>
+    <span class="wk-title">Android Internals — Every Question Interviewers Ask</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="ptag must">★ This is pure interview prep — every question below has been asked at Flipkart, CRED, Razorpay</div>
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + flashcard review</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — Tree DP (interview favourite)</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Binary Tree Maximum Path Sum (#124)</b> — Hard. For each node: max path through this node = node.val + max(leftGain, 0) + max(rightGain, 0). Track global max. Know this pattern cold.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Diameter of Binary Tree (#543)</b> — same pattern, different metric. Easy-Medium. If you get the Hard right, this is trivial.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Review on commute (read, don't code)</div>
+            <div class="task"><span class="task-dot"></span><span>Mentally answer: what is the difference between <span class="kw">onPause()</span>, <span class="kw">onStop()</span>, and <span class="kw">onDestroy()</span>? Specific triggers: pressing Home → onPause+onStop. Another Activity on top → onPause+onStop. Back pressed → onStop+onDestroy. Screen rotation → onStop+onDestroy+onCreate (unless you handle config changes).</span></div>
+            <div class="task"><span class="task-dot"></span><span>Mentally answer: when does a ViewModel get destroyed? Only when the Activity/Fragment it's scoped to is permanently destroyed (back pressed, or finish() called). NOT on rotation. This is the entire point of ViewModel — it survives configuration changes.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Interview Q&A — write answers out fully, don't just think them</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue–Sat — Work through these each night, 4–5 questions per session</div>
+          </div>
+          <div class="qa">
+            <div class="qa-item">
+              <div class="qa-q">Q: Explain the difference between StateFlow and SharedFlow.</div>
+              <div class="qa-a"><span class="kw">StateFlow</span> is a hot flow with a single current value (like LiveData). It always has a value, replays the latest to new collectors, and is designed for UI state. <span class="kw">SharedFlow</span> is a hot flow with configurable replay and buffer — designed for one-time events like navigation or snackbars. Key interview answer: never use StateFlow for one-time events like "show a toast" because a new subscriber gets the event again even after it was handled.</div>
+            </div>
+            <div class="qa-item">
+              <div class="qa-q">Q: What is structured concurrency? Why does it matter?</div>
+              <div class="qa-a">Structured concurrency means every coroutine must be launched within a CoroutineScope, and when the scope is cancelled, all child coroutines are cancelled automatically. No orphaned coroutines can leak. In Android: ViewModelScope is cancelled when the ViewModel is cleared, so all coroutines inside it are automatically cancelled — preventing memory leaks from coroutines holding references to destroyed UI.</div>
+            </div>
+            <div class="qa-item">
+              <div class="qa-q">Q: What causes unnecessary recompositions in Compose, and how do you fix it?</div>
+              <div class="qa-a">Recomposition triggers when the inputs to a composable change. Common causes: (1) Passing unstable types (regular classes, List instead of ImmutableList) — fix with <span class="kw">@Stable</span> or <span class="kw">@Immutable</span>. (2) Reading a State inside a composable that changes too frequently — use <span class="kw">derivedStateOf{}</span> to compute a derived value only when its own inputs change. (3) Lambda captures — use <span class="kw">remember { derivedStateOf { ... } }</span>.</div>
+            </div>
+            <div class="qa-item">
+              <div class="qa-q">Q: Explain the Repository pattern and why you use it.</div>
+              <div class="qa-a">Repository is a single source of truth for a type of data. It abstracts the data sources (network, database, cache) from the ViewModel. The ViewModel says "give me movies" — it doesn't care if they come from Room or Retrofit. The Repository decides: check cache first, if stale fetch from network, update cache, emit from cache. Result: offline-first behaviour, testable ViewModels (mock the repository), and a single place to change data strategy.</div>
+            </div>
+            <div class="qa-item">
+              <div class="qa-q">Q: What is the difference between launch and async in coroutines?</div>
+              <div class="qa-a"><span class="kw">launch{}</span> starts a coroutine and returns a Job. Used for fire-and-forget operations (saving to DB, sending analytics). <span class="kw">async{}</span> starts a coroutine and returns a Deferred&lt;T&gt; — you call <span class="kw">.await()</span> to get the result. Used when you need a result or want to run two operations in parallel: <span class="kw">val a = async { fetchUser() }; val b = async { fetchPosts() }; val result = Pair(a.await(), b.await())</span> — both network calls run concurrently.</div>
+            </div>
+            <div class="qa-item">
+              <div class="qa-q">Q: How does Hilt inject dependencies into a ViewModel?</div>
+              <div class="qa-a">When you annotate a ViewModel with <span class="kw">@HiltViewModel</span> and its constructor with <span class="kw">@Inject</span>, Hilt generates a factory for it. When Compose calls <span class="kw">hiltViewModel()</span>, it uses this factory to create the ViewModel with all dependencies already injected. The ViewModel itself never calls <span class="kw">Hilt.inject()</span> — Hilt creates it. This is constructor injection, and it's why your ViewModel is testable: in tests, you create it manually by passing mock dependencies to the constructor.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-and wide">
+        <div class="slot-head"><div class="slot-label">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours · Write more Q&A answers + practice explaining to camera</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Write answers to these — then record yourself answering them in 90 seconds each</div>
+            <div class="task hi"><span class="task-dot"></span><span>"What is the difference between remember and rememberSaveable?" — <span class="ac">remember</span> survives recompositions but not rotation. <span class="ac">rememberSaveable</span> survives rotation + process death by saving to a Bundle. Use rememberSaveable for anything the user typed or scrolled to. Use remember for derived UI state that can be recomputed.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span>"Explain Cold Flow vs Hot Flow." — Cold flow: a new flow execution starts for every collector. Like a movie on demand — every viewer starts from the beginning. Hot flow (StateFlow, SharedFlow): one execution, multiple collectors share the same emissions. Like live TV.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span>"What is the difference between a Service, an IntentService, and a Foreground Service?" — Service: runs on main thread, for short operations. IntentService: deprecated, ran on background thread with a queue. Foreground Service: shows a persistent notification, gets higher priority from the OS, for long-running user-visible operations (music playback, navigation, fitness tracking).</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Record yourself</div>
+            <div class="task hi"><span class="task-dot"></span><span>Open your phone camera. Record yourself answering 3 of the questions above. Watch it back. Do you hesitate? Do you look confident? Do you use the right terminology? Most developers are technically correct but sound uncertain because they've never practiced speaking the answer aloud. Fix this now, not in an actual interview.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W68</div>You have written full answers to 15+ Android interview questions. You can speak them in 60–90 seconds without hesitation. You know the exact terminology interviewers expect. StateFlow vs SharedFlow, structured concurrency, Hilt injection, recomposition — all are now part of your spoken vocabulary, not just your reading vocabulary.</div>
+  </div>
+</div><!-- W68 -->
+
+<!-- W69 -->
+<div class="wk" id="w69">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,52,26,.1);color:var(--red)">W69</span>
+    <span class="wk-title">Mobile System Design — Instagram, WhatsApp, Zomato</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + system design reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Implement Trie (#208)</b> — Medium. Insert, Search, StartsWith. Every character is a node. Know this clean. Trie questions appear in autocomplete system design discussions.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Word Search II (#212)</b> — Hard. Trie + DFS. Classic combination. If you built Trie above, this follows.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Read: github.com/weeeBox/mobile-system-design</div>
+            <div class="task"><span class="task-dot"></span><span>Read the Introduction section and the framework: (1) Clarify requirements. (2) High-level design — what screens, what components. (3) Data model. (4) API design. (5) Deep dive — pick 2–3 areas for detailed discussion. (6) Wrap up — trade-offs and what you'd change.</span></div>
+            <div class="task"><span class="task-dot"></span><span>This 6-step framework is what you use in every system design round. Memorise the steps. The interviewer wants to see that you are structured and don't jump to solutions before understanding the problem.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Design one system per night — write it out in a notebook or doc</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Design an Instagram-like Feed</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Requirements:</b> Show a paginated feed of posts from followed users. Like/unlike. Infinite scroll. Works offline for recently loaded content.</span></div>
+            <div class="task"><span class="task-dot"></span><span><b>Data model:</b> Post(id, userId, imageUrl, caption, likesCount, createdAt), User(id, name, avatarUrl), LocalFeedItem = Post joined with User. Room table for offline cache.</span></div>
+            <div class="task"><span class="task-dot"></span><span><b>Architecture decision:</b> Paging 3 with RemoteMediator — fetch from server, store in Room, serve from Room. Room is the single source of truth. When offline, Room serves the cached page. When online, server pages are written to Room and automatically propagate to UI via Flow.</span></div>
+            <div class="task"><span class="task-dot"></span><span><b>Like operation:</b> Optimistic update — immediately update UI, fire background API call. If API fails: revert UI update and show snackbar. This is what Instagram actually does. Never make the user wait for a network call for a simple like.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Design WhatsApp-style Chat</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Real-time layer:</b> Two options — WebSocket (persistent connection, low latency, your server maintains connections) vs Firebase Firestore (managed real-time, no server maintenance, higher latency, costs money per read). For a startup or demo: Firestore. For a product company's chat: WebSocket with server.</span></div>
+            <div class="task"><span class="task-dot"></span><span><b>Message states:</b> Sent (1 tick) → Delivered (2 ticks) → Read (2 blue ticks). Store as an enum in Room and Firestore. Update via: sender sets SENT, FCM delivers to recipient's device → app sets DELIVERED, recipient opens chat → app sets READ, emit event back to sender.</span></div>
+            <div class="task"><span class="task-dot"></span><span><b>Offline message queue:</b> If no network, store message in Room with status PENDING. WorkManager observes PENDING messages and retries when network returns. User sees a clock icon instead of a tick until delivered.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Design Zomato/Swiggy Order Tracking</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Real-time tracking:</b> Delivery partner sends GPS location every 5 seconds via websocket/FCM. Android app receives location updates and animates the rider marker on Google Maps. Use LatLngInterpolator to animate smooth movement between GPS points rather than teleporting.</span></div>
+            <div class="task"><span class="task-dot"></span><span><b>Order state machine:</b> PLACED → CONFIRMED → PREPARING → OUT_FOR_DELIVERY → DELIVERED. Each state change triggers a push notification. Foreground Service keeps the location tracking alive even when app is backgrounded — critical because users check other apps while waiting for food.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Design an Image Loading Library (Coil/Glide internals)</div>
+            <div class="task hi"><span class="task-dot"></span><span>This is a favourite interview question: "How would you implement image loading from scratch?" Answer: (1) Check memory LRU cache (fast, in-RAM). (2) Check disk LRU cache (slower, persistent). (3) If neither: fetch from network, decode Bitmap, add to both caches. (4) Show placeholder while loading, fade in on success. (5) Cancel loading when View/Composable is recycled/leaves composition.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Design Offline-First Architecture (generic)</div>
+            <div class="task hi"><span class="task-dot"></span><span>Framework for any offline-first mobile feature: (1) UI always reads from local database (Room), never directly from network. (2) A sync manager periodically (or on demand) fetches from server and writes to Room. (3) Room Flows propagate changes automatically to UI. (4) Conflict resolution: server wins for shared data (chat, social), local wins for personal data (draft messages, unsent forms). Practice explaining this in 2 minutes.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-wkd wide">
+        <div class="slot-head"><div class="slot-label">🟣 Weekend Study Block</div><div class="slot-time">Full design session — whiteboard on paper</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Full 45-minute design: Spotify-like music player</div>
+            <div class="task hi"><span class="task-dot"></span><span>Set a 45-minute timer. On paper: design a music streaming app. Cover: data model (Song, Album, Playlist, DownloadedSong), offline caching (download MP3 to internal storage, store file path in Room), background playback (MediaSessionService + Foreground Service with media notification), and Now Playing screen (MediaController binds to the Service). This is close to real interview duration and format.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W69</div>You have written full system designs for 5 mobile apps. You have a repeatable 6-step framework. You can explain offline-first, optimistic updates, real-time layers, and background services in the context of real product requirements. This is what "mid to senior level" system design looks like for Android roles.</div>
+  </div>
+</div><!-- W69 -->
+
+<!-- W70 -->
+<div class="wk" id="w70">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,52,26,.1);color:var(--red)">W70</span>
+    <span class="wk-title">Mock Interviews #1 and #2 — Pramp.com</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode — speed focus</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Speed drill — solve in under 15 minutes each</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Valid Parentheses (#20)</b> — Easy. Set a 5-minute timer. If you can't solve it in 5 minutes, something is wrong. This is the baseline easy problem speed test.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>3Sum (#15)</b> — Medium. Set a 20-minute timer. Sort + two pointers. Must handle duplicates. This is the most common medium problem in real interviews.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block + Weekend · Mock Interview setup</div><div class="slot-time">Pramp.com — real human peer interview</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Create Pramp account</div>
+            <div class="task hi"><span class="task-dot"></span><span>Go to pramp.com. Create a free account. Select your expertise level: "Junior" or "Intermediate" for Android roles — be honest so you get appropriately matched peers. Schedule Mock Interview #1 for a weekend slot (Sun or Mon) when you have 60 minutes without interruption.</span></div>
+            <div class="task"><span class="task-dot"></span><span>How Pramp works: you are matched with another developer. You take turns — 25 minutes you're the interviewee, 25 minutes you're the interviewer. You get a real DSA problem, a shared code editor, and a voice/video call. After the session, both sides rate each other.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed/Thu — Pre-interview warm-up</div>
+            <div class="task hi"><span class="task-dot"></span><span>Practice the think-aloud habit: pick any LeetCode Medium. Before writing code: say out loud "I'll start by clarifying — can the input be empty? Can there be duplicates?" Then say "My first approach is brute force: O(n²). But I think I can do better with a two-pointer approach which gives O(n log n). Let me walk through an example first." This narration is what interviewers evaluate, not just whether your code works.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Practice on 3 problems each night this week. Narrate every step out loud even when coding alone. It feels awkward at first and becomes natural after 10 sessions. Start now so it's natural by the actual interviews.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sunday — Mock Interview #1 on Pramp</div>
+            <div class="task hi"><span class="task-dot"></span><span>Join the session. When it's your turn as interviewee: (1) Clarify before coding. (2) State your approach and complexity before writing. (3) Write clean, working code. (4) Test with edge cases out loud. (5) After — ask "Is there a more efficient approach?" even if you think yours is already optimal.</span></div>
+            <div class="task"><span class="task-dot"></span><span>After the session: write a debrief in your notes. What went well? What did you freeze on? Which part of your solution was weak? This reflection is the actual learning — not the interview itself.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Monday — Mock Interview #2 on Pramp</div>
+            <div class="task hi"><span class="task-dot"></span><span>Schedule a second session same week. Different partner, different problem. The goal is to see if your performance improves from #1 to #2. If it does, the habit is working. If it doesn't, your debrief notes aren't specific enough — be more honest about your weaknesses.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W70</div>2 mock interviews completed on Pramp. 2 debrief notes written. You know what your weakest interview moments look like from the outside. Think-aloud habit is starting to feel less awkward. You have faced a real human interview twice without any stakes — the actual interviews will feel less alien because of this.</div>
+  </div>
+</div><!-- W70 -->
+
+<!-- W71 -->
+<div class="wk" id="w71">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(232,52,26,.1);color:var(--red)">W71</span>
+    <span class="wk-title">Behavioral Interviews — STAR Stories Written and Practised</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + STAR prep</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Pacific Atlantic Water Flow (#417)</b> — two BFS from opposite borders. Medium. Good Sem 7 difficulty — should feel comfortable now.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Number of Islands II (GFG/premium)</b> — Union-Find with dynamic addition. Hard. If LeetCode Premium — do it. If not: study the Union-Find pattern on GFG.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Think through STAR stories on commute</div>
+            <div class="task"><span class="task-dot"></span><span><b>STAR = Situation, Task, Action, Result.</b> Every behavioral question is answered with a real story from your experience, structured in this format. The key: <span class="ac">Result must be specific.</span> "The app worked better" is weak. "The app's crash rate dropped from 3% to 0.2%" is strong. Even in college projects, find a specific outcome.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Write one STAR story per night — open a doc</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Write FULL answers (200–300 words each) to these exact questions</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Tue — "Tell me about a time you faced a difficult technical problem and how you solved it."</b> Use: a real bug you fixed in Finance Tracker or Movie Browser. What the symptom was, how you diagnosed it (Profiler? Logcat? Rubber duck debugging?), what the root cause was, how you fixed it, and what you learned. This is your strongest story — it directly demonstrates debugging skill.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Wed — "Tell me about a project you're proud of."</b> Use: Finance Tracker on Play Store. Situation: wanted to learn Android development seriously. Task: build a real app. Action: 5 weeks of focused building, Clean Architecture, Canvas charts from scratch, biometric auth. Result: published, downloadable by anyone, Google AAD certified. Quantify: X downloads if any, Y tests passing, architecture diagram showing complexity.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Thu — "Tell me about a time you learned something quickly."</b> Use: learning Kotlin from scratch while simultaneously building for Android. Or learning Firebase in 3 weeks to build the Chat App. Specific details: how you structured the learning (Striver's A2Z, Philipp Lackner, documentation), what you built to validate the learning, how long it took.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Fri — "Why do you want to work at [this company]?"</b> Prepare 3 company-specific versions — one for a fintech (Razorpay), one for a food-tech (Swiggy), one for a SaaS (Zepto/CRED). Each should reference: a specific product feature you respect, a technical decision they made publicly (engineering blog, open-source contribution), and how your skills connect to what they're building. Generic answers ("I love your culture") are filtered out immediately.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Sat — "Where do you see yourself in 3 years?"</b> Honest answer: "In 3 years I want to be the person on the Android team who other developers come to for architecture decisions. I'm working toward that by [studying Clean Architecture, building apps at production quality, contributing to open source]. I want my first role to be at a company building real products where I can learn from senior engineers." This is the right answer for any product company interview.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-wkd wide">
+        <div class="slot-head"><div class="slot-label">🟣 Weekend Study Block</div><div class="slot-time">Record yourself delivering all 5 STAR stories</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">The recording exercise — non-negotiable</div>
+            <div class="task hi"><span class="task-dot"></span><span>Set up your phone on a stand or lean it against a book. Record yourself delivering each STAR story as if you're in an interview. Target: 90–120 seconds per story. Watch each recording. Check: do you say "umm" too often? Do you make eye contact with the camera (= eye contact with interviewer)? Does your voice trail off at the end of sentences (sounds uncertain)? Do you smile when talking about your projects (you should — you built something real)?</span></div>
+            <div class="task"><span class="task-dot"></span><span>Fix the top 2 things you notice. Re-record just those stories. This is the most uncomfortable and most valuable practice in this entire 96-week plan. The people who do this exercise get offers. The people who skip it get rejected at HR rounds despite strong technical performance.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W71</div>5 STAR stories written and recorded. You can deliver each in under 2 minutes. You know what you look and sound like on camera. Your "tell me about yourself" opens with a published app and a Google certification — not a college description. Phase 2 complete.</div>
+  </div>
+</div><!-- W71 -->
+
+  </div>
+</div><!-- phase 2 -->
+
+<!-- ═══════════ PHASE 3 ═══════════ -->
+<div class="phase" id="ph3">
+  <div class="phase-toggle" style="border-left:3px solid var(--violet)" onclick="this.parentElement.classList.toggle('open')">
+    <span class="ph-num" style="background:rgba(138,58,232,.1);color:var(--violet)">Phase 3</span>
+    <span class="ph-title" style="color:var(--text)">Senior-Level Technical Skills</span>
+    <span class="ph-weeks">W72–W75</span>
+    <span class="ph-arr">▾</span>
+  </div>
+  <div class="phase-body">
+
+<!-- W72 -->
+<div class="wk" id="w72">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(138,58,232,.1);color:var(--violet)">W72</span>
+    <span class="wk-title">Compose Performance — Compiler Reports, @Stable, derivedStateOf</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — DP (2D)</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Edit Distance (#72)</b> — 2D DP. Hard to grasp, simple to code once you see the recurrence. dp[i][j] = min edits to convert word1[0..i] to word2[0..j]. Classic. Know it.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Longest Common Subsequence (#1143)</b> — 2D DP foundation. Medium. Every other string DP builds on this. Know the recurrence: if chars match, dp[i][j] = 1 + dp[i-1][j-1]. If not, max of dp[i-1][j] and dp[i][j-1].</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Read on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Read: developer.android.com/jetpack/compose/performance/stability. The Compose compiler marks each type as Stable or Unstable. A composable with only Stable inputs is "skippable" — if inputs haven't changed, the compiler generates code to skip recomposing it entirely. Regular Kotlin classes are marked Unstable by default because the compiler can't guarantee they won't change.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Generate + read Compose compiler reports on Finance Tracker</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Generate compiler reports</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In <span class="file">app/build.gradle.kts</span> add: <span class="kw">kotlinOptions { freeCompilerArgs += listOf("-P", "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.buildDir.absolutePath}/compose_reports")</span> }. Run <span class="kw">./gradlew assembleRelease</span>. Find the reports in <span class="kw">build/compose_reports/</span>.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Open the <span class="file">composables.txt</span> report. Look for lines tagged <span class="kw">restartable skippable</span> (good — won't recompose unnecessarily) vs <span class="kw">restartable</span> only (bad — will recompose every time parent does, even if its inputs are the same).</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Find and fix unstable types</div>
+            <div class="task code-task"><span class="task-dot"></span><span>The <span class="file">classes.txt</span> report shows which of your types are Unstable. Common culprit: a data class with a <span class="kw">List&lt;T&gt;</span> property. Fix: change to <span class="kw">ImmutableList&lt;T&gt;</span> from Kotlinx Immutable Collections library. Or annotate the class: <span class="kw">@Immutable data class TransactionUiState(val items: List&lt;TransactionItem&gt;)</span>. The <span class="kw">@Immutable</span> annotation is a promise to the compiler that the object won't change.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — derivedStateOf</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Scenario in Finance Tracker: you have a LazyListState and want to show a "scroll to top" FAB when scrolled past item 5. Bad: <span class="kw">val showFab = listState.firstVisibleItemIndex > 5</span> — this reads the state on every recomposition. Better: <span class="kw">val showFab by remember { derivedStateOf { listState.firstVisibleItemIndex > 5 } }</span>. The derived state only recomputes (and only triggers recomposition of the FAB) when <span class="kw">firstVisibleItemIndex</span> crosses 5, not on every scroll pixel.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Baseline Profile update</div>
+            <div class="task code-task"><span class="task-dot"></span><span>After making stability fixes, regenerate the Baseline Profile for Finance Tracker. The startup path should be shorter now because fewer composables are recomposing unnecessarily on first load. Measure before/after with <span class="kw">adb shell am start -W -n com.yourname.financetracker/.MainActivity</span>. Record the ThisTime values. If they improved by 50ms or more, document it in the README Performance section.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Run Layout Inspector on Finance Tracker</div>
+            <div class="task"><span class="task-dot"></span><span>Android Studio → Tools → Layout Inspector. Connect to running Finance Tracker. Enable "Recomposition counts" toggle. Scroll through the transaction list. Watch the recomposition counts on each composable. Any composable with a count above 20 during normal scrolling is suspicious — investigate why it's recomposing more than expected.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-and wide">
+        <div class="slot-head"><div class="slot-label">🖥️ Android Block · Weekend</div><div class="slot-time">2 hours · Apply stability fixes + document everything</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Apply all compiler report fixes to both Finance Tracker and Movie Browser</div>
+            <div class="task hi"><span class="task-dot"></span><span>Go through both projects. Annotate all data classes in UiState with <span class="kw">@Immutable</span>. Convert all <span class="kw">List&lt;T&gt;</span> in composable parameters to <span class="kw">ImmutableList&lt;T&gt;</span>. Add <span class="kw">derivedStateOf</span> wherever you compute a boolean from a frequently-changing state. Regenerate reports. Target: all composable screens should be marked <span class="kw">skippable</span>.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Add to Finance Tracker README under "Performance": "Compose Compiler Reports show all screens are Skippable (stable inputs). Recomposition counts measured with Layout Inspector during scrolling. derivedStateOf used for all scroll-position-dependent state." This is a detail that 99% of portfolio apps don't have.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W72</div>You have generated and read Compose compiler reports on your own apps. You fixed unstable types with @Immutable. You applied derivedStateOf in the right place. You can explain "what causes unnecessary recomposition and how you fix it" with specific technical details from your own codebase — not a blog post.</div>
+  </div>
+</div><!-- W72 -->
+
+<!-- W73 -->
+<div class="wk" id="w73">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(138,58,232,.1);color:var(--violet)">W73</span>
+    <span class="wk-title">Advanced WorkManager Chains + Foreground Services Deep Dive</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — Sliding Window</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Minimum Window Substring (#76)</b> — Hard. Sliding window with character counts. Classic hard. The expand-right-contract-left pattern. Know this well — it's a template for many hard sliding window problems.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Longest Repeating Character Replacement (#424)</b> — Medium. Sliding window. Max window where you can change at most k characters. Know the key insight: window size - count of most frequent char ≤ k.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Read on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Read: WorkManager chaining docs. Three chain types: <span class="kw">beginWith(workA).then(workB).then(workC)</span> = sequential chain. <span class="kw">WorkContinuation.combine(listOf(work1, work2)).then(workMerge)</span> = parallel fan-in (work1 and work2 run in parallel, workMerge only runs when both complete). This is how you build complex multi-step background pipelines.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Add advanced WorkManager to Finance Tracker</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Monthly report chain</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Build a chain of 3 workers: <span class="kw">beginWith(FetchTransactionsWorker)</span> (fetches all transactions for the month) → <span class="kw">.then(GeneratePDFReportWorker)</span> (generates a PDF summary — use iText or PDFBox Android library) → <span class="kw">.then(SendNotificationWorker)</span> (fires the monthly summary notification with "Tap to view your report").</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Pass data between workers: in <span class="kw">GeneratePDFReportWorker.doWork()</span>: <span class="kw">val filePath = generatePdf(transactions); Result.success(workDataOf("pdf_path" to filePath))</span>. In <span class="kw">SendNotificationWorker</span>: <span class="kw">val pdfPath = inputData.getString("pdf_path")</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — WorkManager with constraints</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Add constraints to the chain: <span class="kw">Constraints.Builder().setRequiredNetworkType(NetworkType.NOT_REQUIRED).setRequiresBatteryNotLow(true).setRequiresStorageNotLow(true).build()</span>. The chain won't run if battery is low or storage is nearly full. This is production-grade WorkManager usage.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Foreground Service for export</div>
+            <div class="task hi"><span class="task-dot"></span><span>Create <span class="file">DataExportService.kt</span>: extends <span class="kw">Service()</span>. When started: call <span class="kw">startForeground(notificationId, notification)</span> immediately (within 5 seconds on Android 9+ or system kills it). Show a persistent notification: "Exporting your data... 45%". The service reads all Room transactions and writes a CSV to the Downloads folder. Progress updates to the notification every second.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Bind the service to the UI: <span class="kw">bindService(Intent(this, DataExportService::class.java), serviceConnection, BIND_AUTO_CREATE)</span>. Expose progress via a SharedFlow from the service. The UI observes this and shows a progress dialog. When export completes, service stops itself with <span class="kw">stopSelf()</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Battery optimization exemption</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Add to AndroidManifest: <span class="kw">&lt;uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/&gt;</span>. In app settings: guide the user to request this exemption so WorkManager can run reliably. Check if already exempted: <span class="kw">val pm = getSystemService(PowerManager::class.java); pm.isIgnoringBatteryOptimizations(packageName)</span>. If not: show a dialog explaining why this helps.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Observe WorkManager states in UI</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In the ViewModel observe the work: <span class="kw">WorkManager.getInstance(context).getWorkInfosByTagLiveData("monthly_report").asFlow().collect { workInfos -> val state = workInfos.first().state; // ENQUEUED, RUNNING, SUCCEEDED, FAILED, CANCELLED }</span>. Show progress in the UI: spinner for ENQUEUED/RUNNING, success snackbar for SUCCEEDED, error with retry button for FAILED.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W73</div>Finance Tracker has a 3-worker chained WorkManager pipeline generating monthly PDF reports. A Foreground Service handles long-running CSV export with progress notifications. WorkManager states are observed in the UI. Battery optimisation exemption is handled. These are production features that most junior portfolios don't include.</div>
+  </div>
+</div><!-- W73 -->
+
+<!-- W74 -->
+<div class="wk" id="w74">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(138,58,232,.1);color:var(--violet)">W74</span>
+    <span class="wk-title">Kotlin Multiplatform — Add KMP Shared Module to Movie Browser</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + KMP reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Find Median from Data Stream (#295)</b> — Hard. Two heaps (max-heap for lower half, min-heap for upper half). Classic. Interviewers love it because it requires maintaining a specific invariant under mutation.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Sliding Window Maximum (#239)</b> — Hard. Monotonic deque. Key insight: maintain a deque of indices where values are decreasing. The front is always the max of the current window. Know the deque insert/remove pattern.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Read on commute</div>
+            <div class="task"><span class="task-dot"></span><span>KMP core concept: <span class="kw">commonMain</span> is where you write code that compiles for all platforms. <span class="kw">androidMain</span> is Android-specific implementations. <span class="kw">iosMain</span> is iOS-specific. The <span class="kw">expect/actual</span> mechanism: write <span class="kw">expect fun platformName(): String</span> in commonMain, write <span class="kw">actual fun platformName() = "Android ${Build.VERSION.SDK_INT}"</span> in androidMain. The compiler enforces that every <span class="kw">expect</span> has an <span class="kw">actual</span> in each target platform.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Add :core-shared KMP module to Movie Browser</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Create KMP module</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In Movie Browser: New Module → Kotlin Multiplatform → name it <span class="kw">core-shared</span>. In its <span class="file">build.gradle.kts</span>: <span class="kw">kotlin { androidTarget(); jvm() /* for running tests on JVM */ }; sourceSets { commonMain.dependencies { implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"); implementation("io.ktor:ktor-client-core:2.3.7") }; androidMain.dependencies { implementation("io.ktor:ktor-client-android:2.3.7") }; jvmMain.dependencies { implementation("io.ktor:ktor-client-java:2.3.7") } }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Move domain logic to KMP commonMain</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Move the Movie domain models, MovieRepository interface, and all Use Cases from <span class="kw">:core-domain</span> to <span class="kw">:core-shared/src/commonMain</span>. These are pure Kotlin with no Android imports — they compile for any platform. The Android <span class="file">:core-domain</span> module can now just depend on <span class="kw">:core-shared</span>.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Ktor HTTP client in commonMain</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Write <span class="file">MovieApiClient.kt</span> in commonMain using Ktor: <span class="kw">class MovieApiClient { private val client = HttpClient { install(ContentNegotiation) { json() }; install(Logging) { level = LogLevel.HEADERS } }; suspend fun getPopularMovies(): List&lt;MovieDto&gt; = client.get("https://api.themoviedb.org/3/movie/popular").body() }</span>. This same code runs on Android and iOS.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Run: <span class="kw">./gradlew :core-shared:jvmTest</span>. Write a simple test that calls the API on the JVM target — this verifies your KMP module compiles and runs on non-Android targets. If it compiles and returns data, KMP is working.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — expect/actual for platform-specific behaviour</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In commonMain: <span class="kw">expect class DatabaseDriverFactory { fun createDriver(): SqlDriver }</span>. In androidMain: <span class="kw">actual class DatabaseDriverFactory(private val context: Context) { actual fun createDriver() = AndroidSqliteDriver(AppDatabase.Schema, context, "movies.db") }</span>. This is the KMP pattern for anything that requires platform APIs.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Update README</div>
+            <div class="task"><span class="task-dot"></span><span>Add to Movie Browser README: "Kotlin Multiplatform — domain logic and networking in :core-shared module (compiles to Android and JVM). Uses Ktor for HTTP, expect/actual for platform-specific implementations. Shared logic is 100% tested on JVM without an Android device." This is one of the most distinctive portfolio details in 2025–26.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W74</div>Movie Browser now has a KMP :core-shared module. Domain models and Ktor networking run in commonMain. expect/actual handles platform-specific drivers. JVM tests run without an Android device. You can honestly say in an interview: "I've implemented Kotlin Multiplatform in production — shared domain logic and networking between Android and future iOS targets."</div>
+  </div>
+</div><!-- W74 -->
+
+<!-- W75 -->
+<div class="wk" id="w75">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(138,58,232,.1);color:var(--violet)">W75</span>
+    <span class="wk-title">Mock Interviews #3 and #4 — Android-Specific + System Design</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + salary research</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — this week focus on revisiting</div>
+            <div class="task hi"><span class="task-dot"></span><span>Revisit any 2 problems per commute that you got wrong in the past 4 weeks. Mistakes become muscle memory faster when you reattempt them 7–14 days later. This is spaced repetition applied to DSA.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Salary research on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Open levels.fyi on your phone. Search "Android Developer India". Note the range by company tier: Tier 1 (Flipkart, Razorpay, CRED, Meesho, Dream11) → ₹15–30 LPA fresher/0–1 year. Tier 2 (other funded startups) → ₹10–20 LPA. Tier 3 (service companies, outsourcing) → ₹5–10 LPA. Know these numbers. You will use them in negotiation.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Open AmbitionBox. Search 5 companies you want to target. Check their "salaries" section for "Android Developer." Note the range, the "most common" salary, and any negotiation tips in reviews. Build your target salary in your head: your floor (won't accept below this), your ask (what you'll name first), and your stretch (what you'd celebrate).</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block + Weekend · Mock Interviews #3 and #4</div><div class="slot-time">Pramp + additional prep</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue/Wed — Prep: Android-specific technical questions</div>
+            <div class="task hi"><span class="task-dot"></span><span>Some companies run "Android technical" interviews separate from DSA rounds. Practice these questions out loud: "Walk me through how your Finance Tracker handles offline data." "How does Hilt know which scope to use for a dependency?" "What would happen if you called a suspend function from a non-coroutine context?" "How do you prevent a memory leak when observing a Flow in a Fragment?"</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Prep: Project deep-dive simulation</div>
+            <div class="task hi"><span class="task-dot"></span><span>Common mid-to-senior interview: "Walk me through your most complex project in detail." Open Movie Browser (multi-module, KMP, Clean Architecture, CI). Practice explaining it as if to a senior engineer who is skeptical: "Why did you choose Hilt over Koin? Why Paging 3 and not a manual solution? Why did you put the domain layer in a KMP module?" Have specific answers — not just "because it's best practice."</span></div>
+            <div class="task"><span class="task-dot"></span><span>"I chose Hilt because it integrates with the ViewModel lifecycle and has compile-time verification — you get build errors, not runtime crashes, if a dependency is missing. Koin is simpler to set up but provides no compile-time safety. For a production app that other developers will work on, that safety is worth the setup overhead."</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Weekend — Mock Interviews #3 and #4</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Mock Interview #3:</b> Pramp, focus on DSA. By now you've done 2. Goal: first 5 minutes should feel routine. You should open with your clarification questions automatically without reminding yourself.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Mock Interview #4:</b> Use Interviewing.io (free tier) or find a friend/senior who can ask you Android-specific questions. Request: "Ask me about coroutines internals, my project architecture, and one DSA question." This simulates a real Android interview loop better than Pramp alone.</span></div>
+            <div class="task"><span class="task-dot"></span><span>After #4: compare performance to #1. You have 4 data points now. Are your answers more concise? Do you freeze less? Does your code compile the first time? Improvement here is the signal that you are ready for Semester 8. If you don't see clear improvement, add a 5th mock before W79.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W75</div>4 mock interviews done. Salary research complete — you know your floor, ask, and stretch numbers. You can explain every architectural decision in your projects with reasoning, not just "because best practice." Phase 3 complete. You are now thinking like a senior-level candidate even though you're entering the market fresh.</div>
+  </div>
+</div><!-- W75 -->
+
+  </div>
+</div><!-- phase 3 -->
+
+<!-- ═══════════ PHASE 4 ═══════════ -->
+<div class="phase" id="ph4">
+  <div class="phase-toggle" style="border-left:3px solid var(--teal)" onclick="this.parentElement.classList.toggle('open')">
+    <span class="ph-num" style="background:rgba(26,173,168,.1);color:var(--teal)">Phase 4</span>
+    <span class="ph-title" style="color:var(--text)">Launch Preparation</span>
+    <span class="ph-weeks">W76–W79</span>
+    <span class="ph-arr">▾</span>
+  </div>
+  <div class="phase-body">
+
+<!-- W76 -->
+<div class="wk" id="w76">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(26,173,168,.1);color:var(--teal)">W76</span>
+    <span class="wk-title">Deep Links + App Links — Handle External URLs</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + deep link reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode</div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Word Ladder (#127)</b> — BFS, shortest path in word graph. Hard. Each step transforms one letter. Classic BFS on implicit graph. Interviewers love this because the graph isn't explicit.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><b>Reconstruct Itinerary (#332)</b> — Eulerian path with Hierholzer's algorithm. Hard. Start at JFK, consume edges greedily, use DFS + stack. Know this one — it appears in travel-app companies' OAs.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Read on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Deep Link vs App Link: <span class="kw">Deep Link</span> = custom scheme like <span class="kw">myapp://movies/123</span>. Any app can claim this scheme. Insecure for auth callbacks. <span class="kw">App Link</span> = HTTP/HTTPS URL like <span class="kw">https://myapp.com/movies/123</span>. You verify ownership via a <span class="kw">assetlinks.json</span> file on your domain. Only your app can handle it. Preferred for secure linking.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Add Deep Links to Finance Tracker</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Register deep link intent filter</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In <span class="file">AndroidManifest.xml</span>, in the MainActivity <span class="kw">&lt;activity&gt;</span> block: <span class="kw">&lt;intent-filter android:autoVerify="true"&gt; &lt;action android:name="android.intent.action.VIEW"/&gt; &lt;category android:name="android.intent.category.DEFAULT"/&gt; &lt;category android:name="android.intent.category.BROWSABLE"/&gt; &lt;data android:scheme="https" android:host="financetracker.yoursite.com"/&gt; &lt;/intent-filter&gt;</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Handle in NavController</div>
+            <div class="task code-task"><span class="task-dot"></span><span>In your Compose NavHost, add deepLinks to routes: <span class="kw">composable("chart/{month}", deepLinks = listOf(navDeepLink { uriPattern = "https://financetracker.yoursite.com/chart/{month}" })) { backStackEntry -> val month = backStackEntry.arguments?.getString("month"); ChartsScreen(month = month) }</span>. Now the URL <span class="kw">https://financetracker.yoursite.com/chart/2024-03</span> opens directly to March charts.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Test deep links</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Test with ADB: <span class="kw">adb shell am start -W -a android.intent.action.VIEW -d "https://financetracker.yoursite.com/chart/2024-03" com.yourname.financetracker</span>. Finance Tracker should open and navigate directly to the Charts screen showing March. If it opens the home screen instead, you have a bug in your NavDeepLink URI pattern.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Handle deep link in WorkManager notification</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Update the monthly report notification to use the deep link: <span class="kw">val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://financetracker.yoursite.com/chart/${lastMonth}")); val pendingIntent = PendingIntent.getActivity(context, 0, intent, FLAG_IMMUTABLE)</span>. Now tapping the monthly notification goes directly to last month's charts, not the home screen. This is what well-designed notification UX looks like.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — App Links verification (assetlinks.json)</div>
+            <div class="task"><span class="task-dot"></span><span>Create a GitHub Pages site at <span class="kw">yourname.github.io/financetracker</span>. Create <span class="kw">.well-known/assetlinks.json</span> with your app's package name and signing certificate SHA-256. The SHA-256 is from: <span class="kw">keytool -list -v -keystore your_release.jks</span>. Serve this file. Now Android verifies your domain ownership and your app handles HTTPS links without a disambiguation dialog.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W76</div>Finance Tracker handles deep links via Compose Navigation. ADB testing confirms correct screen navigation. Monthly notification taps navigate to the correct month's charts. App Links verified with assetlinks.json on GitHub Pages. You can demo this live in an interview: "Open that URL on your phone and watch my app handle it."</div>
+  </div>
+</div><!-- W76 -->
+
+<!-- W77 -->
+<div class="wk" id="w77">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(26,173,168,.1);color:var(--teal)">W77</span>
+    <span class="wk-title">Accessibility Audit + Adaptive Layouts for Tablets</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + accessibility reading</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — Mock OA simulation</div>
+            <div class="task hi"><span class="task-dot"></span><span>Full 90-minute mock OA: 3 problems, timed. Use LeetCode's "Mock Interview" feature or pick one Easy, one Medium, one Hard from the top 150 list you haven't done recently. Simulate OA conditions: no hints, no Google, code must pass all test cases. Grade yourself.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Read on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Read: developer.android.com/guide/topics/ui/accessibility/testing. Core principle: your app should be fully usable by someone who cannot see the screen. TalkBack is the screen reader — it reads out composable semantics to the user. If your composable has no contentDescription and no text, TalkBack announces "button" with no context. That is an accessibility failure.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Accessibility audit on Finance Tracker</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Enable TalkBack and use your own app</div>
+            <div class="task hi"><span class="task-dot"></span><span>On the emulator (or your phone): Settings → Accessibility → TalkBack → Enable. Now navigate Finance Tracker using only TalkBack swipe gestures (swipe right = next element, double tap = activate). Every time TalkBack says "unlabelled" or just "button" — that is a bug. List every one of these in a notes doc.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Common failures you'll find: the FAB says "button" not "Add new transaction". The Pie Chart says nothing. The TransactionItem amount says "5000" not "Expense of ₹5,000 on March 9". Fix all of these.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Add semantic descriptions</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Fix FAB: <span class="kw">FloatingActionButton(onClick = { openSheet() }, modifier = Modifier.semantics { contentDescription = "Add new transaction" })</span>.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Fix transaction items: <span class="kw">Modifier.semantics(mergeDescendants = true) { contentDescription = "${transaction.type} of ₹${transaction.amount} for ${transaction.category} on ${transaction.date.format(formatter)}" }</span>. <span class="kw">mergeDescendants = true</span> means TalkBack reads the whole item as one announcement instead of reading each sub-element separately.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Fix Pie Chart: <span class="kw">Modifier.semantics { contentDescription = "Expense breakdown chart: ${slices.joinToString { "${it.label} ${it.percentage}%" }}" }</span>. TalkBack will now say "Expense breakdown chart: Food 35%, Transport 20%, Entertainment 15%..."</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — WindowSizeClass for tablets</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Add dependency: <span class="kw">implementation("androidx.compose.material3:material3-window-size-class:1.2.0")</span>. In MainActivity: <span class="kw">val windowSizeClass = calculateWindowSizeClass(this)</span>. Pass it to your composables.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>In HomeScreen: <span class="kw">when (windowSizeClass.widthSizeClass) { WindowWidthSizeClass.Compact -> /* phone layout: single column */ WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded -> /* tablet layout: two columns — transactions list + chart side by side */ }</span></span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Test on tablet emulator</div>
+            <div class="task"><span class="task-dot"></span><span>Create a new AVD in Android Studio: Pixel Tablet (2560×1600). Run Finance Tracker. The home screen should show two columns: left side = transaction list, right side = summary card + pie chart. This is the adaptive layout. Test rotating the tablet — the layout should adjust gracefully.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Accessibility Scanner</div>
+            <div class="task code-task"><span class="task-dot"></span><span>Install "Accessibility Scanner" from Play Store on your emulator. Run it on each Finance Tracker screen. It flags: touch targets smaller than 48×48dp (rule: every tappable element must be at least 48dp), low contrast text (ratio below 4.5:1), missing labels. Fix every single finding. Zero warnings before shipping.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-and wide">
+        <div class="slot-head"><div class="slot-label">🖥️ Android Block · Weekend</div><div class="slot-time">Apply adaptive layout to Chat App + push both to GitHub</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Chat App adaptive layout</div>
+            <div class="task hi"><span class="task-dot"></span><span>On tablet (Expanded width): show chat list on the left pane and active chat on the right pane simultaneously — like WhatsApp Web or the Gmail two-pane layout. Use <span class="kw">NavigationRail</span> instead of <span class="kw">BottomNavigation</span> on Expanded width (Google's Material 3 recommendation for wide screens). This single change makes your Chat App look and feel like a real app on any screen size.</span></div>
+            <div class="task"><span class="task-dot"></span><span>Push Finance Tracker and Chat App to GitHub with updated READMEs noting: "Accessible — full TalkBack support, 0 Accessibility Scanner warnings" and "Adaptive layout — phone (single column), tablet (two-pane NavigationRail layout)".</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W77</div>Finance Tracker and Chat App pass TalkBack navigation. Accessibility Scanner shows zero warnings. Both apps have tablet-optimised layouts using WindowSizeClass. Two-pane navigation on Chat App for Expanded width. These features appear explicitly in Android job descriptions — "experience with accessibility and responsive/adaptive layouts." You now have both.</div>
+  </div>
+</div><!-- W77 -->
+
+<!-- W78 -->
+<div class="wk" id="w78">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(26,173,168,.1);color:var(--teal)">W78</span>
+    <span class="wk-title">Resume Final Polish + Build the 30-Company Target List</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode + company research</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">LeetCode — final count check</div>
+            <div class="task hi"><span class="task-dot"></span><span>Count your total LeetCode problems. Target: <span class="ac">240–250</span> by end of W78. If below 230: this week's commute adds 3 problems per day instead of 2. The 250 mark is the threshold where OAs feel routine rather than stressful.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Company research on commute</div>
+            <div class="task"><span class="task-dot"></span><span>Open LinkedIn on commute. Search "Android Developer" in India. Sort by "Past month." Note which companies are actively hiring. Check the JD: does it mention "Kotlin", "Jetpack Compose", "MVVM", "Clean Architecture"? If it matches your stack → add to your list. If it says "Java", "XML only", "no Compose" → it's a misaligned company for your profile.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block · 10 PM</div><div class="slot-time">Resume + LinkedIn final pass</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue — Resume final version</div>
+            <div class="task hi"><span class="task-dot"></span><span>Open Jake's Resume template on Overleaf. Your resume must be exactly 1 page. Structure: Header (name, phone, email, LinkedIn, GitHub, Portfolio/Play Store link) → Education (BPPIMT, MAKAUT, B.Tech CSE, CGPA, graduation year) → Projects (Finance Tracker, Movie Browser, Chat App — in that order) → Skills (Kotlin, Jetpack Compose, Android SDK, Clean Architecture, Room, Retrofit, Hilt, Coroutines, Flow, Firebase, Git, CI/CD) → Certifications (Google AAD).</span></div>
+            <div class="task hi"><span class="task-dot"></span><span>Each project bullet: "[Action verb] + [specific technical implementation] + [measurable outcome]". Example: "Published Finance Tracker to Google Play Store — Clean Architecture, Compose Canvas charts, BiometricAuth, 20+ tests with MockK and CI pipeline." Example: "Built multi-module Movie Browser (4 Gradle modules) with Kotlin Multiplatform shared domain logic, Paging 3, and Compose compiler stability optimizations."</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Wed — Run resume through Jobscan</div>
+            <div class="task hi"><span class="task-dot"></span><span>Go to jobscan.co. Paste your resume. Paste a target Android Developer JD (use a Swiggy or Razorpay JD). Get the match score. Target: 75%+ match. Typical fixes: add keywords from the JD that you have the skill for but didn't use the exact term in your resume. If the JD says "RESTful APIs" and your resume says "Retrofit" — add "RESTful API integration via Retrofit".</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — LinkedIn final pass</div>
+            <div class="task hi"><span class="task-dot"></span><span>LinkedIn profile checklist: (1) Professional photo with good lighting (not a selfie). (2) Headline: "Android Developer | Kotlin + Jetpack Compose | Google AAD Certified | Published on Play Store" — do not write "Looking for opportunities" in headline; it signals desperation. (3) About section: 3 sentences — what you build, with what stack, and your most impressive credential. (4) Featured section: Play Store link + best GitHub repo. (5) All projects listed with links.</span></div>
+            <div class="task code-task"><span class="task-dot"></span><span>Open Settings → Visibility → turn ON "Open to Work" but select "Recruiters only" not "All LinkedIn Members." This puts you in recruiter searches without a green #OpenToWork banner on your photo which some engineers consider low-status.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Fri — Build the 30-Company spreadsheet</div>
+            <div class="task hi"><span class="task-dot"></span><span>Create a Google Sheet with columns: Company | Tier (1/2/3) | Role Link | Applied? | Referral Contact | OA Status | Round 1 | Round 2 | Offer | Notes. Fill in 30 companies. Aim for: 5 Tier 1 (stretch — Flipkart, Razorpay, CRED, Meesho, Dream11), 15 Tier 2 (realistic — PhonePe, Paytm, MakeMyTrip, Ola, Lenskart, Groww, BrowserStack, etc.), 10 Tier 3 (safety — well-funded startups, consulting firms with decent Android work).</span></div>
+            <div class="task"><span class="task-dot"></span><span>For each company: find a specific LinkedIn contact (ideally a developer or engineering manager) who works there and went to a MAKAUT/WB university. Send a connection request with a note: "Hi [Name], I'm a final year CSE student at BPPIMT. I noticed you work at [Company] — I'm targeting Android Developer roles and would love to connect. I've published a finance app on Play Store and hold the Google AAD certification." Keep it under 300 characters.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sat — Referral requests</div>
+            <div class="task hi"><span class="task-dot"></span><span>For every connection who accepts this week: follow up in DM with a referral request. Template: "Thank you for connecting. I wanted to ask — I'm applying for [Android Developer] roles at [Company]. If your company has a referral programme and you feel comfortable, would you be willing to refer me? My resume is attached and my Play Store app is at [link]. I completely understand if you'd rather not — no pressure at all." The last sentence matters — it removes the discomfort and increases the yes rate.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W78</div>Resume is 1 page, ATS-optimised (Jobscan 75%+), and every bullet has a verb + tech + outcome. LinkedIn is complete with "Open to Work (Recruiters only)." 30-company spreadsheet is built with Tier 1/2/3 breakdown. Referral requests sent to 10+ contacts. The machine is loaded. W79 pulls the trigger.</div>
+  </div>
+</div><!-- W78 -->
+
+<!-- W79 -->
+<div class="wk" id="w79">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')">
+    <span class="wk-num" style="background:rgba(26,173,168,.1);color:var(--teal)">W79</span>
+    <span class="wk-title">Mock Interview #5 + First 15 Applications Submitted</span>
+    <span class="wk-arr">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+
+      <div class="slot sl-com">
+        <div class="slot-head"><div class="slot-label">📱 Commute · 6 AM</div><div class="slot-time">LeetCode — every day, no exceptions</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">2 LeetCode problems every commute this week</div>
+            <div class="task hi"><span class="task-dot"></span><span>This week: revisit the hardest problems you solved in Semester 7. Re-solve them from memory. If you can re-solve a Hard problem cold without any hints, it's owned. If you freeze, it's not. Add any that freeze you to a "final review" list for W80.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot sl-ngt">
+        <div class="slot-head"><div class="slot-label">💻 Night Block + Weekend · Apply</div><div class="slot-time">Applications + Mock Interview #5</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Tue/Wed — Apply to first 15 companies</div>
+            <div class="task hi"><span class="task-dot"></span><span>Use your 30-company spreadsheet. Apply to 15 companies this week: all 5 Tier 1 and the 10 best-fit Tier 2. Use each company's careers page directly (not just LinkedIn "Easy Apply" — that goes to a lower-priority queue in many companies). Customise the cover letter line for Tier 1: 1–2 sentences specific to that company. For Tier 2 and 3: the same template resume is fine.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span>Platforms to use in parallel: LinkedIn, Naukri.com (create a profile — many Indian companies still use Naukri as their ATS), company careers pages directly, AngelList/Wellfound (for funded startups), Instahyre (for faster startup hiring). Set job alerts on all platforms for "Android Developer Kotlin" in your target cities.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Thu — Mock Interview #5 prep</div>
+            <div class="task hi"><span class="task-dot"></span><span>This is your final warm-up before Semester 8's real interviews. Schedule it on the weekend. Before the session: review your debrief notes from #1 through #4. What were the recurring weaknesses? Address them specifically in #5. Goals for #5: (1) complete solution within 20 minutes with no hints, (2) explain time/space complexity unprompted before interviewer asks, (3) first response to any question should start with "Great question — let me clarify..." even if you know the answer instantly.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Weekend — Mock Interview #5</div>
+            <div class="task hi"><span class="task-dot"></span><span>Do Mock Interview #5 on Pramp or Interviewing.io. After: final debrief. If you rate yourself 7/10 or above — you are ready for Semester 8. If you rate yourself below 6/10 — identify the specific weakness and schedule one more targeted practice session before the first real interview call comes in.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Sun/Mon — Track and follow up</div>
+            <div class="task"><span class="task-dot"></span><span>Update your spreadsheet with application dates. Set a reminder for 10 days after each application to send a follow-up message to any HR contact or LinkedIn connection at that company: "Hi [Name], I applied for the Android Developer role at [Company] 10 days ago. I wanted to reiterate my interest — I've attached my updated resume. Would love to hear about next steps." Short. Polite. Persistent. This follow-up alone increases response rate by 20–30%.</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="outcome"><div class="outcome-lbl">✓ End of W79</div>5 mock interviews done total. 15 applications submitted to Tier 1 and Tier 2 companies. OA invitations may already be arriving. Follow-up messages scheduled in your calendar. The remaining 15 companies will be applied to in W80–W81. The pipeline is live.</div>
+  </div>
+</div><!-- W79 -->
+
+  </div>
+</div><!-- phase 4 -->
+
+<!-- ═══════════ W80 MILESTONE ═══════════ -->
+<div class="wk" id="w80" style="border-top:2px solid var(--amber);border-bottom:2px solid var(--amber);">
+  <div class="wk-toggle" onclick="this.parentElement.classList.toggle('open')" style="background:rgba(232,168,26,.05)">
+    <span class="wk-num" style="background:rgba(232,168,26,.15);color:var(--amber)">W80</span>
+    <span class="wk-title" style="color:var(--amber)">★ Semester 7 Milestone — You Are Launch Ready</span>
+    <span class="ms-badge">★ MILESTONE</span>
+    <span class="wk-arr" style="color:var(--amber)">▾</span>
+  </div>
+  <div class="wk-body">
+    <div class="slots">
+      <div class="slot sl-ms">
+        <div class="slot-head"><div class="slot-label">★ Final Check — Everything Must Be True</div></div>
+        <div class="slot-content">
+          <div class="tg">
+            <div class="tg-label">Technical checklist</div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>250+ LeetCode problems solved</b> — including 30+ Hard, 150+ Medium. OA tests feel like routine problems, not panic moments.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>5 mock interviews completed</b> on Pramp and Interviewing.io. Performance consistently 7/10 or better by #5.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>All projects are portfolio-grade:</b> Finance Tracker (Play Store + tested + CI), Movie Browser (multi-module + KMP + CI), Chat App (Firebase), TrailTracker (Maps + Geofencing), ScanKit (ML Kit).</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>Google AAD certification</b> badge on LinkedIn and resume.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>Resume is ATS-optimised,</b> 1 page, Jobscan 75%+, every bullet has action + tech + outcome.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>30-company spreadsheet built</b> with Tier 1/2/3 breakdown, salary research done, floor and ask defined.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>15 referral requests sent,</b> connections made at target companies.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span><span class="ok">✓</span> <b>15 applications submitted,</b> first OA invitations may have arrived.</span></div>
+          </div>
+          <div class="tg">
+            <div class="tg-label">Mental state check</div>
+            <div class="task hi"><span class="task-dot"></span><span>You can explain your project architecture to a senior engineer without notes. You can whiteboard a mobile system design for Instagram. You can answer "what causes recomposition in Compose and how do you fix it" with your own code as the example. You have 5 STAR stories memorised. You know your target companies, why you want to work there, and what salary you'll ask for.</span></div>
+            <div class="task hi"><span class="task-dot"></span><span>You are not waiting to feel ready. <span class="ac">You are ready.</span> Semester 8 is Execution, not Preparation. Apply to all 30 companies. Complete every OA same day it arrives. Treat every rejection as a data point, not a judgement. The offer is a numbers game and a preparation game. You've done the preparation. Now play the numbers.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- W80 -->
+
+<!-- SEMESTER 8 BRIDGE -->
+<div class="ms-close">
+  <div class="ms-close-title">What Semester 8 Looks Like</div>
+  <div class="check">Apply to all remaining companies (W81). Complete every OA same day — treat them like timed LeetCode sessions with exactly the same mindset.</div>
+  <div class="check">Technical rounds: think aloud from the first word. Interviewers are evaluating your process, not just whether your code compiles.</div>
+  <div class="check">When a first offer arrives: do NOT accept immediately. Say "I'm very excited about this opportunity — could I have until [date 1 week away] to review the complete package?" Use the offer as leverage to accelerate other pipelines.</div>
+  <div class="check">Counter every offer exactly once. Script: "Based on my published apps, Google AAD certification, and market research on levels.fyi, I was hoping for ₹[floor+20%]. Is there any flexibility?" If they say no, decide based on whether the offer clears your floor.</div>
+  <div class="check">Collect 3 competing offers before accepting. This is not greed — it is negotiation leverage. Every offer you hold is a data point that validates your worth to the company you most want to join.</div>
+</div>
+
+<div class="bridge">
+  <div class="bridge-lbl">// The full journey in one paragraph</div>
+  <div class="bridge-text">You started at <strong>47kg in Semester 3</strong>, commuting 14 hours, learning Kotlin on a phone screen. By W80 you have <strong>5 published/demo-ready apps</strong>, a <strong>Google certification</strong>, <strong>250+ LeetCode solved</strong>, <strong>5 mock interviews done</strong>, and <strong>referrals in flight at Tier 1 companies</strong>. The MAKAUT stamp on your degree will always be there. The Google badge, the Play Store link, the multi-module KMP app, the accessibility-audited UI — those are yours. They don't know what BPPIMT is in Mumbai and Bangalore. They know what a published Android app looks like. Go get the offer.</div>
+</div>
+
+</div><!-- main -->
+</div><!-- layout -->
+
+<script>
+document.querySelectorAll('.wk:first-child').forEach(w=>w.classList.add('open'));
+</script>
+</body>
+</html>
